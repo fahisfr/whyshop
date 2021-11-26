@@ -1,0 +1,25 @@
+.main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #9831ff 30%,#462fa0 70%);
+    
+}
+.signup-bar{
+    width:70%;
+    height: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 14px 14px 14px 14px rgba(0, 0, 0, 0.2);;
+}
+.logo{
+    width: 100%;
+    height: 100%;
+
+}

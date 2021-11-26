@@ -1,0 +1,28 @@
+.navbar{
+    height: 60px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    justify-content: space-evenly;
+    border-radius: 0px 0px 9px 9px ;
+    box-shadow: rgb(3 27 78 / 15%) 0 2px 4px;
+    position: sticky;
+    top: 0;
+    
+   
+
+}
+.logo-t{
+    font-family:'Prata', serif;
+    color:rgb(48, 16, 231);
+    font-size: 30px;
+}
+.saerch-bar{
+    align-items: center;
+
+}
+.icons{
+    margin-left: 10px;
+}
+.search{
+    border-radius: 30px;
+}

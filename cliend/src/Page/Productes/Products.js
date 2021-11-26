@@ -20,9 +20,12 @@ function Products() {
                 console.log('filed find products');
             }
         })
+        return () => {
+            console.log('unmount');
+        }
         
         
-    })
+    },[id])
     return (
         <div>
             <NavBar></NavBar>

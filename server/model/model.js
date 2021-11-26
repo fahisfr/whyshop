@@ -11,7 +11,4 @@ const AddProduct = new db.Schema({
 const addproduct = db.model('Product', AddProduct)
 
 
-module.exports = {
-    addproduct
-    
-}
+module.exports = addproduct

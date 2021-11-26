@@ -1,29 +1,46 @@
-import React  from 'react'
+import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import Axios from '../../Axios'
 import './Signup.css'
+
+import NavBar from '../../Components/Navbar/NavBar'
 function Signup() {
+    const [name, setname] = useState('')
+    const [number, setnumber] = useState('')
+    const [password, setpassword] = useState('')
+    // const [confirmpass, setconfirmpass] = useState('')
     const navigate = useNavigate()
+    function sumbitform(e) {
+        e.preventDefault()
+        Axios.post('/signup', { name, number, password }).then((result) => {
+            if (result.data.status) {
+                alert('user add to data base')
+            } else {
+                alert('something is wrong')
+            }
+        })
+    }
     return (
         <div>
             <div className='main'>
                 <div className="signup-bar">
-                    <div className="logo">
+                    <div className="lsimage">
+                        <img className='image-ls' src={process.env.PUBLIC_URL + '/slpage.png'} alt="logo" />
                     </div>
                     <div className='input-from'>
-                        <form>
+                        <form id="form-in">
+                            <h1>Create a new account</h1>
                             <label>User Name</label>
-                            <input type="text" placeholder="enther a valid user name" />
+                            <input className="input-ls" type="text" value={name} onChange={(e) => setname(e.target.value)} placeholder="User Name" />
                             <label>Phone</label>
-                            <input type="text" placeholder="enther phone" />
+                            <input className='input-ls' type="number" value={number} onChange={(e) => setnumber(e.target.value)} placeholder="Phone Number" />
                             <label>Password</label>
-                            <input type="password" placeholder="enther password" />
+                            <input className="input-ls" type="password" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enther Password" />
                             <label>Confirm Password</label>
-                            <input type="password" placeholder="enther password" />
-                            <Link to='/login'>already have an account</Link>
-                            <button>Signup</button>
-
+                            <input className='input-ls' type="password" placeholder="Enther password Athgin" />
+                            <Link to='/login'>Already have an account?</Link>
+                            <button  onClick={sumbitform}>Signup</button>
                         </form>
-
                     </div>
                 </div>
             </div>

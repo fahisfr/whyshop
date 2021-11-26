@@ -1,6 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './NavBar.css'
 function NavBar() {
@@ -15,7 +14,7 @@ function NavBar() {
             <div className="icons">
                 <Link to="#">Order</Link>
                 <Link to="#">Cart</Link>
-                <Link to="/signup">Signup</Link>
+                {(localStorage.getItem('token')?<button onClick={()=>localStorage.removeItem('token')} to="/login">Logout</button>:<Link to="/login">Login</Link>)}
                 
             </div>
 

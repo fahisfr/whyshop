@@ -5,6 +5,7 @@
     justify-content: space-evenly;
     border-radius: 0px 0px 9px 9px ;
     box-shadow: rgb(3 27 78 / 15%) 0 2px 4px;
+    align-items: center;
     position: sticky;
     top: 0;
     

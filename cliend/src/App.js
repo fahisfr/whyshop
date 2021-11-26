@@ -19,8 +19,6 @@ function App() {
           <Route path="/products/:id" element={<Products />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          
-        
           <Route path='/whyadmin' element={<UpdateTap />} />
           <Route path='/whyadmin/addproduct' element={<AddProduct/>}/>
         </Routes>

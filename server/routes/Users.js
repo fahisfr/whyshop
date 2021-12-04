@@ -1,49 +1,61 @@
 var express = require('express');
 var addproduct = require('../model/model');
-var addUser = require('.././model/User')
 var jwt = require('jsonwebtoken');
+const Users = require('.././model/User');
+const userhelper = require('../helper/Userhelper');
+const { resolve } = require('promise');
+
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+const authen = async (req, res, next) => {
+  console.log('authen start ');
+  await userhelper.authention(req.headers['x-access-token'], req.headers['y-refresh-token']).then(result => {
+    if (result.status) {
+      // res.json({ status: true, user: result.data, message: 'Authentication Successful' })
+      console.log('authen success');
+      req.user = result.data;
+      next();
+    } else {
+      res.json({ status: 200, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken, message: 'Authentication Failed' })
+      console.log('resending new token');
+    }
+  }).catch(err => {
+    res.json({ status: false, message: err.message })
+    console.log('authen failed', err.message);
+  })
+
+}
+
+router.get('/', authen, (req, res,)=>{
+  console.log(req.user);
+  res.json('')
 });
 
-router.get('/products/:id',async (req, res) => {
-
-  var result = await addproduct.find({ product_type: req.params.id })
-  if (result) {
-    res.json({products:result})
-  } else {
-    res.json({products:false})
-  }
-
-  
+router.get('/products/:id', (req, res) => {
+  console.log('get product');
+  addproduct.getProduct(req.params.id, (err, data) => {
+    if (err) {
+      res.json({ status: false, message: err.message });
+    } else {
+      res.json({ status: true, data: data });
+    }
+  });
 })
-router.post('/signup', async(req, res) => {
-  console.log(req.body);
-  try {
-    await addUser.create({ name: req.body.name, number: req.body.number, password: req.body.password })
-    res.json({ status: true })
-  } catch (err) {
-    res.json({ status: false })
-  }
+router.post('/signup',(req, res) => {
+   userhelper.Signup(req.body).then(result => {
+    res.json({status:true,message:result.message})
+  }).catch(err => {
+    res.json({status:false,message:err.message})
+  })
   
   
 })
 router.post('/login', async (req, res) => {
-  try {
-    var id = await addUser.findOne({ number: req.body.number, password: req.body.password })
-    if (id) {
-      const token = jwt.sign({ id: id._id ,name:id.name}, 'dcode', { expiresIn: '1d' })
-      res.json({ status: true , token:token,name:id.name})
-    } else {
-      res.json({ status: false,token:false })
-    }
-  } catch (err) {
-    res.json({ status: false,token:false })
-  }
-  
+  userhelper.Login(req.body).then(result => {
+    res.json({status:true,message:result.message})
+  }).catch(err => {
+    res.json({status:false,message:err.message})
+  })
 })
 
 module.exports = router;

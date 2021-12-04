@@ -9,7 +9,7 @@ var storage = multer.diskStorage({
     cb(null, 'public/products')
   },
   filename: function (req, file, cb) {
-    cb(null, addmin._id +'jpg')
+    cb(null,  +'jpg')
   }
 })
 var upload = multer().single('image')

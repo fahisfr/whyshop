@@ -7,9 +7,14 @@ import './Products.css'
 import {useParams} from 'react-router-dom'
 
 import Axios from '../../Axios'
+
 function Products() {
     const { id } = useParams();
     const [products, setproducts] = useState([])
+    
+    function addproduct(data) {
+        
+    }
     useEffect(() => {
         Axios.get('/products/' + id).then((result) => {
             if (result.data.products) {
@@ -42,8 +47,8 @@ function Products() {
                                     <img className='product-image' src="" alt="" />
                                     <div className='cards-body'>
                                         <h5>{res.name}</h5>
-                                        <h6>{ res.price}</h6>
-                                        <button className='addcart-button'>Add card</button>
+                                        <h6>${ res.price}</h6>
+                                        <button onClick={()=>addproduct(res._id)} className='addcart-button'>Add card</button>
 
                                     </div>
                                 </div>

@@ -2,7 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './NavBar.css'
+import {useSelector} from 'react-redux'
+
 function NavBar() {
+    const user = useSelector(state => state.user.value)
+
     return (
         <div className='navbar'>
             <div className="logo">
@@ -13,8 +17,8 @@ function NavBar() {
             </div>
             <div className="icons">
                 <Link to="#">Order</Link>
-                <Link to="#">Cart</Link>
-                {(localStorage.getItem('token')?<button onClick={()=>localStorage.removeItem('token')} to="/login">Logout</button>:<Link to="/login">Login</Link>)}
+                <Link to="cart">Cart</Link>
+                {(localStorage.getItem('accesstoken') ? <button onClick={() => localStorage.removeItem('accesstoken')} to="/login"><snan>{user.name}</snan>Logout</button>:<Link to="/login">Login</Link>)}
                 
             </div>
 

@@ -6,8 +6,8 @@ function AddProduct() {
     const [name, setname] = useState('')
     const [image, setimage] = useState(null)
     const [type, settype] = useState('')
-    const [quantity, setquantity] = useState('')
-    const [amount, setamount] = useState('')
+    const [quantity, setquantity] = useState()
+    const [amount, setamount] = useState()
     
     function addproduct(e) {
         e.preventDefault();

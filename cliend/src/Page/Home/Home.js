@@ -3,13 +3,26 @@ import NavBar from '../../Components/Navbar/NavBar'
 import { useNavigate} from 'react-router-dom'
 import "./Home.css"
 
-
+// import Cookies from 'universal-cookie';
+import { useEffect } from 'react';
+import Axios from '../../Axios'
+import {useSelector} from 'react-redux'
 function Home() {
+   
     var history = useNavigate();
     function findproducts(id) {
         console.log(id);
         history(`/products/${id}`)
     }
+    useEffect(() => {
+        console.log(localStorage.getItem('accesstoken'));
+        Axios.get('/').then((res) => {
+            console.log(res);
+        })
+        return () => {
+            
+        }
+    }, [])
     
     return (
         <div>

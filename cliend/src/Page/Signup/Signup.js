@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import Axios from '../../Axios'
 import './Signup.css'
 
-import NavBar from '../../Components/Navbar/NavBar'
+// import NavBar from '../../Components/Navbar/NavBar'
 function Signup() {
     const [name, setname] = useState('')
     const [number, setnumber] = useState('')
@@ -15,6 +15,7 @@ function Signup() {
         Axios.post('/signup', { name, number, password }).then((result) => {
             if (result.data.status) {
                 alert('user add to data base')
+                navigate('/login')
             } else {
                 alert('something is wrong')
             }

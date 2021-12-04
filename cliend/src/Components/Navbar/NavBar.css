@@ -22,7 +22,12 @@
 
 }
 .icons{
-    margin-left: 10px;
+    margin-left: 0px;
+    
+    
+}
+.icons-Link{
+    border: none;
 }
 .search{
     border-radius: 30px;

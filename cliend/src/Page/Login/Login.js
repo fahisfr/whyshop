@@ -2,7 +2,11 @@ import React ,{useState} from 'react'
 import Axios from '../../Axios'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
+import { useDispatch } from 'react-redux'
+import {login} from '../../Features/User'
+
 function Login() {
+    const dispatch = useDispatch()
     const [number, setnumber] = useState()
     const [password, setpassword] = useState('')
     const navigate = useNavigate()
@@ -14,9 +18,11 @@ function Login() {
                 console.log(result.data);
                 localStorage.setItem('accesstoken', result.data.accesstoken)
                 localStorage.setItem('refreshtoken', result.data.refreshtoken)
+                dispatch(login({name:result.data.name,number:result.data.number}))
                 navigate('/')
             } else {
                 alert('login failed')
+                dispatch(login({name:'',number:''}))
             }
         })
     }

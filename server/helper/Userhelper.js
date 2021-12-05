@@ -18,7 +18,7 @@ module.exports = {
                                 User.findOne({ _id: decode.id, refreshtoken: refreshtoken }, (err, user) => {
                                     if (!err) {
                                         var accesstoken = jwt.sign({ id: user._id }, 'accesstoken', { expiresIn: '30s' });
-                                        var refreshtoken = jwt.sign({ id: user._id }, 'refreshtoken', { expiresIn: '10m' });
+                                        var refreshtoken = jwt.sign({ id: user._id }, 'refreshtoken', { expiresIn: '1d' });
                                         console.log('create x token and y token for user new token');
                                         resolve({ status: false, accesstoken: accesstoken, refreshtoken: refreshtoken, message: 'new refreshtoken' });
                                     } else {
@@ -72,7 +72,7 @@ module.exports = {
                         var refreshtoken = jwt.sign({ id: user._id }, 'refreshtoken', { expiresIn: '10m' });
                         user.refreshtoken = refreshtoken;
                         user.save();
-                        resolve({ status: true, accesstoken: accesstoken, refreshtoken: refreshtoken, message: 'Successfully Login' });
+                        resolve({ status: true, data:user, accesstoken: accesstoken, refreshtoken: refreshtoken, message: 'Successfully Login' });
                     } else {
                         reject({ status: false, message: 'User Not Found' });
                     }

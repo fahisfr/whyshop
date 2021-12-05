@@ -11,24 +11,30 @@ const authen = async (req, res, next) => {
   console.log('authen start ');
   await userhelper.authention(req.headers['x-access-token'], req.headers['y-refresh-token']).then(result => {
     if (result.status) {
-      // res.json({ status: true, user: result.data, message: 'Authentication Successful' })
-      console.log('authen success');
       req.user = result.data;
       next();
     } else {
-      res.json({ status: 200, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken, message: 'Authentication Failed' })
-      console.log('resending new token');
+      // res.json({ status: 200, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken, message: 'Authentication Failed' })
+      console.log('Authentication recreate token');
     }
   }).catch(err => {
     res.json({ status: false, message: err.message })
     console.log('authen failed', err.message);
   })
+  
 
 }
-
-router.get('/', authen, (req, res,)=>{
-  console.log(req.user);
-  res.json('')
+router.get('/athu', async(req, res,)=>{
+  await userhelper.authention(req.headers['x-access-token'], req.headers['y-refresh-token']).then(result => {
+    if (result.status) {
+      console.log('authen success');
+      res.json({name:result.data.name,number:result.data.number,isAthu:true})
+    } else {
+      res.json({ status: 200, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken, message: 'Authentication Failed' })
+    }
+  }).catch(err => {
+    res.json({ name:'', number: 0, isAthu: false})
+  })
 });
 
 router.get('/products/:id', (req, res) => {
@@ -52,7 +58,10 @@ router.post('/signup',(req, res) => {
 })
 router.post('/login', async (req, res) => {
   userhelper.Login(req.body).then(result => {
-    res.json({status:true,message:result.message})
+    res.json({
+      status: true, name: result.data.name, number: result.data.number,
+      message: result.message, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken
+    })
   }).catch(err => {
     res.json({status:false,message:err.message})
   })

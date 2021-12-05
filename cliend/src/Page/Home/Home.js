@@ -6,19 +6,18 @@ import "./Home.css"
 // import Cookies from 'universal-cookie';
 import { useEffect } from 'react';
 import Axios from '../../Axios'
-import {useSelector} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {fetchUser} from '../../Features/User'
+// import { useDispatch } from 'react-redux'
 function Home() {
-   
+    const dispatch = useDispatch()
     var history = useNavigate();
     function findproducts(id) {
         console.log(id);
         history(`/products/${id}`)
     }
     useEffect(() => {
-        console.log(localStorage.getItem('accesstoken'));
-        Axios.get('/').then((res) => {
-            console.log(res);
-        })
+        dispatch(fetchUser())
         return () => {
             
         }

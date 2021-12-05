@@ -5,7 +5,9 @@ import './NavBar.css'
 import {useSelector} from 'react-redux'
 
 function NavBar() {
-    const user = useSelector(state => state.user.value)
+    const user = useSelector(state => state.user.userInfo)
+    console.log(user);
+    
 
     return (
         <div className='navbar'>
@@ -18,8 +20,8 @@ function NavBar() {
             <div className="icons">
                 <Link to="#">Order</Link>
                 <Link to="cart">Cart</Link>
-                {(localStorage.getItem('accesstoken') ? <button onClick={() => localStorage.removeItem('accesstoken')} to="/login"><snan>{user.name}</snan>Logout</button>:<Link to="/login">Login</Link>)}
-                
+                {user.isAthu ? <button onClick={() => localStorage.removeItem('accesstoken')} to="/login">
+                    {user.name}Logout</button> : <Link to="/login">Login</Link>}
             </div>
 
         </div>

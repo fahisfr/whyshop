@@ -1,37 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
+import Axios from '../Axios'
 
 
-
-// const userSlice = createSlice({
-//     name: 'user',
-//     initialState: {
-//         user: { wins: 0, losses: 0, ties: 0 },
-//         isLoggedIn: false,
-//         isLoading: false,
-//         error: null,
-//     },
-//     reducers: {
-//         login: (state, action) => {
-//             state.isLoggedIn = true;
-//             state.user = action.payload;
-//         }
-//     }
-// });
+export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
+    const response = await Axios.get(`/athu`).then(res=>res.data)
+    return response
+})
 
 export const  userSlice = createSlice({
     name: 'user',
     initialState: {
-        value: {
-            name: 'fahis',
-            number: null,
+        userInfo: {
+            name: '',
+            number: '',
+            isAuth: false,
         },
-        isloggdIn:false,
     },
     reducers: {
         login: (state, action) => {
-            state.value = action.payload;
+            state.userInfo = action.payload;
         }
-    },
+    }, extraReducers: {
+        [fetchUser.fulfilled]: (state, action) => {
+            state.userInfo = action.payload;
+        }
+    }
 })
+
+export const {login} = userSlice.actions;
 
 export default userSlice.reducer;

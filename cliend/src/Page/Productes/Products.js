@@ -13,7 +13,11 @@ function Products() {
     const [products, setproducts] = useState([])
     
     function addproduct(data) {
-        
+        console.log(data)
+        Axios.post('/add-to-cart/'+data, data).then(res => {
+            
+        }
+        )
     }
     useEffect(() => {
         Axios.get('/products/' + id).then((result) => {

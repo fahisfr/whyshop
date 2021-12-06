@@ -2,9 +2,12 @@ var mongoose = require('mongoose')
 
 
 var SchemaCart = new mongoose.Schema({
-    userID: { type: String, required: true },
+    userID: { type: mongoose.Schema.ObjectId, required: true },
     createAt: { type: Date, immutable:true,default: () => new Date },
     updateAt: { type: Date, default: () => new Date },
-    products: {type:Array},
+    products: [{
+        productID: { type: mongoose.Schema.ObjectId},
+        quantity: { type: Number, default: 1 },
+    }],
 })
-
+module.exports=mongoose.model('Cart',SchemaCart)

@@ -10,17 +10,16 @@ import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
 function App() {
-  
-  const [user, setuser] = useState(false)
+  const [user, setUser] = useState(true);
   return (
     <div>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/products/:id" element={<Products />} />
-          <Route path='cart ' element={<Cart/>}/>
-          <Route path="/signup" element={user ? <Navigate to="/" />:<Signup/>} />
-          <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
+          <Route path="/login" element={user? <Navigate to="/" /> : <Login />} />
           <Route path='/whyadmin' element={<UpdateTap />} />
           <Route path='/whyadmin/addproduct' element={<AddProduct />} />
          

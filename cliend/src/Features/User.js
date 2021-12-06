@@ -23,6 +23,7 @@ export const  userSlice = createSlice({
     }, extraReducers: {
         [fetchUser.fulfilled]: (state, action) => {
             state.userInfo = action.payload;
+            
         }
     }
 })

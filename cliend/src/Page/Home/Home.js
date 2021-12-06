@@ -18,11 +18,8 @@ function Home() {
     }
     useEffect(() => {
         dispatch(fetchUser())
-        return () => {
-            
-        }
+
     }, [])
-    
     return (
         <div>
             <NavBar></NavBar>

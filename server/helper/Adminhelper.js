@@ -1,5 +1,5 @@
 // import model product in object
-var { addproduct }= require('../model/model');
+var addproduct = require('../model/model');
 const db = require('mongoose');
 
 module.exports = {

@@ -6,9 +6,7 @@ import {useSelector} from 'react-redux'
 
 function NavBar() {
     const user = useSelector(state => state.user.userInfo)
-    console.log(user);
-    
-
+   
     return (
         <div className='navbar'>
             <div className="logo">
@@ -18,7 +16,7 @@ function NavBar() {
                 <input className="search" type="text" />
             </div>
             <div className="icons">
-                <Link to="#">Order</Link>
+                <Link to="login">Order</Link>
                 <Link to="cart">Cart</Link>
                 {user.isAthu ? <button onClick={() => localStorage.removeItem('accesstoken')} to="/login">
                     {user.name}Logout</button> : <Link to="/login">Login</Link>}

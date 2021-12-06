@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
 router.post('/addproduct',upload, async (req, res) => {
   addmin = await helpers.AddProduct(req.body)
   multer({ storage: storage }).single('image')
+  res.json({status:true,message:'Product Added Successfully'})
   
 })
 router.get('/addpro', (req, res) => {

@@ -6,9 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import User from './Features/User'
+import Cart from './Features/Cart'
 const store = configureStore({
   reducer: {
-    user:User,
+    user: User,
+    cart: Cart
   }
 })
 ReactDOM.render(

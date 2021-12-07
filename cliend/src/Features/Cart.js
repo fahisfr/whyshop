@@ -12,6 +12,8 @@ export const CartSlice = createSlice({
     name: 'cart',
     initialState: {
         cartInfo: [],
+        status: false,
+        message: '',
         loading: false,
         error: null
     },
@@ -26,7 +28,9 @@ export const CartSlice = createSlice({
         }
         ,
         [fetchCart.fulfilled]: (state, action) => {
-            state.cartInfo = action.payload
+            state.cartInfo = action.payload.cart
+            state.status = action.payload.status
+            state.message = action.payload.message
             state.loading = false
         }
         ,

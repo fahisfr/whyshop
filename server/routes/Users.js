@@ -1,5 +1,5 @@
 var express = require('express');
-var products = require('../model/model');
+var products = require('../model/Product');
 var jwt = require('jsonwebtoken');
 const Users = require('.././model/User');
 const userhelper = require('../helper/Userhelper');
@@ -8,18 +8,15 @@ const userhelper = require('../helper/Userhelper');
 var router = express.Router();
 
 const authen = async (req, res, next) => {
-  console.log('authen start ');
   await userhelper.authention(req.headers['x-access-token'], req.headers['y-refresh-token']).then(result => {
     if (result.status) {
       req.user = result.data;
       next();
     } else {
-      // res.json({ status: 200, accesstoken: result.accesstoken, refreshtoken: result.refreshtoken, message: 'Authentication Failed' })
       console.log('Authentication recreate token');
       res.json('')
     }
   }).catch(err => {
-    // res.json({ status: false, message: err.message })
     console.log('authen failed', err.message);
   })
   
@@ -86,9 +83,31 @@ router.get('/cart', authen, async (req, res) => {
     res.json({ status: true, cart: result.data });
     console.log(result.data);
   }).catch(err => {
-    res.json({ status: false, message: result.message });
+    res.json({ status: false, cart:[],message: err.message });
   })
   
+})
+router.put('/change-product-quantity/:id',authen, (req, res) => {
+  userhelper.changeProductQuantity(req.user.id, req.body.quantity,req.body.productID).then(result => {
+    res.json({ status: true, cart:result.data, message: result.message });
+  }).catch(err => {
+    res.json({ status: false, message: err.message });
+  })
+})
+router.delete('/remove-from-cart/:id', authen, (req, res) => {
+  userhelper.removeCartProduct(req.user._id, req.params.id).then(res => {
+    res.json({status:true,cart:res.data,message:res.message})
+  }).catch(err => {
+    console.log(res.message)
+    res.json({ status: false, message:err.message})
+  })
+})
+router.delete('/remove-cart-all-products', (req, res) => {
+  userhelper.RemoveallCartProduct(req.user).then(result => {
+    res.json({status:true ,message:result.message})
+  }).catch(err => {
+    res.json({status:false,message:err.message})
+  })
 })
 
 

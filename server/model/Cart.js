@@ -6,7 +6,7 @@ var SchemaCart = new mongoose.Schema({
     createAt: { type: Date, immutable:true,default: () => new Date },
     updateAt: { type: Date, default: () => new Date },
     products: [{
-        productID: { type: mongoose.Schema.ObjectId},
+        productID: { type: mongoose.Schema.ObjectId },
         quantity: { type: Number, default: 1 },
     }],
 })

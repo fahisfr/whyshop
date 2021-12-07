@@ -31,6 +31,7 @@ function AddProduct() {
                         <Form>
                             <FloatingLabel controlId="floatingSelect" label="Select Product Type">
                                 <Form.Select aria-label="Se Productes" value={type} onChange={(e) => settype(e.target.value)}>
+                                    <option value="">Select Product Type</option>
                                     <option value="vegetable">vegetable </option>
                                     <option value="fruits">fruits</option>
                                     <option value="c">c</option>

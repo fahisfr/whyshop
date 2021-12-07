@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 const { resolve, reject } = require('promise');
 var User = require('../model/User');
 var Cart = require('../model/Cart');
-var Products = require('../model/model');
+var Products = require('../model/Product');
 const objectid = require('mongodb').ObjectId
 
 
@@ -145,8 +145,20 @@ module.exports = {
                         foreignField: "_id",
                         as: "products"
                     }
-                
                 },
+                {
+                    $unwind: "$products"
+
+                },
+                {
+                    $project: {
+                        _id: "$products._id",
+                        name: "$products.name",
+                        price: "$products.price",
+                        quantity: "$quantity",
+                        availiabel: "$products.availibel",
+                    }
+                }
                
 
             ]).then(cart => {
@@ -164,5 +176,62 @@ module.exports = {
 
         })
         
+    },
+    changeProductQuantity: (user, quantity, product) => {
+        return new Promise((resolve, reject) => {
+            console.log(user, quantity, product)
+            Cart.findOne({ userID: user }, (err, cart) => {
+                if (!err) {
+                    if (cart) {
+                        var productinfo = cart.products.find(x => x.productID == product)
+                        if (productinfo.quantity == 1 && quantity == -1) {
+                            reject({ status: false, message: 'Product Quantity Is 0' })
+                        } else {
+                            productinfo.quantity += quantity
+                            cart.save()
+                            resolve({ status: true, data: cart,message:'Product Quantity Updated'})
+                        }
+                        
+                    } else {
+                        reject({ status: false, message: 'Cart Not Found' })
+                    }
+                }
+            })
+        })
+    },
+    removeCartProduct: (user, product) => {
+        return new Promise((resolve, reject) => {
+            console.log(user,product)
+            Cart.findOne({ userId: user }, (err, Cart) => {
+                if (!err) {
+                    if (Cart) {
+                        var productinfo = Cart.products.find(x => x.productID == product)
+                        if (productinfo) {
+                            Cart.products.pull(productinfo)
+                            Cart.save()
+                            resolve({ status: true, data: Cart,message:'Product Removed From Cart'})
+                        } else {
+                            reject({ status: false, message: 'Product Not Found' })
+                        }
+                    } else {
+                        reject({ status: false, message: 'Cart Not Found' })
+                    }
+                }
+            })
+        })
+    },
+    RemoveallCartProduct: (user) => {
+        return new Promise((resolve, reject) => {
+            Cart.deleteOne({ userId: user }, (err, Cart) => {
+                if (!err) {
+                    if (Cart) {
+                        resolve({ status: true,message:'All Product Removed From Cart'})
+                    } else {
+                        reject({ status: false, message: 'Cart Not Found' })
+                    }
+                }
+            })
+        })
     }
+
 }

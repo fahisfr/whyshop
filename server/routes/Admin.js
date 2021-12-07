@@ -9,17 +9,17 @@ var storage = multer.diskStorage({
     cb(null, 'public/products')
   },
   filename: function (req, file, cb) {
-    cb(null,  +'jpg')
+    cb(null, req.body.name +'.jpg')
   }
 })
-var upload = multer().single('image')
+var upload=multer({ storage: storage }).single('image')
 
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 router.post('/addproduct',upload, async (req, res) => {
   addmin = await helpers.AddProduct(req.body)
-  multer({ storage: storage }).single('image')
+  
   res.json({status:true,message:'Product Added Successfully'})
   
 })

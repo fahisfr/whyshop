@@ -31,6 +31,7 @@ export const CartSlice = createSlice({
             state.cartInfo = action.payload.cart
             state.status = action.payload.status
             state.message = action.payload.message
+            console.log(action.payload)
             state.loading = false
         }
         ,

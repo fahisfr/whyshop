@@ -10,7 +10,7 @@ import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
 function App() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   return (
     <div>
       <Router>

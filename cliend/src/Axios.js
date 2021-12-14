@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:5000',
-    headers: { 'x-access-token': localStorage.getItem('accesstoken'),'y-refresh-token': localStorage.getItem('refreshtoken') } 
+    baseURL: 'http://localhost:4000',
+    headers: { 'authorization': localStorage.getItem('accesstoken') }
 
 });
 export default instance

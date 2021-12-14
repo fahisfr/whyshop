@@ -3,7 +3,7 @@ import Axios from '../Axios'
 
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
-    const response = await Axios.get(`/athu`).then(res=>res.data)
+    const response = await Axios.get(`/authentication'`).then(res=>res.data)
     return response
 })
 

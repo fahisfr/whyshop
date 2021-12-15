@@ -3,8 +3,63 @@ import './Cart.css'
 import { useSelector,useDispatch } from 'react-redux'
 import { fetchCart } from '../../Features/Cart'
 import Axios from '../../Axios'
+import { resolve } from 'promise'
+import Razorpay from 'react-razorpay';
+
+function loadRazorpay(src) {
+    return new Promise(resolve => {
+        const script = document.createElement("script");
+        script.src = src
+        document.body.appendChild(script);
+        console.log(script)
+        script.onload = () => {
+            resolve(true);
+        
+        }
+        script.onerror = () => {
+            resolve(false);
+        }
+        document.body.appendChild(script);
+    })
+}
 
 function Cart() {
+   async  function displayRazor(Order) {
+       const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
+       if (!res) {
+           alert("Razorpay is not loaded are you offline")
+           return
+
+           
+       } else {
+           console.log("Razorpay is loaded")
+       }
+        var options = {
+            "key": "rzp_test_lFLdi5y9B4LWvU", // Enter the Key ID generated from the Dashboard
+            "amount": Order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": Order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        
+       const PaymentObject = new window.Razorpay(options);
+       PaymentObject.open();
+    }
+       
     const [name, setname] = useState('')
     const [number, setnumber] = useState('')
     const [address, setaddress] = useState('')
@@ -40,6 +95,21 @@ function Cart() {
             dispatch(fetchCart())
         })
     }
+    function OrderNow (e) {
+        e.preventDefault()
+        Axios.post('cart/place-order', { name: name, number: number, address: address, city: city, paymetType: paymetType }).then(res => {
+            console.log(res)
+            if (res.data.status) {
+                displayRazor(res.data.order)
+
+                
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+   
+    
     return (
         <div>
             <div className='products' >
@@ -78,7 +148,7 @@ function Cart() {
                     </select>
                     <input type="text" name="address" value={address} onChange={(e) => setaddress(e.target.value)} placeholder="Address" />
                     <div>
-                    <label> <input type="checkbox" value={'CD'} name="checkbox" onClick={(e) => setpaymetType(e.target.value)} />Cash on delevery</label>
+                    <label> <input type="checkbox" value={'COD'} name="checkbox" onClick={(e) => setpaymetType(e.target.value)} />Cash on delevery</label>
                     <label> <input type="checkbox" value={'Online'} onClick={(e)=>setpaymetType(e.target.value)} name="checkbox" />Online payment</label>
 
                     
@@ -86,7 +156,7 @@ function Cart() {
                 </div>
 
                 </form>
-                <button>Order</button>
+                <button onClick={OrderNow}>Order Now </button>
             </div>
         </div>
     )

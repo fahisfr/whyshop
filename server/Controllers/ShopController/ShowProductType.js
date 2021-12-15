@@ -1,5 +1,5 @@
 
-var Product =require("../../Schemas/Products") 
+var Product =require("../../Schemas/Product") 
 
 const getProduct = async (req, res) => {
     console.log('getProduct');
@@ -14,4 +14,5 @@ const getProduct = async (req, res) => {
 
     
 }
+
 module.exports = getProduct

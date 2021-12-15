@@ -18,10 +18,6 @@ app.use(cookieParser())
 app.use(cors())
 app.use(morgan('dev'))
 
-
-
-
-
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))
 app.use('/products', require('./Routes/Shop'))
@@ -30,6 +26,8 @@ app.use('/refreshtoken', require('./Routes/RefreshToken'))
 
 app.use(userAuthentication)
 app.use('/cart',require('./Routes/Cart'))
+
+
 app.listen(PORT, () => {
     console.log('Server is running on port 4000');
 })

@@ -14,16 +14,16 @@ function Products() {
     
     function addproduct(data) {
         console.log(data)
-        Axios.post('/add-to-cart/'+data, data).then(res => {
+        Axios.put('cart/add-to-cart/'+data, data).then(res => {
             
         }
         )
     }
     useEffect(() => {
         Axios.get('/products/' + id).then((result) => {
-            if (result.data.products) {
-                console.log(result.data.products);
-                setproducts(result.data.products)
+            if (result.data.Products) {
+                console.log(result.data.Products);
+                setproducts(result.data.Products)
                 
             } else {
                 console.log('filed find products');

@@ -1,8 +1,9 @@
-const Products = require("../../Schemas/Products");
+const Products = require("../../Schemas/Product");
 var Cart = require("../../Schemas/Cart");
 
 
 const PrdoductAddToCart = async (req, res) => {
+    console.log("PrdoductAddToCart");
     var Product = await Products.findOne({ _id: req.params.id })
     if (!Product) {
         return res.status(404).send({ message: "Product Not type Found" })

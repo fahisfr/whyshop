@@ -104,14 +104,12 @@ const CartProductTolal = UserID => {
 
                 }
             }
-            
-
-
         ]).then(result => {
-            resolve(result);
+            resolve(result[0].totalPrice);
         }
         ).catch(err => {
-            reject("oops something went wrong total not found" )
+            
+            reject({status: false, message: "Cart is empty"})
         }
         );
     })
@@ -124,13 +122,14 @@ const getCartProductsInfo = async (req, res) => {
         res.json({
             status: true,
             cart: result[0],
-            totalamout: result[1][0].totalPrice
+            totalamout: result[1],
         });
     }
     ).catch(err => {
         res.json({
             status: false,
-            message: err
+            cart:[],
+            message: err.message
         });
     }
     );

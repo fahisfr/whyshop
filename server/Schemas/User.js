@@ -4,7 +4,7 @@ var user = new db.Schema({
     name: { type: String, required: true },
     number: { type: Number, required: true, unique: true },
     password: { type: String, required: true },
-    CreaetAt:{type:Date},
+    CreaetAt:{type:Date,default:Date.now},
     refreshToken: { type: String, default: null },
 })
 

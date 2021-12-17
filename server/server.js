@@ -25,9 +25,8 @@ app.use('/authentication', require('./Routes/Authentication'))
 app.use('/refreshtoken', require('./Routes/RefreshToken'))
 
 app.use(userAuthentication)
-app.use('/cart',require('./Routes/Cart'))
+app.use('/cart', require('./Routes/Cart'))
+app.use('/order', require('./Routes/Order'))
 
 
-app.listen(PORT, () => {
-    console.log('Server is running on port 4000');
-})
+app.listen(PORT, () => console.log('Server is running on port 4000'))

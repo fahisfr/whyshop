@@ -33,7 +33,7 @@ function Cart() {
            
        } else {
            console.log("Razorpay is loaded")
-       }
+       
         var options = {
             "key": "rzp_test_lFLdi5y9B4LWvU", // Enter the Key ID generated from the Dashboard
             "amount": Order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -41,7 +41,16 @@ function Cart() {
             "name": "Acme Corp",
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
-            "order_id": Order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "order_id": Order.id,
+            "handler": function (response) {
+                Axios.post('order/verifypayment', { order: response }).then(res => {
+                    if (res.data.status) {
+                        alert("Payment Successfull")
+                    } else {
+                        alert("Payment Failed")
+                    }
+                })
+            },
             "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
             "prefill": {
                 "name": "Gaurav Kumar",
@@ -58,7 +67,8 @@ function Cart() {
         
        const PaymentObject = new window.Razorpay(options);
        PaymentObject.open();
-    }
+       }
+   }
        
     const [name, setname] = useState('')
     const [number, setnumber] = useState('')

@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
+var OrderController = require('../Controllers/OrderController/VerifyPayment')
 
 
-router.post('/',)
+router.post('/verifypayment',OrderController)
 
 
 

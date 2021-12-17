@@ -92,8 +92,6 @@ const CartProductTolal = UserID => {
                 $group: {
                     _id: null,
                     totalPrice: { $sum: { $multiply: ["$products.price", "$quantity"] } }
-
-
                 }
                 
             },

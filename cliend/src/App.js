@@ -20,8 +20,8 @@ function App() {
           <Route path='/cart' element={<Cart/>}/>
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user? <Navigate to="/" /> : <Login />} />
-          <Route path='/whyadmin' element={<UpdateTap />} />
-          <Route path='/whyadmin/addproduct' element={<AddProduct />} />
+          {/* <Route path='/whyadmin' element={<UpdateTap />} />
+          <Route path='/whyadmin/addproduct' element={<AddProduct />} /> */}
          
         </Routes>
       </Router>

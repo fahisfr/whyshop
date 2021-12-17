@@ -1,34 +1,81 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
 .navbar{
-    height: 60px;
+    width: 100%;
+    height: 63px;
+    background-color: rgb(32, 104, 238);
+    font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    background-color: rgb(255, 255, 255);
-    justify-content: space-evenly;
-    border-radius: 0px 0px 9px 9px ;
-    box-shadow: rgb(3 27 78 / 15%) 0 2px 4px;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    
-   
-
 }
-.logo-t{
+.nav-1-box{
+    flex: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar .nav-2-box{
+    flex:25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.nav-3-box{
+    flex:40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-4-box{
+    flex:30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     margin-top: 4px;
+    
+}
+.navbar .nav-2-box a{
     font-family:'Prata', serif;
-    color:rgb(48, 16, 231);
-    font-size: 30px;
+    color:rgba(255, 255, 255, 0.959);
+    font-size: 13px;
+    text-decoration: none;
 }
-.saerch-bar{
-    align-items: center;
 
+.navbar .nav-2-box span{
+    font-family:'Prata', serif;
+    color:rgba(255, 255, 255, 0.959);
+    font-size: 13px;
+    text-decoration: none;
 }
-.icons{
-    margin-left: 0px;
-    
-    
+.navbar .nav-3-box input{
+    width: 90%;
+    height: 40px;
+    padding-left: 12px;
+    border: none;
+    font-size: 16px;
+    border-radius: 20px 0px 0px 20px ;
 }
-.icons-Link{
+.navbar .nav-3-box button{
+    height: 42px;
+    border-radius: 0px 20px 20px 0px;
     border: none;
 }
-.search{
-    border-radius: 30px;
+.navbar .nav-4-box span{
+    /* font-family:'Prata', serif; */
+    color:rgba(255, 255, 255, 0.959);
+    font-size: 17px;
+    border: none;
+   
+    text-decoration: none;
+    
 }
+.nav-4-1-s{
+    padding-left: 4px;
+   
+   
+}
+

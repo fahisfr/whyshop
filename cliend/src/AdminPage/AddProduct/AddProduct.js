@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Container, Row, Col, FloatingLabel } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+
 import axios from '../../Axios'
 function AddProduct() {
     const [name, setname] = useState('')
@@ -25,7 +24,7 @@ function AddProduct() {
     }
     return (
         <div>
-            <Container>
+            {/* <Container>
                 <Row>
                     <Col>
                         <Form>
@@ -63,7 +62,7 @@ function AddProduct() {
                     </Col>
                 </Row>
             </Container>
-
+ */}
 
         </div>
     )

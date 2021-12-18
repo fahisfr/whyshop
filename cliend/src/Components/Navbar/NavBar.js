@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BiCart } from "react-icons/bi";
+import { BiCart, BiSearch } from "react-icons/bi";
 
-import { FiTruck, FiAlignLeft, FiArchive } from "react-icons/fi";
+import { FiTruck, FiAlignLeft, FiArchive, FiSearch } from "react-icons/fi";
 import './NavBar.css'
 import {useSelector} from 'react-redux'
 
@@ -12,7 +12,7 @@ function NavBar() {
     return (
         <div className="navbar">
             <div className='nav-1-box'>
-                <FiAlignLeft size={45} color=' white'/>
+                <FiAlignLeft size={35} color=' white'/>
 
             </div > 
 
@@ -21,15 +21,15 @@ function NavBar() {
             </div>
 
             <div className='nav-3-box'>
-                <input type='text' placeholder='search for products'></input>
-                <button>Search</button>
+                <input type='text' className='nav-3-1-in' placeholder='search for products'></input>
+                <button><BiSearch size={20}/></button>
 
             </div>
 
 
             <div className='nav-4-box'>
-                <Link to='orders'>< FiArchive size={27} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
-                <Link to='/cart'><BiCart size={37} color='white'/></Link><span  >Cart</span>
+                <Link to='/orders'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
+                <Link to='/cart'><BiCart size={31} color='white'/></Link><span  >Cart</span>
             
                
               

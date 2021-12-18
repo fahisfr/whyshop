@@ -22,23 +22,16 @@ function Home() {
     }, [])
     return (
         <div>
-            <NavBar></NavBar>
-            <div className="live-bar">
-              
+            <NavBar />
+            <div className="home-container">
+                <div className="home-1-box">
+                    <img src="https://img.magicpin.com/fresh_produce.jpg"/>
+                </div>
             </div>
-            <div className='manu-bar'>
-                <div name='vegtables' className='manu1' onClick={(e) => findproducts('vegtables')}>
-                    <img className="" alt="" />
-                </div> 
-                <div name='fruits' className='manu2' onClick={(e)=>findproducts('fruits')} >
-                    <img className=""  alt="" />
-                </div>
-                <div name='fishes' className='manu3' onClick={(e) => findproducts('fishes')}>
-                    <img className="manuimage"  alt="" />
-                </div>
 
-            </div>
         </div>
+            
+       
     )
 }
 

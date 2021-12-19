@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-do
 import Home from './Page/Home/Home'
 import UpdateTap from './AdminPage/Update-Tap/Update-Tap';
 import AddProduct from './AdminPage/AddProduct/AddProduct';
-import Products from './Page/Productes/Products'
+import Shop from './Page/Shop/Shop'
 import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
@@ -16,7 +16,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/products/:id" element={<Products />} />
+          <Route path="/shop/:id" element={<Shop />} />
           <Route path='/cart' element={<Cart/>}/>
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user? <Navigate to="/" /> : <Login />} />

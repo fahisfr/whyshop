@@ -9,7 +9,7 @@ import Button from '@restart/ui/esm/Button';
 
 function NavBar() {
     // const user = useSelector(state => state.user.userInfo)
-    const [user, setuser] = useState(false)
+    const [user, setuser] = useState(true)
    
     return (
         <div className="navbar">

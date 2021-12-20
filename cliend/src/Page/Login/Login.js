@@ -17,7 +17,6 @@ function Login() {
                 alert('Login Successfully')
                 console.log(result.data);
                 localStorage.setItem('accesstoken', result.data.accesstoken)
-                localStorage.setItem('refreshtoken', result.data.refreshtoken)
                 dispatch(login({name:result.data.name,number:result.data.number}))
                 navigate('/')
             } else {
@@ -27,27 +26,28 @@ function Login() {
         })
     }
     return (
+        <div className='signup-container'>
+            <div className="signup-box">
 
-        <div>
-            <div className='main'>
-                <div className="signup-bar">
-                    <div className="lsimage">
-                        <img className='image-ls' src={process.env.PUBLIC_URL + '/slpage.png'} alt="logo" />
-                    </div>
-                    <div className='input-from'>
-                        <form id="form-in">
-                            <h1>Login</h1>
-                            <label>Phone Number</label>
-                            <input className='input-ls' type="number" value={number} onChange={(e) => setnumber(e.target.value)} placeholder="Enther Phone Number" />
-                            <label htmlFor="">Password</label>
-                            <input className='input-ls' type="password" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enther Password" />
-                            <Link to='/signup'>Create New Account</Link>
-                            <button onClick={loginform}>Signup</button>
-                        </form>
-                    </div>
+                <div className="signup-box-1">
+                    <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
+                </div>
+                <div className='signup-box-2'>
+                    <form className="signup-2-from">
+                        <h1>Join to account</h1>
+                        <label>Phone</label>
+                        <input type="number" value={number} placeholder="Phone Number" />
+                        <label>Password</label>
+                        <input type="password" value={password} placeholder="Enther Password" />
+                       
+                        <Link to='/signup'><span>Create a new account</span></Link>
+                        <button >Signup</button>
+                    </form>
                 </div>
             </div>
         </div>
+
+        
     )
 }
 

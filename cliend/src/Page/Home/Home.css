@@ -37,9 +37,9 @@
   margin-left: 68px;
   margin-top: 35px;
   font-style: italic;
-  color: #5f94ca;
-  background-color:white;  
-  border: 3px solid #f0f0f0b9;
+  color: #478dd4;
+  /* background-color:white;   */
+  /* border: 3px solid #f0f0f0b9; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
@@ -76,16 +76,16 @@
   padding-top: 5px;
   height: auto;
   padding-bottom: 7px;
-  background-color: rgba(26, 155, 241, 0.89);
-  
+  background-color: rgba(255, 255, 255, 0.89);
 }
   .product-type-cart{
     width: 80px;
     height: 80px;
 }
   .product-type-cart span{
-  font-size: 10px;
-  margin-left: 25px;
+  font-size: 15px;
+  margin-left: 20px;
+  border:none;
   
   
 }

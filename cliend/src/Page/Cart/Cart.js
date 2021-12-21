@@ -5,6 +5,7 @@ import { fetchCart } from '../../Features/Cart'
 import Axios from '../../Axios'
 import { resolve } from 'promise'
 import Razorpay from 'react-razorpay';
+import Navbar from '../../Components/Navbar/NavBar'
 
 function loadRazorpay(src) {
     return new Promise(resolve => {
@@ -121,52 +122,52 @@ function Cart() {
    
     
     return (
-        <div>
-            <div className='products' >
-                <div className='items'>
-                    <button onClick={()=>deleteAll()}>Remove ALl</button>
-                    {cart.status ? '' : <h1>cart.message</h1>}
-                   
-                    {
-                        cart.cartInfo.map(item => {
-                            return (
-                                <div className='item'>
-                                    <img src='' alt='' />
-                                    <div className='item-info'>
-                                        <h3>{ item.name}</h3>
-                                        <p>{ item.price}</p>
-                                        <p>quantity={item.quantity}</p>
-                                        <button onClick={() => changeQuantity(-1, item._id)}>-</button><input value={item.quantity} type="text" /><button onClick={() => changeQuantity(1, item._id)}>+</button>
-                                        <button onClick={() => removeCartProduct(item._id) }>remove</button>
-                                    </div>
-                                </div>
+        <div className="cart-main">
 
-                            )
-                        })
-                    }
-                </div>        
+        <Navbar></Navbar>
+        <div className="cart-container">
+                <div className="cart-products-info">
+                    <div className="cart-info-tag">
+                        <h1>FrShopping Cart</h1>
+                        <h1>2Items</h1>
+                    </div>
+                    <div className="cart-info-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th className='text-initial cart-table-head-border'>Product Name</th>
+                                    <th className='text-center cart-table-head-border'>Price</th>
+                                    <th className='text-center cart-table-head-border'>Quantity</th>
+                                    <th className='text-center cart-table-head-border'>Total</th>
+                                    <th className='text-center cart-table-head-border'><button className='clear-cart'>Clear Cart</button></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className='text-initial'>
+                                        <div className='cart-table-body-productname'>
+                                            <img src="data:image/jpeg;base64,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" alt="" />
+                                            <h4>Ornage</h4>                                    
+                                        </div></td>
+                                    <td className='text-ceanter-td' >₹100</td>
+                                    <td className='text-ceanter-td' >
+                                        <div className="cart-table-body-quantiy">
+                                            <button onClick={()=>console.log('hello ')}>-</button><span>10</span><button>+</button>
+                                        </div>
+                                    </td>
+                                    <td className='text-ceanter-td' >₹700</td>
+                                    <td className='text-ceanter-td'><button className='remove-from-cart'>Remove</button></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
             </div>
-            <div className="OrderPage" >
-                <form>
-                    <input type="text" name="name" value={name} onChange={(e) => setname(e.target.value)} placeholder="Name" />
-                    <input value={12} type="number" name="phone" value={number} onChange={(e) => setnumber(e.target.value)} placeholder="Phone" />
-                    <select name="selectList" id="selectList" value={city} onChange={(e) => setcity(e.target.value)}>
-                        <option value="option 1">city</option>
-                        <option value="Vengara">Vengara</option>
-                        <option value="Oorakam">Oorakam</option>
-                        <option value="option 4">karimblili<input /></option>
-                    </select>
-                    <input type="text" name="address" value={address} onChange={(e) => setaddress(e.target.value)} placeholder="Address" />
-                    <div>
-                    <label> <input type="checkbox" value={'COD'} name="checkbox" onClick={(e) => setpaymetType(e.target.value)} />Cash on delevery</label>
-                    <label> <input type="checkbox" value={'Online'} onClick={(e)=>setpaymetType(e.target.value)} name="checkbox" />Online payment</label>
-
-                    
-                    
-                </div>
-
-                </form>
-                <button onClick={OrderNow}>Order Now </button>
+            <div className="cart-billinfo">
+                
+            </div>
             </div>
         </div>
     )

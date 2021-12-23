@@ -18,7 +18,7 @@ const OrderSchema = new mongoose.Schema({
         name: { type: String, required: true },
         number: { type: String, required: true },
         place: { type: String, required: true },
-        address: { type: String, required: true },}],
+        lademark: { type: String, required: true },}],
     total: {type: Number,required: true},
     paymentID: {type: String,default: null},
    

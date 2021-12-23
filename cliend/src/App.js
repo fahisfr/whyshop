@@ -9,6 +9,7 @@ import Shop from './Page/Shop/Shop'
 import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
+import Order from './Page/Order/Order';
 function App() {
   const [user, setUser] = useState(false);
   return (
@@ -19,9 +20,11 @@ function App() {
           <Route path="/shop/:id" element={<Shop />} />
           <Route path='/cart' element={<Cart/>}/>
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
-          <Route path="/login" element={user? <Navigate to="/" /> : <Login />} />
-          {/* <Route path='/whyadmin' element={<UpdateTap />} />
-          <Route path='/whyadmin/addproduct' element={<AddProduct />} /> */}
+          <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+          <Route path="/order" element={user ? <Navigate to ="/"/> :<Order/> }/>
+          
+          <Route path='/whyadmin' element={<UpdateTap />} />
+          <Route path='/whyadmin/addproduct' element={<AddProduct />} />
          
         </Routes>
       </Router>

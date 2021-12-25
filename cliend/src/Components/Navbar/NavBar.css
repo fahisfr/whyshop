@@ -173,7 +173,6 @@ body{
     .navbar .nav-2-box {
         order: 2;
         display: flex;
-        justify-content: start;
         flex: 40%;
     }
     .navbar .nav-4-box {

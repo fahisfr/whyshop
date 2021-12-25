@@ -9,11 +9,8 @@ const RefreshTokenController = (req, res) => {
     if (!Token?.refreshtoken) {
         return res.status(401).json({ auth: false, message: 'No token provided.' });
     }
-    console.log('passed');
     jwt.verify(Token.refreshtoken, `${process.env.REFRESH_TOKEN_SECRET}`, (err, decoded) => {
-        console.log('start');
-        if (decoded) {
-            console.log('passed');
+        if (decoded) {  
             User.findOne({ _Id: decoded._id, refreshToken: Token.refreshToken }).then(user => {
                 if (!user) {
                     return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });

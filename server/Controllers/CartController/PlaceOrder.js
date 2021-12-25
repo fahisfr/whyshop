@@ -10,10 +10,11 @@ var instance = new Razorpay({
 });
 
 const PlaceOrder = async (req, res) => {
-    if (req.body.paymetType === 'COD') {
+    console.log('requiest send')
+    if (req.body.paymentType === 'COD') {
+
         Cart.findOne({ UserID: req.user.id }).then(async (cart) => {
-
-
+            console.log(cart)
             if (cart) {
                 let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
                 Order.create({
@@ -22,12 +23,12 @@ const PlaceOrder = async (req, res) => {
                     products: cart.products,
                     total: totalPrice,
                     address: {
-                        name: req.body.name, number: req.body.number, address: req.body.address,
-                        place: req.body.city,
+                        name: req.body.name, number: req.body.number, lademark: req.body.lademark,
+                        city: req.body.city,
                     },
 
-
                 }).then(order => {
+                    console.log(order)
                     Cart.deleteOne({ _id: cart._id }).then(() => {
                         res.json({ status: true, message: "Order Placed Successfully", })
                     }).catch(err => {
@@ -35,18 +36,18 @@ const PlaceOrder = async (req, res) => {
                         console.log(err);
                     })
                 }).catch(err => {
-                    console.log(err);
+                    console.log(err.message);
                     res.json({ status: false, message: "Oops! something went wrong please try again" })
                 })
-
-
             } else {
                 res.json({ status: false, message: "Cart is empty" })
             }
         }).catch(err => {
             console.log(err);
-            res.json({ status: false, message: 'Oops! something went wrong please try again' })})
-    } else if (req.body.paymetType === "Online") {
+            res.json({ status: false, message: 'Oops! something went wrong please try again' })
+        })
+    } else if (req.body.paymentType === "Online") {
+        console.log('data')
         Cart.findOne({ UserID: req.user.id }).then(async cart => {
             if (cart) {
                 var totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
@@ -57,8 +58,8 @@ const PlaceOrder = async (req, res) => {
                     products: cart.products,
                     total: totalPrice,
                     address: {
-                        name: req.body.name, number: req.body.number, address: req.body.address,
-                        place: req.body.city,
+                        name: req.body.name, number: req.body.number, lademark: req.body.lademark,
+                        city: req.body.city,
                     },
                     paymentID: null,
                 }).then(order => {
@@ -67,16 +68,19 @@ const PlaceOrder = async (req, res) => {
                         currency: "INR",
                         receipt: '' + order._id,
                     }, (err, bill) => {
-                            console.log(bill);
-                            order.paymentID = bill.id
-                            order.save()
-                            res.json({status: true, message: "Order Placed Successfully", order:bill})
+                        console.log(bill);
+                        order.paymentID = bill.id
+                        order.save()
+                        res.json({ status: true, message: "Order Placed Successfully", order: bill })
                     })
                 })
             }
         })
 
-    }
+    } else {
+        res.json({ status: false, message: "Cart is empty" })
+    } 
+        
 }
 
 

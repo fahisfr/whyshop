@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { BiCart, BiSearch } from "react-icons/bi";
 
-import { FiTruck, FiAlignLeft, FiArchive, FiSearch } from "react-icons/fi";
+import { FiAlignLeft, FiArchive,  } from "react-icons/fi";
 import './NavBar.css'
 import {useSelector} from 'react-redux'
 import Button from '@restart/ui/esm/Button';
 
 function NavBar() {
-    // const user = useSelector(state => state.user.userInfo)
-    const [user, setuser] = useState(true)
-   
+    const user = useSelector(state => state.user.userInfo.isAuth)
+    console.log('from navbar '+user)
     return (
         <div className="navbar">
             <div className='nav-1-box'>

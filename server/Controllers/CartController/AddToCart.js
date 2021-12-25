@@ -20,8 +20,12 @@ const PrdoductAddToCart = async (req, res) => {
 }
     } else {
         Cart.create({ userID: req.user.id, products: { productID: Product._id } }, (err, newcart) => {
-            if (err) {res.status(500).json({ status: false, message: 'Filed Add To Cart' });
-            } else {res.json({ status: true, data: newcart, message: ' Product Added' })}
+            if (err) {
+                return res.status(500).json({ status: false, message: 'Filed Add To Cart' });
+            } else {
+                console.log(newcart , "newcart");
+                res.json({ status: true, message: ' Product Added' })
+            }
         })
     } 
 }

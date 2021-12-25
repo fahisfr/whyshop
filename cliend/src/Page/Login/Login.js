@@ -36,12 +36,16 @@ function Login() {
                     <form className="signup-2-from">
                         <h1>Join to account</h1>
                         <label>Phone</label>
-                        <input type="number" value={number} placeholder="Phone Number" />
+                        <input type="number" value={number} placeholder="Phone Number"
+                               onChange={(e)=>setnumber(e.target.value)}
+                        />
                         <label>Password</label>
-                        <input type="password" value={password} placeholder="Enther Password" />
+                        <input type="password" placeholder="Enther Password"
+                            value={password} onChange={(e)=>setpassword(e.target.value)}
+                        />
                        
                         <Link to='/signup'><span>Create a new account</span></Link>
-                        <button >Signup</button>
+                        <button onClick={loginform} >Signup</button>
                     </form>
                 </div>
             </div>

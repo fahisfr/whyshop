@@ -21,7 +21,7 @@ export const  userSlice = createSlice({
             state.userInfo = action.payload;
         }
     }, extraReducers: {
-        [fetchUser.fulfilled]: (state, action) => {
+        [fetchUser.fulfilled]: (state, action) => { 
             state.userInfo = action.payload;
             
         }

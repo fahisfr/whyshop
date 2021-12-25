@@ -1,13 +1,28 @@
-var ValidationSchema =require('./ValidationSchema')
+var ValidationSchema =require('./Schemas')
 
-const PlaceOrderApiValidation = (req, res, next) => {
+const SinupAPIValidation = (req, res, next) => {
+    const { error } = ValidationSchema.signup.validate(req.body)
+    if (error) return res.status(200).json({ status: false, message: error.details[0].message })
+    next()
+}
+
+const LoginAPIValidation = (req, res, next) => {
+    const { error } = ValidationSchema.login.validate(req.body)
+    if (error) return res.status(200).json({ status: false, message: error.details[0].message })
+    next()
+}
+    
+
+const PlaceOrderAPIValidation = (req, res, next) => {
     console.log(req.body)
     const { error } = ValidationSchema.PlaceOrder.validate(req.body);
     if (error) { return res.json({ error: error.details[0].message})}
-    else { next() }
+    next()
 }
 
 
 module.exports = {
-    PlaceOrderApiValidation
+    PlaceOrderAPIValidation,
+    LoginAPIValidation,
+    SinupAPIValidation,
 }

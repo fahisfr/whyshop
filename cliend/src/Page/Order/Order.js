@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import './Order.css'
 import Axios from '../../Axios'
+
+import { useSelector} from 'react-redux'
 
 function loadRazorpay(src) {
     return new Promise(resolve => {
@@ -22,13 +25,13 @@ function loadRazorpay(src) {
 
 
 function Order() {
-    const [order, setOrder] = useState({
-        name: '',
-        number: '',
-        city: '',
-        landemark: '',
-        paymetType: '',
-    })
+    const cart = useSelector(state => state.cart)
+    const [name, setname] = useState('')
+    const [number, setnumber] = useState()
+    const [city, setcity] = useState('')
+    const [landmark, setlademark] = useState('')
+    const [paymentType, setpaymentType] = useState('')
+ 
     async function displayRazor(Order) {
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
         if (!res) {
@@ -76,11 +79,11 @@ function Order() {
     }
     function OrderNow(e) {
         e.preventDefault()
-        Axios.post('cart/place-order', order).then(res => {
+        Axios.post('cart/place-order', { name: name, number: number, city: city, lademark: landmark, paymentType: paymentType }).then(res => {
             if (res.data.status) {
                 displayRazor(res.data.order)
             }
-            
+
         }).catch(err => {
             alert(err.data.message)
         })
@@ -88,55 +91,48 @@ function Order() {
 
 
     return (
+
         <div className='order-container'>
-            <div className="order-addressinfo">
-                <input type="text" placeholder='name'
-                    value={order.name} onChange={(e) => setOrder(e.target.value)}
-                />
-                <input type="number" placeholder='Number'
-                    value={order.number} onChange={(e) => setOrder(e.target.value)}
-                />
-                <select name="selectList" id="selectList" value=''
-                    onChange={(e) => setOrder.city(e.target.value)}>
-                    
-                    <option value="">Select City</option>
-                    <option value="vengara" >Vengara</option>
-                    <option value="Oorakam">Oorakam</option>
-                    <option value="option 3">karibele</option>
-                </select>
-                <input type="text" placeholder='ladee mark/road name'
-                    value={order.landemark} onChange={(e) => setOrder(e.target.value)}
-                />
+            {
+                cart.cartInfo.length === 0 ? <Navigate to='/cart' /> :
+                    <><div className="order-addressinfo">
+                        <input type="text" placeholder='name'
+                            value={name} onChange={(e) => setname(e.target.value)} />
+                        <input type="number" placeholder='Number'
+                            value={number} onChange={(e) => setnumber(e.target.value)} />
+                        <select name="selectList" id="selectList" value={city}
+                            onChange={(e) => setcity(e.target.value)}>
 
-                <input type="text" />
+                            <option value="">Select City</option>
+                            <option value="vengara">Vengara</option>
+                            <option value="Oorakam">Oorakam</option>
+                            <option value="option 3">karibele</option>
+                        </select>
+                        <input type="text" placeholder='ladee mark/road name'
+                            value={landmark} onChange={(e) => setlademark(e.target.value)} />
+                    </div><div className='order-billinginfo'>
+                            <h1>Totale</h1>
+                            <div>
+                                <input type="radio" name="paymentType" value="COD"
+                                    checked={paymentType === 'COD'}
+                                    onChange={(e) => setpaymentType(e.target.value)} />
+                                <label>COD</label>
+                                <input type="radio" name="paymentType" value="Online"
+                                    checked={paymentType === 'Online'}
+                                    onChange={(e) => setpaymentType(e.target.value)} />
+                                <label>Online</label>
 
-            </div>
-            <div className='order-billinginfo'>
-                <h1 >Totale</h1>
-                <div>
+                            
 
-                </div>
-                <div className='order-payment'>
-                    <div className='order-payment-option'>
-                        <input type="radio" name="payment" value={order.paymetType}
-                            // checked={order.paymetType === 'cod'}
-                            onChange={(e) => setOrder(e.target.value)}
-                        />
-                        <label>Pay at Store</label>
-                    </div>
-                    <div className='order-payment-option'>
-                        <input type="radio" name="payment" value={order.paymetType}
-                            onChange={(e) => setOrder(e.target.value)}
-                        />
-                        <label>Pay Online</label>
-                    </div>
-                </div>
-                <button onClick={OrderNow}>Order Now</button>
-            </div>
+
+                            </div>
+                            <button onClick={OrderNow}>Order Now</button>
+                        </div></>
+            }
         </div>
     )
 }
 
-                
+
 
 export default Order

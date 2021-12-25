@@ -5,6 +5,7 @@ const objectid = require('mongodb').ObjectId
 
 const getCartProduct= UserID => {
     return new Promise((resolve, reject) => {
+        console.log(objectid(UserID),'objectid')
         Cart.aggregate([
             {
                 $match: { userID: objectid(UserID) }
@@ -50,8 +51,7 @@ const getCartProduct= UserID => {
                 },
             }
         ]).then(cart => {
-           
-            if (cart.length < 0) {
+            if (cart.length <= 0) {
                 return reject(  "Cart is empty" )
             } else {
                 resolve(cart )

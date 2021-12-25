@@ -1,27 +1,23 @@
-import { disconnect } from 'mongoose'
+
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Axios from '../../Axios'
-import NavBar from '../../Components/Navbar/NavBar'
 import './Signup.css'
 
-// import NavBar from '../../Components/Navbar/NavBar'
 function Signup() {
     const [name, setname] = useState('')
     const [number, setnumber] = useState('')
     const [password, setpassword] = useState('')
-    // const [confirmpass, setconfirmpass] = useState('')
+    const [confirmPassword, setconfirmPassword] = useState('')
     const navigate = useNavigate()
     function sumbitform(e) {
         e.preventDefault()
-        Axios.post('/signup', { name, number, password }).then((result) => {
+        Axios.post('/signup', { name, number, password,confirmPassword }).then((result) => {
             if (result.data.status) {
                 alert('user add to data base')
                 navigate('/login')
-            } else {
-                alert('something is wrong')
-            }
-        })
+                }
+        }).catch(err =>alert(err.data.message))
     }
     return (
             <div className='signup-container'>
@@ -40,7 +36,9 @@ function Signup() {
                             <label>Password</label>
                             <input type="password" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enther Password" />
                             <label>Confirm Password</label>
-                            <input  type="password" placeholder="Enther password" />
+                        <input type="password" placeholder="Enther password"
+                            value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)}
+                        />
                             <Link to='/login'><span>Already have an account?</span></Link>
                             <button  onClick={sumbitform}>Signup</button>
                         </form>

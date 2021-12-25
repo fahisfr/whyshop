@@ -11,7 +11,7 @@ router.put('/add-to-cart/:id', AddToCart)
 router.put('/change-product-quantity/:id', CartChanges.changeProductQuantity)
 router.put('/remove-product/:id', CartChanges.removeCartProduct )
 router.delete('/remove-all-products', CartChanges.removeAllCartProducts)
-router.post('/place-order',ApiValidation.PlaceOrderApiValidation,PlaceOrder)
+router.post('/place-order',ApiValidation.PlaceOrderAPIValidation,PlaceOrder)
 
 
 module.exports = router

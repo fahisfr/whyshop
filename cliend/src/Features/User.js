@@ -13,7 +13,7 @@ export const  userSlice = createSlice({
         userInfo: {
             name: '',
             number: '',
-            isAuth: false,
+            isAthu:false,
         },
     },
     reducers: {
@@ -21,9 +21,8 @@ export const  userSlice = createSlice({
             state.userInfo = action.payload;
         }
     }, extraReducers: {
-        [fetchUser.fulfilled]: (state, action) => { 
-            state.userInfo = action.payload;
-            
+        [fetchUser.fulfilled]: (state, action) => {
+            state.userInfo = action.payload.UserInfo;
         }
     }
 })

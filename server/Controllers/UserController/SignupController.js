@@ -26,9 +26,7 @@ const CareateUser = async (req, res) => {
                 console.log(error)
                 res.status(500).json({ status: false, message: "Oops! something went wrong please try again" })
             })
-
         }
-
     }).catch(err => {
         console.log(err)
         res.status(500).json({

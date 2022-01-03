@@ -7,7 +7,7 @@ import { fetchUser } from './Features/User'
 
 import Home from './Page/Home/Home'
 import UpdateTap from './AdminPage/Update-Tap/Update-Tap';
-// import AddProduct from './AdminPage/AddProduct/AddProduct';
+import AddProduct from './AdminPage/AddProduct/AddProduct';
 import Shop from './Page/Shop/Shop'
 import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
@@ -34,7 +34,7 @@ function App() {
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="/place-order" element={user ? <Navigate to ="/"/> :<Order/> }/>
           <Route path='/whyadmin' element={<UpdateTap />} />
-          {/* <Route path='/whyadmin/addproduct' element={<AddProduct />} /> */}
+          <Route path='/admin/addproduct' element={<AddProduct />} />
         </Routes>
       </Router>
 

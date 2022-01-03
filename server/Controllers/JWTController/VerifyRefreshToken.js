@@ -1,5 +1,5 @@
 const User = require('../../Schemas/User');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const { find } = require('../../Schemas/User');
 
 
@@ -17,7 +17,14 @@ const RefreshTokenController = (req, res) => {
                 } else {
                     const accessToken = jwt.sign({ _id: user._Id }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1h' });
                     res.cookie('accesstoken', accessToken, { httpOnly: true, secure: true });
-                    return res.status(200).json({ auth: true,accesstoken:accessToken ,message:  'Token is valid.' });
+                    res.json({
+                        status: true,
+                        message: 'Login Successful ', accesstoken: accesstoken, UserInfo: {
+                            name: user.name,
+                            number: user.number,
+                            role: Role_List.user.role,
+                        },
+                    })
                 }
             }).catch(err => {
                 console.log(err);

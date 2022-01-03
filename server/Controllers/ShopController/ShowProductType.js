@@ -4,7 +4,7 @@ var Product =require("../../Schemas/Product")
 const getProduct = async (req, res) => {
     console.log('getProduct');
     try {
-        var Products = await Product.find({ type: req.params.id })
+        let Products = await Product.find({ type: req.params.id })
         res.json({ status: true, Products: Products, message: "Product Found" })
         console.log(Products);
     } catch (err) {

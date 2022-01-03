@@ -8,7 +8,6 @@ const signup = Joi.object({
     confirmPassword: Joi.string().trim().min(6).max(22).required().valid(Joi.ref('password')),
 });
 const login = Joi.object({
-    //set joi for number validation for phone number length 10 or 11
     number:Joi.string().trim().min(9).max(11).required().pattern(/^[0-9]+$/),
     password: Joi.string().trim().min(6).max(22).required(),
 });

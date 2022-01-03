@@ -1,7 +1,8 @@
 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 var path = require('path');
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
+const Role_List= require('../../Config/Role')
 const User = require('../../Schemas/User');
 
 
@@ -12,15 +13,21 @@ const handleLogin = (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
-                    var accesstoken = jwt.sign({ name: user.number, id: user._id }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: '2h' });
-                    var refreshtoken = jwt.sign({ name: user.number, }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1d' });
+                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: '2h' });
+                    let refreshtoken = jwt.sign({ id: user._id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1d' });
                     user.refreshToken = refreshtoken;
                     user.save();
                     res.cookie('refreshtoken', refreshtoken, { maxAge: 86400000, httpOnly: true });
                     res.json({
                         status: true,
-                        message: 'Login Successful ', accesstoken: accesstoken, name: user.name, number: user.number
+                        message: 'Login Successful ', accesstoken: accesstoken, UserInfo: {
+                            name: user.name,
+                            number: user.number,
+                            role:user.role,
+                        },
+                   
                     })
+                    console.log(user.role)
                 } else {
                     res.json({
                         status: false,

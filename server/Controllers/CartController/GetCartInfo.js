@@ -5,7 +5,6 @@ const objectid = require('mongodb').ObjectId
 
 const getCartProduct= UserID => {
     return new Promise((resolve, reject) => {
-        console.log(objectid(UserID),'objectid')
         Cart.aggregate([
             {
                 $match: { userID: objectid(UserID) }
@@ -115,7 +114,7 @@ const CartProductTolal = UserID => {
 
 
 const getCartProductsInfo = async (req, res) => {
-    var UsersID = req.user.id;
+    let UsersID = req.user.id;
     Promise.all([getCartProduct(UsersID), CartProductTolal(UsersID)]).then(result => {
         res.json({
             status: true,

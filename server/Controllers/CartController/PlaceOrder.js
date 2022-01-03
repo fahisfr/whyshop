@@ -50,7 +50,7 @@ const PlaceOrder = async (req, res) => {
         console.log('data')
         Cart.findOne({ UserID: req.user.id }).then(async cart => {
             if (cart) {
-                var totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
+                let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
                 Order.create({
                     userID: cart.userID,
                     paymentType: "Online",

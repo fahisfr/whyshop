@@ -8,8 +8,11 @@ import {useSelector} from 'react-redux'
 import Button from '@restart/ui/esm/Button';
 
 function NavBar() {
-    const user = useSelector(state => state.user.userInfo.isAuth)
-    console.log('from navbar '+user)
+    console.log(useSelector(state=>state.user.userInfo))
+    const user = useSelector(state => state.user.userInfo.isAthu)
+    function showdom() {
+        console.log(document.getElementById('navbar'))
+    }
     return (
         <div className="navbar">
             <div className='nav-1-box'>
@@ -34,7 +37,9 @@ function NavBar() {
                 : <div className='nav-4-box-ls'>
                     <Link to='/login'><Button className='nav-4-3-l'  >Loign in</Button></Link>
                     <Link to='/signup'><button className='nav-4-4-s'>Sign Up</button></Link>
-                </div>}
+                </div>
+            }
+            {showdom()}
         </div>
     )
 }

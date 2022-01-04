@@ -3,7 +3,9 @@ var app = express();
 var db = require('mongoose')
 var cors = require('cors')
 var morgan = require('morgan')
+const path = require('path')
 var PORT = process.env.PORT || 4000;
+const bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser')
 var userAuthentication = require('./Middlewares/UserAuthentication')
 db.connect('mongodb://localhost:27017/whyshop', (err, data) => {
@@ -15,8 +17,11 @@ db.connect('mongodb://localhost:27017/whyshop', (err, data) => {
 
 app.use(express.json());
 app.use(cookieParser())
+//set publiec static
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use(morgan('dev'))
+// app.use(bodyParser.urlencoded({ extended: true,}));
 
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))

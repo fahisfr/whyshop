@@ -1,4 +1,5 @@
 
+const { number } = require('joi');
 const Joi = require('joi');
 
 const signup = Joi.object({
@@ -20,9 +21,17 @@ const PlaceOrder = Joi.object({
     paymentType: Joi.valid("COD","Online").required(),
 })
 
+const AddProduct = Joi.object({
+    name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).trim().min(3).max(14).required(),
+    type: Joi.string().pattern(/^[0-9]+$/).valid("vegtable","frutis","sweets").required(),
+    quantity: Joi.string().pattern(/^[0-9]+$/).trim().required(),
+    price: Joi.string().pattern(/^[0-9]+$/).trim().required(),
+})
+
 
 module.exports = {
     PlaceOrder,
     login,
-    signup
+    signup,
+    AddProduct
 }   

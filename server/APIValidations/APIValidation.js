@@ -13,12 +13,20 @@ const LoginAPIValidation = (req, res, next) => {
 const PlaceOrderAPIValidation = (req, res, next) => {
     console.log(req.body)
     var { error } = ValidationSchema.PlaceOrder.validate(req.body);
-    if (error) { return res.json({ error: error.details[0].message})}
+    if (error) { return res.json({ status:false, message: error.details[0].message})}
     next()}
- 
+    
+const AddProductAPIValidation = (req, res, next) => {
+    console.log(req.file)
+    var { error } = ValidationSchema.AddProduct.validate(req.body);
+    if (error) { return res.json({ status: false, message: error.details[0].message }) }
+    // if (req.file.maimetype !== "image/jpg") {return res.json({ status: false, message: "only jpg file is allowed" })}
+    next()}
+
 
 module.exports = {
     PlaceOrderAPIValidation,
     LoginAPIValidation,
     SinupAPIValidation,
+    AddProductAPIValidation
 }

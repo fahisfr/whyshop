@@ -1,6 +1,7 @@
-
+const roles =require('../Config/Role')
 const Roles=(...roles) => {
     return (req, res, next) => {
+        console.log(...roles)
         if (!roles.includes(req.user.role)) {
             return res.status(403).json({
             status: false,

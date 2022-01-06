@@ -4,7 +4,6 @@ const SinupAPIValidation = (req, res, next) => {
     var { error } = ValidationSchema.signup.validate(req.body)
     if (error) return res.status(200).json({ status: false, message: error.details[0].message })
     next()}
-
 const LoginAPIValidation = (req, res, next) => {
     var { error } = ValidationSchema.login.validate(req.body)
     if (error) return res.status(200).json({ status: false, message: error.details[0].message })
@@ -23,10 +22,17 @@ const AddProductAPIValidation = (req, res, next) => {
     // if (req.file.maimetype !== "image/jpg") {return res.json({ status: false, message: "only jpg file is allowed" })}
     next()}
 
+const CartProductQuantityAPIValidation = (req, res, next) => {
+    var { error } = ValidationSchema.ChangeCartProductQuantity.validate(req.body);
+    if (error) { return res.json({ status: false, message: error.details[0].message }) }
+    next()}
+    
+    
 
 module.exports = {
     PlaceOrderAPIValidation,
     LoginAPIValidation,
     SinupAPIValidation,
-    AddProductAPIValidation
+    AddProductAPIValidation,
+    CartProductQuantityAPIValidation
 }

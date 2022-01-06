@@ -1,19 +1,14 @@
 var db = require('mongoose')
-
+const ProductType=require('../Config/ProductType')
 
 const AddProduct = new db.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    type: {
-        enum:[],
-        type: String, required: true
-    },
-    quantity: { type: Number, required: Number, min: 0, default: 0 },
-    availiabel: { type: Boolean, default: true },
+    type: {enum:[...ProductType],type: String, required: true},
+    quantity: { type: Number, required: Number, min: 1, },
     imageId: { type: String, },
-    //set createdAt and updatedAt in india time
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default:  Date.now }
+    createdAt: { type: Date, default: new Date() },
+    updatedAt: { type: Date, default: new Date() },
 }, { collection: 'products' })
 
 const Product = db.model('Product', AddProduct)

@@ -29,8 +29,8 @@ function AddProduct() {
                 <input type="text" value={name} onChange={(e) => setname(e.target.value)} />
                 <select value={type} onChange={(e) => settype(e.target.value)}>
                     <option value="">Select Product Type</option>
-                    <option value="vegtable">Vegtable</option>
-                    <option value="frutis">Frutis</option>
+                    <option value="vegetables">Vegtable</option>
+                    <option value="fruits">Fruits</option>
                     <option value="sweets">Sweets</option>
                 </select>
 

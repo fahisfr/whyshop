@@ -36,6 +36,7 @@ const getCartProduct= UserID => {
                     name: "$products.name",
                     price: "$products.price",
                     quantity: "$quantity",
+                    imageId: "$products.imageId",
                     stock: {
                         $cond: {
                             if: {

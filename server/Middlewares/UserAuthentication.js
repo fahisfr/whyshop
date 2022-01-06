@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     jwt.verify(auteheader, `${process.env.ACCESS_TOKEN_SECRET}`, (err, decoded) => {
         if (err) return res.status(200).json({ status: false, message: 'Invalid Token' })
         req.user = decoded
-        console.log(req.user.role)
+        console.log(req.user.id)
         next()
     })
 }

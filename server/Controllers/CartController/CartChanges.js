@@ -1,25 +1,25 @@
 const Carts = require('../../Schemas/Cart')
-const objectid = require('mongodb').ObjectId
-const changeProductQuantity = (req, res) => {
-    console.log(req.body)
-    Carts.findOne({ userID: req.user.id }).then(Card => {
-        let product = Card.products.find(product => product.productID == req.body.productID)
-        console.log(product)
-        if (product.quantity == 1 && req.body.quantity == -1) {
-            res.status(400).send('you cant remove the product')
-        }
-        else {
-            product.quantity += req.body.quantity
-            Card.save()
-            res.status(200).json({ status: true, message: 'product quantity changed' })
-        }
-    }).catch(err => {
-        res.json({ status: false, message: 'product not found ' })
-    })
+const Products=require('../../Schemas/Product')
+// const objectid = require('mongodb').ObjectId
+const changeProductQuantity = async (req, res) => {
+    const FindCart = await Carts.findOne({ userID: req.user.id }).exec()
+    if (FindCart) {
+        try {
+            const Product = await FindCart.products.find(product => product.productID == req.params.id)
+            const ProductInfo = await Products.findOne({ _id: req.params.id }).exec()
+            if (ProductInfo.quantity === Product.quantity && req.body.quantity === .5) return res.json({ status: false, message: "Product out of stock" })
+            if (Product.quantity <= .5 && req.quantity == -.5) {return res.json({ status: false, message: "Product minimum quantity is 1" })
+            } else {
+                Product.quantity += req.body.quantity
+                FindCart.save()
+                res.json({ status: true, message: 'Product quantity updated successfully' })
+            }
+        } catch (err) { res.json({ status: false, message: 'Oops! something went wrong' }) }
+    } else { res.json({ status: false, message: 'Cart not found' }) }
 }
 const removeCartProduct = (req, res) => {
     Carts.findOne({ userID: req.user.id }).then(Cart => {
-        var ProductInfo = Cart.products.find(product => product.productID == req.params.id)
+        const ProductInfo = Cart.products.find(product => product.productID == req.params.id)
         console.log(ProductInfo)
         if (ProductInfo) {
             Cart.products.pull(ProductInfo)

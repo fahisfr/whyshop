@@ -47,36 +47,37 @@ const PlaceOrder = async (req, res) => {
             res.json({ status: false, message: 'Oops! something went wrong please try again' })
         })
     } else if (req.body.paymentType === "Online") {
-        console.log('data')
-        Cart.findOne({ UserID: req.user.id }).then(async cart => {
-            if (cart) {
-                let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
-                Order.create({
-                    userID: cart.userID,
-                    paymentType: "Online",
-                    paymentStatus: "Pending",
-                    products: cart.products,
-                    total: totalPrice,
-                    address: {
-                        name: req.body.name, number: req.body.number, lademark: req.body.lademark,
-                        city: req.body.city,
-                    },
-                    paymentID: null,
-                }).then(order => {
-                    instance.orders.create({
-                        amount: totalPrice * 100,
-                        currency: "INR",
-                        receipt: '' + order._id,
-                    }, (err, bill) => {
-                        console.log(bill);
-                        order.paymentID = bill.id
-                        order.save()
-                        res.json({ status: true, message: "Order Placed Successfully", order: bill })
-                    })
+        const UserCart = await Cart.findOne({ UserID: req.user.id }).exec()
+        if (UserCart) {
+            let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
+            Order.create({
+                userID: UserCart.userID,
+                paymentType: "Online",
+                products: UserCart.products,
+                total: totalPrice,
+                address: {
+                    name: req.body.name, number: req.body.number, lademark: req.body.lademark,
+                    city: req.body.city,
+                },
+                paymentID: null,
+            }).then(order => {
+                console.log(order)
+                instance.orders.create({
+                    amount: totalPrice * 100,
+                    currency: 'INR',
+                    receipt: order._id,
+                    payment_capture: 1
+                }).then(async (response) => {
+                    order.paymentID = response.id;
+                    await order.save();
+                    res.json({ status: true, message: "Order Placed Successfully", order: response })
+                }).catch(err => {
+                    res.json({ status: false, message: "Oops! something went wrong please try again" })
                 })
-            }
-        })
-
+            }).catch(err => {
+                console.log(err.message);
+            })
+        }
     } else {
         res.json({ status: false, message: "Cart is empty" })
     } 

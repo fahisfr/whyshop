@@ -1,6 +1,5 @@
-
-const { number } = require('joi');
 const Joi = require('joi');
+
 
 const signup = Joi.object({
     name: Joi.string().min(4).max(22).required().trim().pattern(/^[a-zA-Z0-9]+$/),
@@ -22,10 +21,15 @@ const PlaceOrder = Joi.object({
 })
 
 const AddProduct = Joi.object({
-    name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).trim().min(3).max(14).required(),
-    type: Joi.string().pattern(/^[0-9]+$/).valid("vegtable","frutis","sweets").required(),
-    quantity: Joi.string().pattern(/^[0-9]+$/).trim().required(),
+    name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).min(3).max(14).required(),
+    type: Joi.string().pattern(/^[0-9]+$/).valid("vegetables","fruits","sweets").required(),
+    quantity: Joi.string().pattern(/^[.0-9]+$/).trim().required(),
     price: Joi.string().pattern(/^[0-9]+$/).trim().required(),
+})
+
+const ChangeCartProductQuantity = Joi.object({
+    productID: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required(),
+    quantity: Joi.number().valid(-.5,.5).required(),
 })
 
 
@@ -33,5 +37,6 @@ module.exports = {
     PlaceOrder,
     login,
     signup,
-    AddProduct
+    AddProduct,
+    ChangeCartProductQuantity
 }   

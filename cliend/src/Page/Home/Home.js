@@ -27,7 +27,7 @@ function Home() {
             </div>
             <div className='hom-2-product-types'>
 
-                <div className='product-type-cart' name='Vegtables' onClick={(e) => findProductType('vegtables')}>
+                <div className='product-type-cart' name='Vegtables' onClick={(e) => findProductType('vegetables')}>
                     <img src='https://www.organicplanters.in//public/uploads/pages/1628232769.jpg' alt='loadign'  />
                     <span className='product-type-cart-1-2' >Vegtables</span>
                 </div>

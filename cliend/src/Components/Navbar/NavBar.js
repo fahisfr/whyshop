@@ -10,13 +10,10 @@ import Button from '@restart/ui/esm/Button';
 function NavBar() {
     console.log(useSelector(state=>state.user.userInfo))
     const user = useSelector(state => state.user.userInfo.isAthu)
-    function showdom() {
-        console.log(document.getElementById('navbar'))
-    }
     return (
         <div className="navbar">
             <div className='nav-1-box'>
-                <FiAlignLeft size={35} color=' white'/>
+                <FiAlignLeft size={37} color=' white'/>
             </div > 
 
             <div className='nav-2-box'>
@@ -25,7 +22,7 @@ function NavBar() {
 
             <div className='nav-3-box'>
                 <input type='text' className='nav-3-1-in' placeholder='search for products'></input>
-                <button><BiSearch size={20}/></button>
+                <button><BiSearch size={22}/></button>
 
             </div>
 
@@ -39,7 +36,6 @@ function NavBar() {
                     <Link to='/signup'><button className='nav-4-4-s'>Sign Up</button></Link>
                 </div>
             }
-            {showdom()}
         </div>
     )
 }

@@ -22,7 +22,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use(morgan('dev'))
 // app.use(bodyParser.urlencoded({ extended: true,}));
-
+app.get('/', (req, res) => {
+    //log req user ip address
+    console.log(req.socket.remoteAddress);
+    
+    console.log(req.socket.remoteAddress);
+    console.log(req.ip);
+    
+})
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))
 app.use('/products', require('./Routes/Shop'))

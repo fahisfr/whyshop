@@ -9,7 +9,7 @@ const AddProduct = async (req, res) => {
     Product.create({ name, type, quantity, price }, async (err, NewProduct) => {
         console.log(err)
         if (!err) {
-            let imageID = new Date()+name
+            const imageID = name+ Date.now()
             NewProduct.imageId = imageID
             NewProduct.save()
             fs.writeFile(`public/images/${imageID}.jpg`, image.buffer, (err, data) => {

@@ -6,7 +6,7 @@ import './Shop.css'
 
 import { useParams } from 'react-router-dom'
 
-import Axios from '../../Axios'
+import Axios ,{baseURL} from '../../Axios'
 
 function Products() {
     const { id } = useParams();
@@ -22,11 +22,7 @@ function Products() {
         console.log('s')
         Axios.get('/products/' + id).then((result) => {
             if (result.data.Products) {
-                console.log(result.data.Products);
                 setproducts(result.data.Products)
-
-            } else {
-                console.log('filed find products');
             }
         })
         return () => {
@@ -49,7 +45,7 @@ function Products() {
                         return (
                             <div className='shop-2-item' >
                                 <div className='shop-2-item-image'>
-                                    <img src='' alt='loading' />
+                                    <img src={`${baseURL}images/${product.imageId}.jpg`} alt='loading' />
                                 </div>
                                 <div className='shop-2-item-name'>
                                     <span>{ product.name}</span>

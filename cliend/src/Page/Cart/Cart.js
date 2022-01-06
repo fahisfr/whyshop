@@ -3,9 +3,10 @@ import './Cart.css'
 import {  Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCart } from '../../Features/Cart'
-import Axios from '../../Axios'
+import Axios,{baseURL} from '../../Axios'
 
 import Navbar from '../../Components/Navbar/NavBar'
+
 
 
 function Cart() {
@@ -54,10 +55,11 @@ function Cart() {
                                 <h1>{cart.cartInfo.lengt}Items</h1>
                             </div>
                             <div className="cart-info-list">
-                                <table>
+                                <table >
                                     <thead>
                                         <tr>
                                             <th className='text-initial cart-table-head-border'>Product Name</th>
+                                            <th className='text-center cart-table-head-border'></th>
                                             <th className='text-center cart-table-head-border'>Price</th>
                                             <th className='text-center cart-table-head-border'>Quantity</th>
                                             <th className='text-center cart-table-head-border'>Total</th>
@@ -71,17 +73,22 @@ function Cart() {
                                                     <tr>
                                                         <td className='text-initial'>
                                                             <div className='cart-table-body-productname'>
-                                                                <img src="" alt="" />
+                                                                <img src={`${baseURL}images/${product.imageId}.jpg`} alt="" />
                                                                 <h4>{product.name}</h4>
                                                             </div></td>
+                                                        <td></td>
                                                         <td className='text-ceanter-td' >₹{product.price}</td>
                                                         <td className='text-ceanter-td' >
                                                             <div className="cart-table-body-quantiy">
-                                                                <button onClick={(e) => changeQuantity(-1, product._id)} >-</button><span>{product.quantity}</span><button onClick={(e) => changeQuantity(1, product._id)}>+</button>
+                                                                <button onClick={(e) => changeQuantity(-.5, product._id)} >-</button>
+                                                                <span>{product.quantity} kg</span>
+                                                                <button onClick={(e) => changeQuantity(.5, product._id)}>+</button>
                                                             </div>
                                                         </td>
                                                         <td className='text-ceanter-td' >₹{product.total}</td>
-                                                        <td className='text-ceanter-td'><button onClick={(e) => removeCartProduct(product._id)} className='remove-from-cart'>Remove</button></td>
+                                                        <td className='text-ceanter-td'>
+                                                            <button onClick={(e) => removeCartProduct(product._id)} className='remove-from-cart'>Remove</button>
+                                                        </td>
                                                     </tr>
                                                 )
                                             })

@@ -10,23 +10,20 @@ var instance = new Razorpay({
 });
 
 const PlaceOrder = async (req, res) => {
-    console.log('requiest send')
+    const UserID=req.user.id
     if (req.body.paymentType === 'COD') {
-
         Cart.findOne({ UserID: req.user.id }).then(async (cart) => {
-            console.log(cart)
             if (cart) {
-                let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
+               const ProductInfo= await Promise.all([GetCartInfo.getCartProduct(UserID),GetCartInfo.CartProductTolal(UserID)])
                 Order.create({
                     userID: cart.userID,
                     paymentType: "COD",
-                    products: cart.products,
-                    total: totalPrice,
+                    products: ProductInfo[0],
+                    totalPrice: ProductInfo[1],
                     address: {
                         name: req.body.name, number: req.body.number, lademark: req.body.lademark,
                         city: req.body.city,
                     },
-
                 }).then(order => {
                     console.log(order)
                     Cart.deleteOne({ _id: cart._id }).then(() => {
@@ -49,12 +46,12 @@ const PlaceOrder = async (req, res) => {
     } else if (req.body.paymentType === "Online") {
         const UserCart = await Cart.findOne({ UserID: req.user.id }).exec()
         if (UserCart) {
-            let totalPrice = await GetCartInfo.CartProductTolal(req.user.id);
+            const ProductInfo = await Promise.all([GetCartInfo.getCartProduct(UserID),GetCartInfo.CartProductTolal(UserID)])
             Order.create({
                 userID: UserCart.userID,
                 paymentType: "Online",
-                products: UserCart.products,
-                total: totalPrice,
+                products: ProductInfo[0],
+                totalPrice: ProductInfo[1],
                 address: {
                     name: req.body.name, number: req.body.number, lademark: req.body.lademark,
                     city: req.body.city,
@@ -63,7 +60,7 @@ const PlaceOrder = async (req, res) => {
             }).then(order => {
                 console.log(order)
                 instance.orders.create({
-                    amount: totalPrice * 100,
+                    amount: ProductInfo[1] * 100,
                     currency: 'INR',
                     receipt: order._id,
                     payment_capture: 1

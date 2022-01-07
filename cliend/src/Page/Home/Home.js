@@ -1,5 +1,6 @@
 
 import NavBar from '../../Components/Navbar/NavBar'
+
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
 import { useEffect } from 'react';
@@ -17,14 +18,16 @@ function Home() {
     function findProductType(id) {
         history('/shop/' + id)
     }
+  
     
-    return (
-        <div>
-            <NavBar />
+    return ( 
+        <div >
             
+            <NavBar />
             <div className="home-1-box">
                 <img src="" alt='loading' />
             </div>
+            
             <div className='hom-2-product-types'>
 
                 <div className='product-type-cart' name='Vegtables' onClick={(e) => findProductType('vegetables')}>

@@ -7,10 +7,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import User from './Features/User'
 import Cart from './Features/Cart'
+import Order from './Features/Order'
 const store = configureStore({
   reducer: {
     user: User,
-    cart: Cart
+    cart: Cart,
+    order: Order
   }
 })
 ReactDOM.render(

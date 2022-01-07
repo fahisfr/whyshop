@@ -3,7 +3,7 @@ import './Cart.css'
 import {  Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCart } from '../../Features/Cart'
-import Axios,{baseURL} from '../../Axios'
+import Axios,{ImagePath} from '../../Axios'
 
 import Navbar from '../../Components/Navbar/NavBar'
 
@@ -39,9 +39,11 @@ function Cart() {
         })
     }
     return (
+        <div>
 
-        <div className="cart-main">
+        
             <Navbar></Navbar>
+        <div className="cart-main">
             {
                 cart.cartInfo.length === 0 ?
                     <div className='cart-empty'>
@@ -58,12 +60,12 @@ function Cart() {
                                 <table >
                                     <thead>
                                         <tr>
-                                            <th className='text-initial cart-table-head-border'>Product Name</th>
-                                            <th className='text-center cart-table-head-border'></th>
-                                            <th className='text-center cart-table-head-border'>Price</th>
-                                            <th className='text-center cart-table-head-border'>Quantity</th>
-                                            <th className='text-center cart-table-head-border'>Total</th>
-                                            <th className='text-center cart-table-head-border'><button onClick={deleteAll} className='clear-cart'>Clear Cart</button></th>
+                                            <th className='align-initial cart-table-head-border'>Product Name</th>
+                                            <th className='align-center cart-table-head-border'></th>
+                                            <th className='align-center cart-table-head-border'>Price</th>
+                                            <th className='align-center cart-table-head-border'>Quantity</th>
+                                            <th className='align-center cart-table-head-border'>Total</th>
+                                            <th className='align-center cart-table-head-border'><button onClick={deleteAll} className='clear-cart'>Clear Cart</button></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,22 +73,22 @@ function Cart() {
                                             cart.cartInfo.map(product => {
                                                 return (
                                                     <tr>
-                                                        <td className='text-initial'>
-                                                            <div className='cart-table-body-productname'>
-                                                                <img src={`${baseURL}images/${product.imageId}.jpg`} alt="" />
+                                                        <td className='align-initial'>
+                                                            <div className='cart-table-body-productinfo'>
+                                                                <img src={ImagePath(product.imageID)} alt="" />
                                                                 <h4>{product.name}</h4>
                                                             </div></td>
                                                         <td></td>
-                                                        <td className='text-ceanter-td' >₹{product.price}</td>
-                                                        <td className='text-ceanter-td' >
+                                                        <td className='cart-ceanter-td' >₹{product.price}</td>
+                                                        <td className='cart-ceanter-td' >
                                                             <div className="cart-table-body-quantiy">
                                                                 <button onClick={(e) => changeQuantity(-.5, product._id)} >-</button>
                                                                 <span>{product.quantity} kg</span>
                                                                 <button onClick={(e) => changeQuantity(.5, product._id)}>+</button>
                                                             </div>
                                                         </td>
-                                                        <td className='text-ceanter-td' >₹{product.total}</td>
-                                                        <td className='text-ceanter-td'>
+                                                        <td className='cart-ceanter-td' >₹{product.total}</td>
+                                                        <td className='cart-ceanter-td'>
                                                             <button onClick={(e) => removeCartProduct(product._id)} className='remove-from-cart'>Remove</button>
                                                         </td>
                                                     </tr>
@@ -110,8 +112,10 @@ function Cart() {
                         </div>
                     </div>
             }
+            </div>
         </div>
     )
+
 }
 
 export default Cart

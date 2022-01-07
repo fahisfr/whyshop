@@ -13,6 +13,7 @@ export const CartSlice = createSlice({
     initialState: {
         cartInfo: [],
         message: '',
+        total:0,
         loading: false,
         error: null
     },
@@ -30,7 +31,6 @@ export const CartSlice = createSlice({
             state.cartInfo = action.payload.cart
             state.totle=action.payload.totleamout
             state.status = action.payload.status
-            console.log(state.cartInfo)
             state.loading = false
         }
         ,

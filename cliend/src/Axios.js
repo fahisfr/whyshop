@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-//export baseURL 
-export const baseURL = 'http://localhost:4000/';
+const baseURL = 'http://localhost:4000/';
+
+export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;
 
 const instance = axios.create({
     baseURL: baseURL,

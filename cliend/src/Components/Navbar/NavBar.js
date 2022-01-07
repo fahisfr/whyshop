@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import { BiCart, BiSearch } from "react-icons/bi";
 
@@ -7,17 +7,21 @@ import './NavBar.css'
 import {useSelector} from 'react-redux'
 import Button from '@restart/ui/esm/Button';
 
+import SideBar from '../../Components/SideBar/SideBar'
+
 function NavBar() {
     console.log(useSelector(state=>state.user.userInfo))
     const user = useSelector(state => state.user.userInfo.isAthu)
+    const [sidebar, setsidebar] = useState(false)
     return (
-        <div className="navbar">
+        <div className="navbar" >
+            <SideBar trigger={sidebar} settrigger={setsidebar} />
             <div className='nav-1-box'>
-                <FiAlignLeft size={37} color=' white'/>
+                <FiAlignLeft size={37} onClick={(e)=>setsidebar(!sidebar)} color=' white' />
             </div > 
 
             <div className='nav-2-box'>
-                <Link to='/'><h1>FRShop<span>.com</span></h1></Link>
+                <Link to='/'><h1>WhyShop<span>.com</span></h1></Link>
             </div>
 
             <div className='nav-3-box'>
@@ -28,7 +32,7 @@ function NavBar() {
 
 
             {user ? <div className='nav-4-box'>
-                <Link to='/orders'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
+                <Link to='/order'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
                 <Link to='/cart'><BiCart size={31} color='white' /></Link><span  >Cart</span>
             </div>
                 : <div className='nav-4-box-ls'>

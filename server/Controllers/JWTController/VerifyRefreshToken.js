@@ -4,7 +4,6 @@ const { find } = require('../../Schemas/User');
 
 
 const RefreshTokenController = (req, res) => {
-    console.log(req.cookies.refreshtoken);
     const Token = req.cookies
     if (!Token?.refreshtoken) {
         return res.status(401).json({ auth: false, message: 'No token provided.' });

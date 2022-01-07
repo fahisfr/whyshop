@@ -12,6 +12,7 @@ import Shop from './Page/Shop/Shop'
 import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
+import PlaceOrder from './Page/Checkout/Checkout';
 import Order from './Page/Order/Order';
 
 
@@ -32,9 +33,10 @@ function App() {
           <Route path='/cart' element={<Cart/>}/>
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-          <Route path="/place-order" element={<Order/> }/>
+          <Route path="/place-order" element={<PlaceOrder/> }/>
           <Route path='/whyadmin' element={<UpdateTap />} />
           <Route path='/admin/addproduct' element={<AddProduct />} />
+          <Route path='/order' element={<Order />} />
         </Routes>
       </Router>
 

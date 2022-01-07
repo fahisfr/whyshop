@@ -6,7 +6,7 @@ import './Shop.css'
 
 import { useParams } from 'react-router-dom'
 
-import Axios ,{baseURL} from '../../Axios'
+import Axios ,{ImagePath} from '../../Axios'
 
 function Products() {
     const { id } = useParams();
@@ -45,7 +45,7 @@ function Products() {
                         return (
                             <div className='shop-2-item' >
                                 <div className='shop-2-item-image'>
-                                    <img src={`${baseURL}images/${product.imageId}.jpg`} alt='loading' />
+                                    <img src={ImagePath(product.imageId)} alt='loading' />
                                 </div>
                                 <div className='shop-2-item-name'>
                                     <span>{ product.name}</span>

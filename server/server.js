@@ -22,14 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use(morgan('dev'))
 // app.use(bodyParser.urlencoded({ extended: true,}));
-app.get('/', (req, res) => {
-    //log req user ip address
-    console.log(req.socket.remoteAddress);
-    
-    console.log(req.socket.remoteAddress);
-    console.log(req.ip);
-    
-})
+
+
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))
 app.use('/products', require('./Routes/Shop'))
@@ -37,6 +31,8 @@ app.use('/authentication', require('./Routes/Authentication'))
 app.use('/refreshtoken', require('./Routes/RefreshToken'))
 
 app.use(userAuthentication)
+app.use('/logout', require('./Controllers/UserController/Logout'))
+
 app.use('/cart', require('./Routes/Cart'))
 app.use('/order', require('./Routes/Order'))
 

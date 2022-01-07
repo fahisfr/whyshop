@@ -15,7 +15,14 @@ const verifyPayment =async ( req, res) => {
                 order.paymentStatus = "Success"
                 order.save()
         })
-        Cart.deleteOne({ UserID: req.user.id })
+        Cart.deleteOne({ UserID: req.user.id }, (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log(result)
+            }
+        })
     } else {
         res.json({ status: false, message: "Payment Failed" })
     }

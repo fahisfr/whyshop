@@ -36,7 +36,9 @@ app.use('/logout', require('./Controllers/UserController/Logout'))
 app.use('/cart', require('./Routes/Cart'))
 app.use('/order', require('./Routes/Order'))
 
-app.use('/admin',require('./Routes/Admin'))
+app.use('/admin', require('./Routes/Admin'))
+
+
 
 
 app.listen(PORT, () => console.log('Server is running on port 4000'))

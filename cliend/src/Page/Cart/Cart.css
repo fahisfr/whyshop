@@ -60,13 +60,15 @@ table{
 .cart-info-list table tr {
     font-size: larger;
     margin-right: 70px;
+    
 }
 
  
 .cart-ceanter-td{
     text-align: center;
     vertical-align: top; 
-    padding: 1rem; 
+    padding: 1rem;
+
 } 
 
 .cart-table-head-border{

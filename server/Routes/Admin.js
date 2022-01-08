@@ -1,18 +1,23 @@
 const express = require('express')
-const Role = require('../Config/Role')
-const route = express.Router()
+const Role    = require('../Config/Role')
+const route   = express.Router()
 const multers = require('multer')
+const upload  = multers()
 
-const Rolemiddleware = require('../Middlewares/RoleAuth')
-const ApiValidation = require('../APIValidations/APIValidation')
+const Rolemiddleware  = require('../Middlewares/RoleAuth')
+const ApiValidation   = require('../APIValidations/APIValidation')
 const AdminController = require('../Controllers/AdminController/AddProduct')
-const upload = multers()
+const GetOrdersInfo   =require('../Controllers/AdminController/GetUsersOrders')
 
-route.get('',Rolemiddleware(Role.admin,Role.superadmin), (req, res) => {
-    return res.json({status:true,message:'admin login successfuly'})
-})
-route.post('/addproduct', upload.single("image"), ApiValidation.AddProductAPIValidation, Rolemiddleware(Role.admin, Role.superadmin,),
-     AdminController)
+
+
+
+route.get('/orders',Rolemiddleware(Role.admin,Role.superadmin,Role.employee),GetOrdersInfo)
+
+route.post('/addproduct', upload.single("image"), ApiValidation.AddProductAPIValidation,
+    Rolemiddleware(Role.admin, Role.superadmin,), AdminController)
+     
+
 
 
 

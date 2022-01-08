@@ -15,14 +15,14 @@ const OrderSchema = new mongoose.Schema({
         total: { type: Number, required: true },
         _id:false
     }],
-    address: [{
+    address: {
         name: { type: String, required: true  ,min:10,max:12},
         number: { type: String, required: true },
         city: { type: String, required: true },
         lademark: { type: String, required: true },
         _id:false
         
-    }],
+    },
     totalPrice: {type: Number,required: true},
     paymentID: { type: String, default: null },
     OrderStatus: { type: String, default: "Packing" },

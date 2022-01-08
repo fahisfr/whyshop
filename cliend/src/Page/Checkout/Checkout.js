@@ -92,7 +92,7 @@ function Order() {
 
     return (
 
-        <div className='order-container'>
+        <div className='checkout-container'>
             {
                 cart.cartInfo.length === 0 ? <Navigate to='/cart' /> :
                     <><div className="order-addressinfo">

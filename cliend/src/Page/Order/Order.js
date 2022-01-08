@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { ImagePath } from '../../Axios'
 import './Order.css'
 import NavBar from '../../Components/Navbar/NavBar'
@@ -37,8 +37,8 @@ function Order() {
                             <tbody>
                                 {Order.OrderInfo.map(Product => {
                                     return (
-                                        <tr>
-                                            <td className='align-initial'>
+                                        <tr >
+                                            <td className='align-initial td-fr'>
                                                 <div className='order-table-body-productname'>
                                                     {
                                                         Product.products.map(res => {
@@ -50,12 +50,11 @@ function Order() {
                                                             )
                                                         })
                                                     }
-                                                    
                                                 </div></td>
                                             <td></td>
                                             <td className='order-ceanter-td' >₹{Product.totalPrice}</td>
                                             <td className='order-ceanter-td' >
-                                                {Product.paymentStatus == 'Success' ? "Payed" : "Cash On Delivery"}
+                                                {Product.paymentStatus === 'Success' ? "Payed" : "Cash On Delivery"}
                                             </td>
                                             <td className='order-ceanter-td' >{ Product.OrderAt}</td>
                                             <td className='order-ceanter-td'>

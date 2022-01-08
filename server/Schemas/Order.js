@@ -25,7 +25,11 @@ const OrderSchema = new mongoose.Schema({
     },
     totalPrice: {type: Number,required: true},
     paymentID: { type: String, default: null },
-    OrderStatus: { type: String, default: "Packing" },
+    OrderStatus: {
+        type: String,
+        // cum: ['Picking','Packing','Packed', 'Out for delivery', 'Delivered', 'Canceled'],
+        default: "Picking"
+    },
    
 });
 

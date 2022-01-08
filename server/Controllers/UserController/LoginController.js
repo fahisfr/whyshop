@@ -17,7 +17,7 @@ const handleLogin = (req, res) => {
                     let refreshtoken = jwt.sign({ id: user._id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1d' });
                     user.refreshToken = refreshtoken;
                     user.save();
-                    res.cookie('refreshtoken', refreshtoken, { maxAge: 86400000, httpOnly: true });
+                    res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });
                     res.json({
                         status: true,
                         message: 'Login Successful ', accesstoken: accesstoken, UserInfo: {

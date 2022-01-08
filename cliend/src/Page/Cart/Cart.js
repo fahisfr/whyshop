@@ -74,7 +74,7 @@ function Cart() {
                                                 return (
                                                     <tr>
                                                         <td className='align-initial'>
-                                                            <div className='cart-table-body-productinfo'>
+                                                            <div className='cart-table-body-productname'>
                                                                 <img src={ImagePath(product.imageId)} alt="" />
                                                                 <h4>{product.name}</h4>
                                                             </div></td>

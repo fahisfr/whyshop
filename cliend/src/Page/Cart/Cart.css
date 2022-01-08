@@ -1,10 +1,11 @@
 .cart-main{
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
 }
 table{
     table-layout:fixed;
+    height: auto;
 }
 .cart-empty{
     display: flex;
@@ -23,6 +24,7 @@ table{
   height: 100vh;
   width: 100%;
   background-color: #fafafa;
+  
 }
 .cart-products-info{
     width: 75%;
@@ -37,6 +39,8 @@ table{
     width: 25%;
     height: 100%;
     background-color: rgb(226, 218, 218);
+    position: fixed;
+    right: 1%;
 }
 .cart-info-tag{
     display: flex;
@@ -56,6 +60,7 @@ table{
 .cart-info-list table {
     
     width: 100%;
+     overflow: scroll;
 }
 .cart-info-list table tr {
     font-size: larger;
@@ -67,8 +72,7 @@ table{
 .cart-ceanter-td{
     text-align: center;
     vertical-align: top; 
-    padding: 1rem;
-
+    padding: 1rem; 
 } 
 
 .cart-table-head-border{
@@ -80,6 +84,7 @@ table{
 .cart-table-body-productname{
     display: flex;
     flex-direction: row;
+   
 }
 .cart-table-body-productname h4{
     font-size: 20px;
@@ -145,6 +150,9 @@ table{
     padding: 2%;
     
 }
+tbody{
+    overflow: scroll;
+}
 
 @media (max-width:840px){
 .cart-container {
@@ -160,7 +168,7 @@ table{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 70%;
+    height: 80%;
     border: 1px solid #e6e6e6;
     background-color: rgb(255, 255, 255);
    
@@ -168,8 +176,10 @@ table{
       width: 100%;
   }.cart-billinfo {
     width: 100%;
-    height:30%;
-    background-color: rgb(226, 218, 218);
+    height:20%;
+    position: fixed;
+    bottom: 0;
+  
  }.cart-info-tag{
     padding-top: 5%;
 } 

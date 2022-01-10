@@ -26,9 +26,10 @@ app.use(morgan('dev'))
 
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))
-app.use('/products', require('./Routes/Shop'))
+app.use('/products', require('./Routes/Product'))
 app.use('/authentication', require('./Routes/Authentication'))
 app.use('/refreshtoken', require('./Routes/RefreshToken'))
+app.use('/search-products',require('./Controllers/SearchPrdoucts/SearchProduts'))
 
 app.use(userAuthentication)
 app.use('/logout', require('./Controllers/UserController/Logout'))

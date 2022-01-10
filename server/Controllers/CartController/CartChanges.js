@@ -1,6 +1,6 @@
-const Carts = require('../../Schemas/Cart')
-const Products=require('../../Schemas/Product')
-// const objectid = require('mongodb').ObjectId
+const Carts     = require('../../Schemas/Cart')
+const Products  =require('../../Schemas/Product')
+
 const changeProductQuantity = async (req, res) => {
     const FindCart = await Carts.findOne({ userID: req.user.id }).exec()
     if (FindCart) {
@@ -8,7 +8,7 @@ const changeProductQuantity = async (req, res) => {
             const Product = await FindCart.products.find(product => product.productID == req.params.id)
             const ProductInfo = await Products.findOne({ _id: req.params.id }).exec()
             if (ProductInfo.quantity === Product.quantity && req.body.quantity === .5) return res.json({ status: false, message: "Product out of stock" })
-            if (Product.quantity <= .5 && req.quantity == -.5) {return res.json({ status: false, message: "Product minimum quantity is 1" })
+            if (Product.quantity <= .5 && req.body.quantity == -.5) {return res.json({ status: false, message: "Product minimum quantity is .5" })
             } else {
                 Product.quantity += req.body.quantity
                 FindCart.save()
@@ -26,7 +26,6 @@ const removeCartProduct = (req, res) => {
             Cart.save()
             res.json({status:true,message:'Product removed from Cart successfully'})
         } else {
-            
             res.json({status:false,message:'Product not found in Cart'})
         }
     }).catch(err => {

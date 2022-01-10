@@ -1,7 +1,8 @@
-var express = require('express')
-var router = express.Router()
-var CareateUser = require('../Controllers/UserController/SignupController')
-var APIValidation = require('../APIValidations/APIValidation')
+const express = require('express')
+const router = express.Router()
+
+const CareateUser   = require('../Controllers/UserController/SignupController')
+const APIValidation = require('../APIValidations/APIValidation')
 
 router.post('/',APIValidation.SinupAPIValidation,CareateUser)
 

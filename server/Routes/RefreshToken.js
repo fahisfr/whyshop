@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var RefreshToken = require('../Controllers/JWTController/VerifyRefreshToken')
+const express = require('express')
+const router = express.Router()
+
+const RefreshToken = require('../Controllers/JWTController/VerifyRefreshToken')
 
 
 router.get('/',RefreshToken)

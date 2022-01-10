@@ -16,6 +16,7 @@ import PlaceOrder from './Page/Checkout/Checkout';
 import Order from './Page/Order/Order';
 import PageNotFount from './Page/404/PageNotFount';
 import CliendOrders from './AdminPage/CliendOrders/CliendOrders';
+import Product from './Page/Product/Product';
 
 
 
@@ -32,7 +33,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/shop/:id" element={<Shop />} />
-          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/cart' element={<Cart />} />
+          <Route path='product/:id'element={<Product />} />
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="/place-order" element={<PlaceOrder/> }/>

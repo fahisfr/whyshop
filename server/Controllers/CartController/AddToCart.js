@@ -1,5 +1,5 @@
-const Products = require("../../Schemas/Product");
-const Cart = require("../../Schemas/Cart");
+const Products= require("../../Schemas/Product");
+const Cart    = require("../../Schemas/Cart");
 
 
 const PrdoductAddToCart = async (req, res) => {

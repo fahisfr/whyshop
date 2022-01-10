@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var userAuthentication = require('../Controllers/JWTController/UserAuthentication')
+const express = require('express')
+const router  = express.Router()
+
+const userAuthentication = require('../Controllers/JWTController/UserAuthentication')
 
 
 router.get('/', userAuthentication )

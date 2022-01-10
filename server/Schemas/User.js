@@ -14,6 +14,6 @@ var user = new db.Schema({
     refreshToken: { type: String, default: null },
 })
 
-const Users = db.model('users', user)
+let Users = db.model('users', user)
 
-module.exports = Users
+module.exports = Users 

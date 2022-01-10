@@ -44,7 +44,7 @@ function Login() {
                             value={password} onChange={(e)=>setpassword(e.target.value)}
                         />
                        
-                        <Link to='/signup'><span>Create a new account</span></Link>
+                        <Link className='remove-line' to='/signup'><span>Create a new account</span></Link>
                         <button onClick={loginform} >Signup</button>
                     </form>
                 </div>

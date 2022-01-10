@@ -24,14 +24,11 @@
     display: flex;
     flex-wrap: wrap;
     margin-left: 2px;
-    justify-content: space-evenly;
-    
-    
-  
+    justify-content:space-evenly;
 }
 .shop-2-item{
-    width: 200px;
-    height: 250px;
+    width: 177px;
+    height: 220px;
     background-color: rgb(255, 255, 255);
     margin-top: 5px;
     border-radius: 5px;
@@ -49,15 +46,21 @@
     object-fit: cover;
 }
 .shop-2-item-name span{
-    font-size: 20px;
+    
+    font-size: 19px;
+    
     margin-left: 5px;
 }
 .shop-2-item-pirce{
+    margin-top:1px;
     margin-left: 5px;
 }
 .shop-2-item-add2cart{
-    margin-top: 5px;
-    margin-left: 100px;
+
+    width: 100%;
+    padding-left: 47%;
+ 
+   
    
 }
 .shop-2-item-add2cart button{
@@ -69,8 +72,11 @@
     height: 40px;
     font-size: 15px;
     cursor: pointer;
+    margin-bottom: 10px;
     
 }
+
+
 @media  (max-width: 760px){
     .shop-container{
     width:100%;

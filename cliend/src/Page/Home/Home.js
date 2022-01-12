@@ -22,7 +22,7 @@ function Home() {
     const dispatch = useDispatch()
     var history = useNavigate();
     function findProductType(id) {
-        history('/shop/' + id)
+        history('/products/' + id)
     }
     let obj = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]
 
@@ -59,13 +59,57 @@ function Home() {
                         return (
                             <div className='recommend-item' >
                                 <div className='recommend-item-image'>
-                                    <img src='' alt='loading' />
+                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
                                 </div>
                                 <div className='recommend-item-name'>
-                                    <span></span>
+                                    <span>Orange</span>
                                 </div>
                                 <div className='recommend-item-pirce'>
-                                    <span></span>
+                                    <span>60 kg</span>
+                                </div>
+                                <div className='recommend-item-add2cart'>
+                                    <button >Add to cart</button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className='recommend-products'>
+                {
+                    obj.map(res => {
+                        return (
+                            <div className='recommend-item' >
+                                <div className='recommend-item-image'>
+                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
+                                </div>
+                                <div className='recommend-item-name'>
+                                    <span>Orange</span>
+                                </div>
+                                <div className='recommend-item-pirce'>
+                                    <span>60 kg</span>
+                                </div>
+                                <div className='recommend-item-add2cart'>
+                                    <button >Add to cart</button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className='recommend-products'>
+                {
+                    obj.map(res => {
+                        return (
+                            <div className='recommend-item' >
+                                <div className='recommend-item-image'>
+                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
+                                </div>
+                                <div className='recommend-item-name'>
+                                    <span>Orange</span>
+                                </div>
+                                <div className='recommend-item-pirce'>
+                                    <span>60 kg</span>
                                 </div>
                                 <div className='recommend-item-add2cart'>
                                     <button >Add to cart</button>
@@ -76,28 +120,8 @@ function Home() {
                 }
             </div>
 
-            <div className='recommend-products'>
-                {
-                    obj.map(res => {
-                        return (
-                            <div className='recommend-item' >
-                                <div className='recommend-item-image'>
-                                    <img src='' alt='loading' />
-                                </div>
-                                <div className='recommend-item-name'>
-                                    <span></span>
-                                </div>
-                                <div className='recommend-item-pirce'>
-                                    <span></span>
-                                </div>
-                                <div className='recommend-item-add2cart'>
-                                    <button >Add to cart</button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+
+           
 
         </div>
 

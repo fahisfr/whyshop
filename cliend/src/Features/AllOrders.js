@@ -12,10 +12,6 @@ export const AllOrderSlice = createSlice({
     initialState: {
         OrdersInfo: [],
     },
-    reducers: {
-        addToCart: (state, action) => {
-        }
-    },
     extraReducers: {
         [fetchAllOrder.fulfilled]: (state, action) => {
             state.OrdersInfo = action.payload.Orders

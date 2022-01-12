@@ -33,7 +33,6 @@ app.use('/search-products',require('./Controllers/SearchPrdoucts/SearchProduts')
 
 app.use(userAuthentication)
 app.use('/logout', require('./Controllers/UserController/Logout'))
-
 app.use('/cart', require('./Routes/Cart'))
 app.use('/order', require('./Routes/Order'))
 

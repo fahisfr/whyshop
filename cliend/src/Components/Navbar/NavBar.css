@@ -137,18 +137,18 @@ body{
 }
 
 
-/* navbar  */
+           /* navbar  */
 .nav-search-result{
     width: 37.5%;
-    height: 200px;
+    height: auto;
     position: absolute;
     top: 52px;
     margin-right: 33px;
     background-color: rgb(255, 253, 253);
     display:flex;
     flex-direction: column;
-    border-radius: 0px 0px 0px 0px;
     overflow: scroll;
+    border-radius: 0px 0px 0px 0px;
     overflow-y: auto;
 }
 
@@ -167,7 +167,7 @@ body{
 .nav-search-result-item{
     width: 100%;
     height: 8%;
-    padding: 20px;
+    padding: 18px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgb(245, 246, 247);
@@ -178,8 +178,8 @@ body{
     border: rgb(223, 234, 241) 1px solid;
 }
 .nav-search-result-item img{
-    width: 60px;
-    height: 50px;
+    width: 50px;
+    height: 40px;
 }
 @media screen and (max-width: 750px){
     .navbar {

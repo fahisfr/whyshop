@@ -12,7 +12,6 @@ import Axios ,{ImagePath} from '../../Axios'
 
 function NavBar(props) {
     const history = useNavigate()
-    console.log(useSelector(state => state.user.userInfo))
     const user = useSelector(state => state.user.userInfo.isAthu)
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])

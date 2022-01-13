@@ -11,16 +11,17 @@ function Products() {
     const [products, setproducts] = useState([])
     const [Search, setSearch] = useState('')
 
-    function addproduct(data) {
-        Axios.put('cart/add-to-cart/' + data, data).then(res => {
+    function addproduct(id) {
+        Axios.put(`cart/add-to-cart/${id}`).then(res => {
+            
         })
     }
     
     
     useEffect(() => {
-        Axios.get('/products/' + id).then((result) => {
-            if (result.data.Products) {
-                setproducts(result.data.Products)
+        Axios.get('/shop/' + id).then((result) => {
+            if (result.data.product) {
+                setproducts(result.data.product)
             
             }
         })
@@ -32,14 +33,12 @@ function Products() {
         <div className='shop-main'>
             <NavBar setSearch={setSearch} />
             <div className='shop-container'>
-                <div className='shop-1-helper'>
-                    
+                <div className='shop-1-helper'> 
                 </div>
                 <div className='shop-2-products'>
-                    {products.map((product) => {
-                        console.log(product)
+                    {products.map((product,index) => {
                         return (
-                            <div className='shop-2-item' >
+                            <div className='shop-2-item' key={index} >
                                 <div className='shop-2-item-image'>
                                     <img src={ImagePath(product.imageId)} alt='loading' />
                                 </div>

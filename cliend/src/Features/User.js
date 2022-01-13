@@ -13,16 +13,27 @@ export const  userSlice = createSlice({
         userInfo: {
             name: '',
             number: '',
-            isAthu:false,
         },
+        error: '',
+        loading: false,
+        isAthu:false,
     },
     reducers: {
         login: (state, action) => {
             state.userInfo = action.payload;
+
         }
     }, extraReducers: {
         [fetchUser.fulfilled]: (state, action) => {
             state.userInfo = action.payload.UserInfo;
+        },
+        [fetchUser.pending]: (state, action) => {
+            state.loading= true;
+            
+        },
+        [fetchUser.rejected]: (state, action) => {
+            state.error = action.error;
+            state.loading = false;
         }
     }
 })

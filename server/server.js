@@ -1,6 +1,6 @@
-var express = require('express');
-var app = express();
-var db = require('mongoose')
+var express= require('express');
+var app    = express();
+var db    = require('mongoose')
 var cors = require('cors')
 var morgan = require('morgan')
 const path = require('path')
@@ -17,19 +17,17 @@ db.connect('mongodb://localhost:27017/whyshop', (err, data) => {
 
 app.use(express.json());
 app.use(cookieParser())
-//set publiec static
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use(morgan('dev'))
-// app.use(bodyParser.urlencoded({ extended: true,}));
 
-
+app.use('/product', require('./Routes/Product'))
+app.use('/shop',require('./Routes/Shop'))
 app.use('/signup', require('./Routes/Signup'))
 app.use('/login', require('./Routes/Login'))
-app.use('/products', require('./Routes/Product'))
 app.use('/authentication', require('./Routes/Authentication'))
 app.use('/refreshtoken', require('./Routes/RefreshToken'))
-app.use('/search-products',require('./Controllers/SearchPrdoucts/SearchProduts'))
+app.use('/search-products', require('./Controllers/SearchPrdoucts/SearchProduts'))
 
 app.use(userAuthentication)
 app.use('/logout', require('./Controllers/UserController/Logout'))

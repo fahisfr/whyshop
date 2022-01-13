@@ -2,50 +2,49 @@ import React, { useEffect } from 'react'
 import './Cart.css'
 import {  Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCart } from '../../Features/Cart'
-import Axios,{ImagePath} from '../../Axios'
+import { fetchCart, removeFromCart, changeProductQuantity, removeAllProducts } from '../../Features/Cart'
+import Axios, { ImagePath } from '../../Axios'
+
 
 import Navbar from '../../Components/Navbar/NavBar'
 
 
 
 function Cart() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-       dispatch(fetchCart())
-    },[dispatch])
     
-    const cart = useSelector(state => state.cart)
-    var changeQuantity = (count, id) => {
-        Axios.put('cart/change-product-quantity/' + id, { quantity: count, productID: id }).then(res => {
-            dispatch(fetchCart())
-        }).catch(err => {
-            dispatch(fetchCart())
+    const dispatch = useDispatch()
+    //  useEffect( () => {
+    // dispatch(fetchCart())
+    // },[dispatch])
+    const { cartInfo, error, loading } = useSelector(state => state.cart)
+    console.log(cartInfo)
+    
+    const changeQuantity = (quantity, id) => {
+        Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then(res => {
+            if (res.data.status) {
+                dispatch(changeProductQuantity({id,quantity}))
+            }
         })
     }
-    var removeCartProduct = id => {
+    const removeCartProduct = id => {
         Axios.put('cart/remove-product/' + id, { id: id }).then(res => {
-            console.log(res)
-            dispatch(fetchCart())
-        }).catch(err => {
-            dispatch(fetchCart())
+            if (res.data.status) {
+                dispatch(removeFromCart(id))}
         })
     }
-    function deleteAll() {
+    const  deleteAll =id => {
         Axios.delete('cart/remove-all-products').then(res => {
-            dispatch(fetchCart())
-        }).catch(err => {
-            dispatch(fetchCart())
+            if (res.data.status) {
+                dispatch(removeAllProducts())
+            }
         })
     }
     return (
         <div>
-
-        
             <Navbar></Navbar>
         <div className="cart-main">
             {
-                cart.cartInfo.length === 0 ?
+                cartInfo.length === 0 ?
                     <div className='cart-empty'>
                         <h1 >Cart empty</h1>
                     </div>
@@ -54,7 +53,7 @@ function Cart() {
                         <div className="cart-products-info">
                             <div className="cart-info-tag">
                                 <h1>FrShopping Cart</h1>
-                                <h1>{cart.cartInfo.lengt}Items</h1>
+                                <h1>Items</h1>
                             </div>
                             <div className="cart-info-list">
                                 <table >
@@ -70,10 +69,10 @@ function Cart() {
                                     </thead>
                                     <tbody>
                                         {
-                                            cart.cartInfo.map(product => {
+                                            cartInfo.map((product,index) => {
                                                 return (
-                                                    <tr>
-                                                        <td className='align-initial'>
+                                                    <tr key={index}>
+                                                        <td className='align-initial' >
                                                             <div className='cart-table-body-productname'>
                                                                 <img src={ImagePath(product.imageId)} alt="" />
                                                                 <h4>{product.name}</h4>

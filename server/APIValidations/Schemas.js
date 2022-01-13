@@ -28,7 +28,6 @@ const AddProduct = Joi.object({
 })
 
 const ChangeCartProductQuantity = Joi.object({
-    productID: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required(),
     quantity: Joi.number().valid(-.5,.5).required(),
 })
 

@@ -12,18 +12,17 @@ const PrdoductAddToCart = async (req, res) => {
         if (check) {
             cart.products.find(x => x.productID == req.params.id).quantity += 1
             cart.save()
-            res.json({ status: true, data: cart, message: 'Product Quantity Updated' })
+            res.json({ status: true, message: 'Product Quantity Updated' })
         } else {
             cart.products.push({ productID: Product._id, quantity: 1 })
             cart.save()
-            res.json({ status: true, data: cart, message: 'Product Added To Cart' })
+            res.json({ status: true, message: 'Product Added To Cart' })
 }
     } else {
         Cart.create({ userID: req.user.id, products: { productID: Product._id } }, (err, newcart) => {
             if (err) {
                 return res.status(500).json({ status: false, message: 'Filed Add To Cart' });
             } else {
-                console.log(newcart , "newcart");
                 res.json({ status: true, message: ' Product Added' })
             }
         })

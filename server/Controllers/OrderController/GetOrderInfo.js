@@ -8,8 +8,7 @@ const GetOrderInfo = async (req, res) => {
         console.log(order)
         res.json({ status: true, message: "Order List", order: order})
     }).catch(err => {
-        console.log(err);
-        res.json({ status: false, message: "no order found" })
+        res.status(400).json({ message: "no order found" })
     })
     
 }

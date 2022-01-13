@@ -3,15 +3,14 @@ import Axios from '../Axios'
 
 
 
-export const fetchProduts = createAsyncThunk('cart/fetchCart', async () => {
-    const response = await Axios.get('/cart').then(res => res.data)
+export const fetchProduts = createAsyncThunk('product/fetchproduct', async () => {
+    const response = await Axios.get('/product').then(res => res.data)
     return response
-}
-)
+})
 export const ProdutsSlice = createSlice({
     name: 'produts',
     initialState: {
-        cartInfo: [],
+        products: [],
         error: null,
         loading: false,
 
@@ -22,9 +21,8 @@ export const ProdutsSlice = createSlice({
         }
         ,
         [fetchProduts.fulfilled]: (state, action) => {
-            state.cartInfo = action.payload.cart
-            state.totle = action.payload.totleamout
-            state.status = action.payload.status
+            console.log(action.payload)
+            state.products = action.payload.products
             state.loading = false
         }
         ,

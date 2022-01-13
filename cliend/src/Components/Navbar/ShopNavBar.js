@@ -10,7 +10,6 @@ import Button from '@restart/ui/esm/Button';
 import SideBar from '../SideBar/SideBar'
 
 function ShopNavBar(props) {
-    console.log(useSelector(state => state.user.userInfo))
     const user = useSelector(state => state.user.userInfo.isAthu)
     const [sidebar, setsidebar] = useState(false)
     return (

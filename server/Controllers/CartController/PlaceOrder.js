@@ -30,10 +30,8 @@ const PlaceOrder = async (req, res) => {
                         res.json({ status: true, message: "Order Placed Successfully", })
                     }).catch(err => {
                         res.json({ status: false, message: "Order Placed Failed", })
-                        console.log(err);
                     })
                 }).catch(err => {
-                    console.log(err.message);
                     res.json({ status: false, message: "Oops! something went wrong please try again" })
                 })
             } else {
@@ -76,8 +74,7 @@ const PlaceOrder = async (req, res) => {
             })
         }
     } else {
-        res.json({ status: false, message: "Cart is empty" })
-    } 
+        res.status(400).json({ status: false, message: "Cart is empty" })} 
         
 }
 

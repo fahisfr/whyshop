@@ -6,7 +6,7 @@ var requestIp = require('request-ip');
 
 const AuthenticationController = (req, res) => {
     let auteheader = req.headers['authorization']
-    if (!auteheader) return res.status(200).json({ status: false, message: 'Token not found' })
+    if (!auteheader) return res.status(401).json({ status: false, message: 'Token not found' })
     jwt.verify(auteheader, `${process.env.ACCESS_TOKEN_SECRET}`, (err, decoded) => {
         if (decoded) {
             return res.status(200).json({
@@ -18,12 +18,7 @@ const AuthenticationController = (req, res) => {
                 },})
         } else { 
             console.log('User athu faild')
-            res.status(200).json({ UserInfo:{
-                name: '',
-                number: '',
-                role: '',
-                isAthu:false
-            } })
+            res.status(401).json({mesage:"Your token is invalid"})
         }
    
     })

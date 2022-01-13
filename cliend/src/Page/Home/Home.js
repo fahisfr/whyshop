@@ -3,30 +3,33 @@ import NavBar from '../../Components/Navbar/NavBar'
 
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react';
 import { fetchUser } from '../../Features/User'
-import Axios, { Image, ImagePath } from '../../Axios'
+import { fetchProduts } from '../../Features/Products'
+import {  addToCart } from '../../Features/Cart'
+import Axios, { ImagePath } from '../../Axios'
 
 function Home() {
-    const [products, setproducts] = useState([])
-    useEffect(() => {
-        dispatch(fetchUser())
-        Axios.get('/products').then(res => {
-            setproducts(res.data.products)
-        })
-
-
-    }, [])
-
     const dispatch = useDispatch()
+    
+    const { products, error, loading } = useSelector(state => state.products)
+    function AddTOCart(id, product) {
+        const {name, price, imageId, type} = product
+        Axios.put(`cart/add-to-cart/${id}`).then(res => {
+            if (res.data.status) {
+                dispatch(addToCart({_id:id,name,price,imageId,id,quantity:1}))
+            }
+        })
+    }
+    useEffect(() => {
+        dispatch(fetchProduts())
+    }, [])
+    
     var history = useNavigate();
     function findProductType(id) {
-        history('/products/' + id)
+        history('/shop/' + id)
     }
-    let obj = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]
-
-
     return (
         <div className='home-main' >
 
@@ -55,74 +58,28 @@ function Home() {
 
             <div className='recommend-products'>
                 {
-                    obj.map(res => {
+                    products.filter(res=>res.price<=100).map((product,index) => {
                         return (
-                            <div className='recommend-item' >
+                            <div className='recommend-item' key={index}>
                                 <div className='recommend-item-image'>
-                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
+                                    <img src={ImagePath(product.imageId)} alt='loading' />
                                 </div>
                                 <div className='recommend-item-name'>
-                                    <span>Orange</span>
+                                    <span>{product.name}</span>
                                 </div>
                                 <div className='recommend-item-pirce'>
-                                    <span>60 kg</span>
+                                    <span>{product.price}kg</span>
                                 </div>
                                 <div className='recommend-item-add2cart'>
-                                    <button >Add to cart</button>
+                                    <button onClick={()=>AddTOCart(product._id,product)} >Add to cart</button>
                                 </div>
                             </div>
+
                         )
                     })
                 }
-            </div>
-            <div className='recommend-products'>
-                {
-                    obj.map(res => {
-                        return (
-                            <div className='recommend-item' >
-                                <div className='recommend-item-image'>
-                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
-                                </div>
-                                <div className='recommend-item-name'>
-                                    <span>Orange</span>
-                                </div>
-                                <div className='recommend-item-pirce'>
-                                    <span>60 kg</span>
-                                </div>
-                                <div className='recommend-item-add2cart'>
-                                    <button >Add to cart</button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div className='recommend-products'>
-                {
-                    obj.map(res => {
-                        return (
-                            <div className='recommend-item' >
-                                <div className='recommend-item-image'>
-                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1FvcryfJtAgF7gXLlFBd1_E8oiU9oG1nPQ&usqp=CAU' alt='loading' />
-                                </div>
-                                <div className='recommend-item-name'>
-                                    <span>Orange</span>
-                                </div>
-                                <div className='recommend-item-pirce'>
-                                    <span>60 kg</span>
-                                </div>
-                                <div className='recommend-item-add2cart'>
-                                    <button >Add to cart</button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
 
-
-           
-
+            </div>
         </div>
 
 

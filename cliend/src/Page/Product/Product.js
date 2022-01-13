@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './Product.css'
 import NavBar from '../../Components/Navbar/NavBar'
-import { useParams } from 'react-router-dom'
-import Axios from '../../Axios'
-import './Product.css'
+// import { useParams } from 'react-router-dom'
+// import Axios from '../../Axios'
+
 
 function Product() {
-    var { id } = useParams()
-    id = id.split('=')[0]
-    const [mainProduct, setmainProduct] = useState()
-    const [Randomproduct, setproduct] = useState([])
 
     // useEffect(() => {
     //     Axios.get(`/products/${id}`).then(res => {
@@ -39,26 +35,22 @@ function Product() {
                 </div>
             </div>
             <div className='p-recommend'>
-                {
-                    obj.map(res => {
-                        return (
-                            <div className='recommend-item' >
-                                <div className='recommend-item-image'>
-                                    <img src='' alt='loading' />
-                                </div>
-                                <div className='recommend-item-name'>
-                                    <span></span>
-                                </div>
-                                <div className='recommend-item-pirce'>
-                                    <span></span>
-                                </div>
-                                <div className='recommend-item-add2cart'>
-                                    <button >Add to cart</button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
+
+                <div className='recommend-item' >
+                    <div className='recommend-item-image'>
+                        <img src='' alt='loading' />
+                    </div>
+                    <div className='recommend-item-name'>
+                        <span></span>
+                    </div>
+                    <div className='recommend-item-pirce'>
+                        <span></span>
+                    </div>
+                    <div className='recommend-item-add2cart'>
+                        <button >Add to cart</button>
+                    </div>
+                </div>
+
             </div>
 
 

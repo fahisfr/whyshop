@@ -11,13 +11,25 @@ export const OrderSlice = createSlice({
     name: 'order',
     initialState: {
         OrderInfo: [],
+        error: '',
+        loding: false,
     },
     extraReducers: {
         [fetchOrder.fulfilled]: (state, action) => {
+            state.loding=false
             state.OrderInfo = action.payload.order
-            
+
+        },
+        [fetchOrder.pending]: (state, action) => {
+            state.loding = true
+
+        },
+        [fetchOrder.rejected]: (state, action) => {
+            state.error = action.error
+            state.loding = false
 
         }
+
     }
 })
 export default OrderSlice.reducer;

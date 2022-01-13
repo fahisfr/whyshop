@@ -66,8 +66,7 @@ const CartProductTolal = UserID => {
     return new Promise((resolve, reject) => {
         Cart.aggregate([
             {
-                $match: { userID: objectid(UserID) }
-            },
+                $match: { userID: objectid(UserID) }},
             {
                 $unwind: "$products"
             },
@@ -102,14 +101,8 @@ const CartProductTolal = UserID => {
 
                 }
             }
-        ]).then(result => {
-            resolve(result[0].totalPrice);
-        }
-        ).catch(err => {
-            
-            reject({status: false, message: "Cart is empty"})
-        }
-        );
+        ]).then(result => {resolve(result[0].totalPrice);}
+        ).catch(err => {reject({status: false, message: "Cart is empty"})});
     })
 }
 
@@ -117,22 +110,9 @@ const CartProductTolal = UserID => {
 const getCartProductsInfo = async (req, res) => {
     let UsersID = req.user.id;
     Promise.all([getCartProduct(UsersID), CartProductTolal(UsersID)]).then(result => {
-        res.json({
-            status: true,
-            cart: result[0],
-            totalamout: result[1],
-        });
-    }
+        res.json({status: true,cart: result[0],totalamout: result[1],});}
     ).catch(err => {
-        res.json({
-            status: false,
-            cart:[],
-            message: err.message
-        });
-    }
-    );
-
-
+        res.status(400).json({status: false,message: err.message});});
 };
 
 module.exports = {

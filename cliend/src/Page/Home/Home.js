@@ -1,31 +1,18 @@
 
-import NavBar from '../../Components/Navbar/NavBar'
-
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react';
-import { fetchUser } from '../../Features/User'
-import { fetchProduts } from '../../Features/Products'
-import {  addToCart } from '../../Features/Cart'
-import Axios, { ImagePath } from '../../Axios'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { useEffect } from 'react';
+// import { fetchUser } from '../../Features/User'
+// import { fetchProduts } from '../../Features/Products'
+// import Axios, { ImagePath } from '../../Axios'
+// import { addToCart } from '../../Features/Cart'
+
+import NavBar from '../../Components/Navbar/NavBar'
+import RecomendBar from '../../Components/RecomendProducts/RecomendDIv';
+
 
 function Home() {
-    const dispatch = useDispatch()
-    
-    const { products, error, loading } = useSelector(state => state.products)
-    function AddTOCart(id, product) {
-        const {name, price, imageId, type} = product
-        Axios.put(`cart/add-to-cart/${id}`).then(res => {
-            if (res.data.status) {
-                dispatch(addToCart({_id:id,name,price,imageId,id,quantity:1}))
-            }
-        })
-    }
-    useEffect(() => {
-        dispatch(fetchProduts())
-    }, [])
-    
     var history = useNavigate();
     function findProductType(id) {
         history('/shop/' + id)
@@ -46,7 +33,7 @@ function Home() {
                     <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg' alt='loadnig' />
                     <span>Fruits</span>
                 </div>
-                <div className='product-type-cart'>
+                <div className='product-type-cart' onClick={() => findProductType('sweets')}>
                     <img src='https://gomadevi.com/public/uploads/products/photos/OloI1ASQusuEsPzk30CrR0DltjIOjybqdvxQU112.jpeg' alt='loadnig' />
                     <span>Sweets</span>
                 </div>
@@ -55,34 +42,9 @@ function Home() {
                     <span>idonow</span>
                 </div>
             </div>
-
-            <div className='recommend-products'>
-                {
-                    products.filter(res=>res.price<=100).map((product,index) => {
-                        return (
-                            <div className='recommend-item' key={index}>
-                                <div className='recommend-item-image'>
-                                    <img src={ImagePath(product.imageId)} alt='loading' />
-                                </div>
-                                <div className='recommend-item-name'>
-                                    <span>{product.name}</span>
-                                </div>
-                                <div className='recommend-item-pirce'>
-                                    <span>{product.price}kg</span>
-                                </div>
-                                <div className='recommend-item-add2cart'>
-                                    <button onClick={()=>AddTOCart(product._id,product)} >Add to cart</button>
-                                </div>
-                            </div>
-
-                        )
-                    })
-                }
-
-            </div>
+            <RecomendBar pricelimit={10} pricemax={100}/>
+            <RecomendBar pricelimit={70} pricemax={150}  />
         </div>
-
-
     )
 }
 

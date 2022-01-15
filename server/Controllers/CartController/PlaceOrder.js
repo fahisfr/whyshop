@@ -65,7 +65,7 @@ const PlaceOrder = async (req, res) => {
                 }).then(async (response) => {
                     order.paymentID = response.id;
                     await order.save();
-                    res.json({ status: true, message: "Order Placed Successfully", order: response })
+                    res.json({ status: "razorpay", message: "Order Placed Successfully", order: response })
                 }).catch(err => {
                     res.json({ status: false, message: "Oops! something went wrong please try again" })
                 })

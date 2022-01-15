@@ -39,7 +39,7 @@ function Signup() {
                         <input type="password" placeholder="Enther password"
                             value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)}
                         />
-                            <Link to='/login'><span>Already have an account?</span></Link>
+                        <Link className='remove-line' to='/login'><span>Already have an account?</span></Link>
                             <button  onClick={sumbitform}>Signup</button>
                         </form>
                     </div>

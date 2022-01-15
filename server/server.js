@@ -8,12 +8,12 @@ var PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser')
 var userAuthentication = require('./Middlewares/UserAuthentication')
-db.connect('mongodb://localhost:27017/whyshop', (err, data) => {
-    if (err) return err
+db.connect('mongodb+srv://fahis:cliendaccess@orange.cxvo4.mongodb.net/whyshopDB?retryWrites=true&w=majority', (err, data) => {
+    if (err) {
+        console.log(err)
+    }  
     console.log('database is on ');
 }) 
-
-
 
 app.use(express.json());
 app.use(cookieParser())

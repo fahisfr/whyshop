@@ -11,14 +11,12 @@ import Navbar from '../../Components/Navbar/NavBar'
 
 
 function Cart() {
-    
     const dispatch = useDispatch()
-    //  useEffect( () => {
-    // dispatch(fetchCart())
-    // },[dispatch])
-    const { cartInfo, error, loading } = useSelector(state => state.cart)
-    console.log(cartInfo)
-    
+    useEffect( () => {
+    dispatch(fetchCart())
+    },[dispatch])
+    const { cartInfo} = useSelector(state => state.cart)
+  
     const changeQuantity = (quantity, id) => {
         Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then(res => {
             if (res.data.status) {

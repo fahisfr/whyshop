@@ -20,8 +20,8 @@ function Login() {
                 dispatch(login({name:result.data.name,number:result.data.number}))
                 navigate('/')
             } else {
-                alert('login failed')
-                dispatch(login({name:'',number:''}))
+                alert(result.data.message)
+                
             }
         })
     }
@@ -34,7 +34,7 @@ function Login() {
                 </div>
                 <div className='signup-box-2'>
                     <form className="signup-2-from">
-                        <h1>Join to account</h1>
+                        <h1>Login</h1>
                         <label>Phone</label>
                         <input type="number" value={number} placeholder="Phone Number"
                                onChange={(e)=>setnumber(e.target.value)}

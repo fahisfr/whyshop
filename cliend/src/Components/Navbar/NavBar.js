@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate  } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BiCart, BiSearch } from "react-icons/bi";
 
 import { FiAlignLeft, FiArchive, } from "react-icons/fi";
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import Button from '@restart/ui/esm/Button';
 
 import SideBar from '../SideBar/SideBar'
-import Axios ,{ImagePath} from '../../Axios'
+import Axios, { ImagePath } from '../../Axios'
 
 function NavBar(props) {
     const history = useNavigate()
@@ -16,8 +16,8 @@ function NavBar(props) {
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])
     function SearchProduts(value) {
-        if (value ==='')return setresult([])
-        Axios.get('/search-products/'+value, { id:value }).then(res => {
+        if (value === '') return setresult([])
+        Axios.get('/search-products/' + value, { id: value }).then(res => {
             setresult(res.data.data)
         }).catch(err => {
             console.log(err)
@@ -35,30 +35,28 @@ function NavBar(props) {
             </div>
 
             <div className='nav-3-box'>
-                <input type='text' max={12} className='nav-search-input' onChange={(e)=>SearchProduts(e.target.value)} placeholder='search for products'></input>
-                <button><BiSearch size={22} /></button>
-                {
-                    result.length !== 0 && (
-                        <div className='nav-search-result'>
-                            {
-                                result.slice(0, 9).map((item,index) => {
-                                    return ( 
-                                        <div className='nav-search-result-item' onClick={()=>history(`product/${item.type}=${item.name}`)} key={index}>
-                                            <img src={ImagePath(item.imageId)} alt='product' />
-                                            <span>{item.name}</span>
-
-                                        </div>
-
-
-                                    )
-                                })
-                            }
-                        </div>
-                    )
-                        
-                }
+                <div className='nav-3-1'>
+                    <input type='text' max={12} className='nav-search-input' onChange={(e) => SearchProduts(e.target.value)} placeholder='search for products'></input>
+                    <button><BiSearch size={22} /></button>
+                </div>
                 
-
+                    {
+                        result.length !== 0 && (
+                            <div className='nav-search-result'>
+                                {
+                                    result.slice(0, 9).map((item, index) => {
+                                        return (
+                                            <div className='nav-search-result-item' onClick={() => history(`product/${item.name}`)} key={index}>
+                                                <img src={ImagePath(item.imageId)} alt='product' />
+                                                <span>{item.name}</span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    }
+               
             </div>
 
 

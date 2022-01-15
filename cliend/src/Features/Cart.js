@@ -22,7 +22,7 @@ export const CartSlice = createSlice({
         },
         changeProductQuantity: (state, action) => {
             console.log("redux",action.payload)
-            state.cartInfo.find(itme => itme.id === action.payload.id).quantity += action.payload.quantity
+            state.cartInfo.find(itme => itme._id === action.payload.id).quantity += action.payload.quantity
         },
         removeFromCart: (state, action) => {
             state.cartInfo.splice(state.cartInfo.findIndex(itme=> itme.id===action.payload.id),1)

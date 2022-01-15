@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './Checkout.css'
 import Axios from '../../Axios'
+// import { useSelector } from 'react-redux'
 
-import { useSelector} from 'react-redux'
 
 function loadRazorpay(src) {
     return new Promise(resolve => {
@@ -25,13 +25,14 @@ function loadRazorpay(src) {
 
 
 function Order() {
-    const cart = useSelector(state => state.cart)
+    const navigate = useNavigate()
+    // const cart = useSelector(state => state.cart)
     const [name, setname] = useState('')
     const [number, setnumber] = useState()
     const [city, setcity] = useState('')
     const [landmark, setlademark] = useState('')
     const [paymentType, setpaymentType] = useState('')
- 
+
     async function displayRazor(Order) {
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
         if (!res) {
@@ -54,6 +55,7 @@ function Order() {
                     Axios.post('order/verifypayment', { order: response }).then(res => {
                         if (res.data.status) {
                             alert("Payment Successfull")
+                            navigate('/')
                         } else {
                             alert("Payment Failed")
                         }
@@ -61,8 +63,8 @@ function Order() {
                 },
                 "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
                 "prefill": {
-                    "name": "Gaurav Kumar",
-                    "email": "gaurav.kumar@example.com",
+                    "name": "Fahis",
+                    "email": "TestMode.kumar@example.com",
                     "contact": "9999999999"
                 },
                 "notes": {
@@ -81,7 +83,12 @@ function Order() {
         e.preventDefault()
         Axios.post('cart/place-order', { name: name, number: number, city: city, lademark: landmark, paymentType: paymentType }).then(res => {
             if (res.data.status) {
+                alert('Order palced successfully')
+                navigate('/')
+            
+            } else if (res.data.status ==="razorpay"){
                 displayRazor(res.data.order)
+
             }
 
         }).catch(err => {
@@ -93,13 +100,19 @@ function Order() {
     return (
 
         <div className='checkout-container'>
-            {
-                cart.cartInfo.length === 0 ? <Navigate to='/cart' /> :
-                    <><div className="order-addressinfo">
-                        <input type="text" placeholder='name'
-                            value={name} onChange={(e) => setname(e.target.value)} />
-                        <input type="number" placeholder='Number'
-                            value={number} onChange={(e) => setnumber(e.target.value)} />
+            <div className='checkout-form'>
+                <h1 className='checkout-from-tital'>Checkout</h1>
+                <form onSubmit={OrderNow}>
+                    <div className='checkout-form-input'>
+                        <label>Name</label>
+                        <input type='text' value={name} onChange={(e) => setname(e.target.value)}></input>
+                    </div>
+                    <div className='checkout-form-input'>
+                        <label>Number</label>
+                        <input type='text' value={number} onChange={(e) => setnumber(e.target.value)}></input>
+                    </div>
+                    <div className='checkout-form-input'>
+                        <label>City</label>
                         <select name="selectList" id="selectList" value={city}
                             onChange={(e) => setcity(e.target.value)}>
 
@@ -108,27 +121,32 @@ function Order() {
                             <option value="Oorakam">Oorakam</option>
                             <option value="option 3">karibele</option>
                         </select>
-                        <input type="text" placeholder='ladee mark/road name'
-                            value={landmark} onChange={(e) => setlademark(e.target.value)} />
-                    </div><div className='order-billinginfo'>
-                            <h1>Totale</h1>
-                            <div>
-                                <input type="radio" name="paymentType" value="COD"
-                                    checked={paymentType === 'COD'}
-                                    onChange={(e) => setpaymentType(e.target.value)} />
-                                <label>COD</label>
-                                <input type="radio" name="paymentType" value="Online"
-                                    checked={paymentType === 'Online'}
-                                    onChange={(e) => setpaymentType(e.target.value)} />
-                                <label>Online</label>
+                    </div>
+                    <div className='checkout-form-input'>
+                        <label>Landmark</label>
+                        <input type='text' value={landmark} onChange={(e) => setlademark(e.target.value)}></input>
+                    </div>
 
-                            
+                    <label>Paymen Type</label>
+                    <div className='order-billinginfo'>
+                        <input type="radio" name="paymentType" value="Online"
+                            checked={paymentType === 'Online'}
+                            onChange={(e) => setpaymentType(e.target.value)} />
+                        <label>Online</label>
+                        <input type="radio" name="paymentType" value="COD"
+                            checked={paymentType === 'COD'}
+                            onChange={(e) => setpaymentType(e.target.value)} />
+                        <label>Cash On Delivery</label>
 
 
-                            </div>
-                            <button onClick={OrderNow}>Order Now</button>
-                        </div></>
-            }
+
+
+                    </div>
+                    <div className='checkout-form-button'>
+                        <button onClick={OrderNow} className='order-button'>Order Now</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

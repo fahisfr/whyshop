@@ -10,7 +10,7 @@ function Products() {
     const { id } = useParams();
     const [products, setproducts] = useState([])
     const [Search, setSearch] = useState('')
-
+    console.log(Search)
     function addproduct(id) {
         Axios.put(`cart/add-to-cart/${id}`).then(res => {
             
@@ -25,9 +25,6 @@ function Products() {
             
             }
         })
-        return () => {
-            console.log('unmount');
-        }
     }, [id])
     return (
         <div className='shop-main'>

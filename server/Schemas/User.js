@@ -6,7 +6,7 @@ var user = new db.Schema({
     number: { type: Number, required: true, unique: true },
     role: {
         type: Number,
-        enum: Object.values(Role_List),
+        // enum: Object.values(Role_List),
         default:Role_List.user,
     },
     password: { type: String, required: true },

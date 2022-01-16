@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:4000/';
+const baseURL = 'frbots.com';
 
 export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;
 

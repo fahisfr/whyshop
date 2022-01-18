@@ -1,7 +1,7 @@
 .home-main{
     width: 100%;
     height:auto;
-    background-color: #dfecee;
+    background-color: #e9f9fc;
     display: flex;
     flex-direction: column;
   
@@ -12,9 +12,6 @@
   display: flex;
   height: 300px;
   background-color: white;
-  margin-top: 64px;
-
-  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px; */
 }
 .home-1-box img{
   width: 100%;
@@ -26,6 +23,7 @@
   height: 200px;
   margin-left: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.938);
   display: flex;
   justify-content: space-evenly;

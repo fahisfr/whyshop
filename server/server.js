@@ -4,15 +4,14 @@ var db    = require('mongoose')
 var cors = require('cors')
 var morgan = require('morgan')
 const path = require('path')
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser')
 var userAuthentication = require('./Middlewares/UserAuthentication')
 db.connect('mongodb+srv://fahis:cliendaccess@orange.cxvo4.mongodb.net/whyshopDB?retryWrites=true&w=majority', (err, data) => {
-    if (err) {
-        console.log(err)
-    }  
-    console.log('database is on ');
+    if (err) return console.log(err)
+    console.log('database on ')
+    
 }) 
 
 app.use(express.json());

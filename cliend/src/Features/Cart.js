@@ -25,7 +25,8 @@ export const CartSlice = createSlice({
             state.cartInfo.find(itme => itme._id === action.payload.id).quantity += action.payload.quantity
         },
         removeFromCart: (state, action) => {
-            state.cartInfo.splice(state.cartInfo.findIndex(itme=> itme.id===action.payload.id),1)
+            //remove product in cart use array
+            state.cartInfo = state.cartInfo.filter(item => item._id !== action.payload)
         },
         removeAllProducts: (state, action) => {
             state.cartInfo = []

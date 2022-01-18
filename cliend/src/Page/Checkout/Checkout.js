@@ -137,10 +137,6 @@ function Order() {
                             checked={paymentType === 'COD'}
                             onChange={(e) => setpaymentType(e.target.value)} />
                         <label>Cash On Delivery</label>
-
-
-
-
                     </div>
                     <div className='checkout-form-button'>
                         <button onClick={OrderNow} className='order-button'>Order Now</button>

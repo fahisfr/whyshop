@@ -2,18 +2,19 @@
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
 // import { useDispatch, useSelector } from 'react-redux'
-// import { useEffect } from 'react';
-// import { fetchUser } from '../../Features/User'
-// import { fetchProduts } from '../../Features/Products'
-// import Axios, { ImagePath } from '../../Axios'
-// import { addToCart } from '../../Features/Cart'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchCart} from '../../Features/Cart'
 import NavBar from '../../Components/Navbar/NavBar'
 import RecomendBar from '../../Components/RecomendProducts/RecomendDIv';
+import { useEffect } from 'react';
 
 
 function Home() {
     var history = useNavigate();
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchCart())
+    }, [dispatch])
     function findProductType(id) {
         history('/shop/' + id)
     }
@@ -22,7 +23,7 @@ function Home() {
 
             <NavBar />
             <div className="home-1-box">
-                <img src="" alt='loading' />
+                <img src="" style={{maxWidth:"100%"}} alt='loading' />
             </div>
             <div className='hom-2-product-types'>
                 <div className='product-type-cart' name='Vegtables' onClick={(e) => findProductType('vegetables')}>
@@ -39,11 +40,11 @@ function Home() {
                 </div>
                 <div className='product-type-cart'>
                     <img src='' alt='loading' />
-                    <span>idonow</span>
                 </div>
             </div>
             <RecomendBar pricelimit={10} pricemax={100}/>
-            <RecomendBar pricelimit={70} pricemax={150}  />
+            <RecomendBar pricelimit={70} pricemax={150} />
+            <RecomendBar pricelimit={10} pricemax={150} />
         </div>
     )
 }

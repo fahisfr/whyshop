@@ -6,8 +6,7 @@ function PageNotFount() {
     useEffect(() => {
         Axios.get('cliend/orders').then(res => {
             console.log(res)
-        })
-        
+        }) 
     },)
     return (
         <div>

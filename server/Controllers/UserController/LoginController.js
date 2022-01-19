@@ -13,7 +13,7 @@ const handleLogin = (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
-                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: '2h' });
+                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: '4h' });
                     let refreshtoken = jwt.sign({ id: user._id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1d' });
                     user.refreshToken = refreshtoken;
                     user.save();

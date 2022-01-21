@@ -140,7 +140,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 .cart-bill{
     width: 100%;
@@ -208,6 +207,12 @@
 }
 .c-p-total{
     display: none;
+}
+
+.cart-is-empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width:745px) {
@@ -290,7 +295,6 @@
     width:20%;
     height:100%;
     display: flex;
-    justify-content:start;
     align-items: center;
 }
 .cart-left-body-product-image img{

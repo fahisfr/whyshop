@@ -17,7 +17,7 @@ function Login() {
                 alert('Login Successfully')
                 console.log(result.data);
                 localStorage.setItem('accesstoken', result.data.accesstoken)
-                dispatch(login({name:result.data.name,number:result.data.number}))
+                dispatch(login({ name: result.data.name, number: result.data.number, isAthu: true}))
                 navigate('/')
             } else {
                 alert(result.data.message)
@@ -28,7 +28,6 @@ function Login() {
     return (
         <div className='signup-container'>
             <div className="signup-box">
-
                 <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
                 </div>
@@ -43,9 +42,8 @@ function Login() {
                         <input type="password" placeholder="Enther Password"
                             value={password} onChange={(e)=>setpassword(e.target.value)}
                         />
-                       
                         <Link className='remove-line' to='/signup'><span>Create a new account</span></Link>
-                        <button onClick={loginform} >Signup</button>
+                        <button onClick={loginform} >Login</button>
                     </form>
                 </div>
             </div>

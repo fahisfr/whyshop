@@ -37,7 +37,7 @@ function App() {
           <Route path='product/:id'element={<Product />} />
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-          <Route path="/place-order" element={<PlaceOrder/> }/>
+          <Route path="/checkout" element={<PlaceOrder/> }/>
           <Route path='/whyadmin' element={<UpdateTap />} />
           <Route path='/order' element={<Order />} />
 

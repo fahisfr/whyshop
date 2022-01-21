@@ -13,15 +13,25 @@ export const  userSlice = createSlice({
         userInfo: {
             name: '',
             number: '',
+            role: '',
+            isAthu: false,
         },
         error: '',
         loading: false,
-        isAthu:false,
+        
     },
     reducers: {
         login: (state, action) => {
             state.userInfo = action.payload;
 
+        },
+        logout: (state, action) => {
+            state.userInfo = {
+                name: '',
+                number: '',
+                role: '',
+                isAthu: false,
+            }
         }
     }, extraReducers: {
         [fetchUser.fulfilled]: (state, action) => {
@@ -38,6 +48,6 @@ export const  userSlice = createSlice({
     }
 })
 
-export const {login} = userSlice.actions;
+export const {login,logout} = userSlice.actions;
 
 export default userSlice.reducer;

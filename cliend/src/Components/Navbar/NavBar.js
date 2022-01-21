@@ -12,7 +12,7 @@ import Axios, { ImagePath } from '../../Axios'
 
 function NavBar(props) {
     const history = useNavigate()
-    const user = useSelector(state => state.user.userInfo.isAthu)
+    const {isAthu} = useSelector(state => state.user.userInfo)
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])
     function SearchProduts(value) {
@@ -29,17 +29,14 @@ function NavBar(props) {
             <div className='nav-1-box'>
                 <FiAlignLeft size={37} onClick={(e) => setsidebar(!sidebar)} color=' white' />
             </div >
-
             <div className='nav-2-box'>
                 <Link to='/'><h1>WhyShop<span>.com</span></h1></Link>
             </div>
-
             <div className='nav-3-box'>
                 <div className='nav-3-1'>
                     <input type='text' max={12} className='nav-search-input' onChange={(e) => SearchProduts(e.target.value)} placeholder='search for products'></input>
                     <button><BiSearch size={22} /></button>
                 </div>
-                
                     {
                         result.length !== 0 && (
                             <div className='nav-search-result'>
@@ -56,11 +53,8 @@ function NavBar(props) {
                             </div>
                         )
                     }
-               
             </div>
-
-
-            {user ? <div className='nav-4-box'>
+            {isAthu ? <div className='nav-4-box'>
                 <Link to='/order'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
                 <Link to='/cart'><BiCart size={31} color='white' /></Link><span  >Cart</span>
             </div>

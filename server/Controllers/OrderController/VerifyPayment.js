@@ -1,7 +1,7 @@
-var crypto = require('crypto')
-var order = require('../../Schemas/Order')
-var Cart = require('../../Schemas/Cart')
-var objectid = require('mongodb').ObjectId
+const crypto = require('crypto')
+const order = require('../../Schemas/Order')
+const Cart = require('../../Schemas/Cart')
+const objectid = require('mongodb').ObjectId
 const verifyPayment =async ( req, res) => {
     req.body = req.body.order
     console.log(req.body)

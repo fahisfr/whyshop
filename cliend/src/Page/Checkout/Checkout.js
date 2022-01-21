@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import './Checkout.css'
 import Axios from '../../Axios'
 // import { useSelector } from 'react-redux'
-
+import {  useDispatch } from 'react-redux'
+import { Checkout } from '../../Features/Cart'
 
 function loadRazorpay(src) {
+ 
     return new Promise(resolve => {
         const script = document.createElement("script");
         script.src = src
         document.body.appendChild(script);
-        console.log(script)
         script.onload = () => {
             resolve(true);
 
@@ -22,27 +23,20 @@ function loadRazorpay(src) {
     })
 }
 
-
-
 function Order() {
     const navigate = useNavigate()
-    // const cart = useSelector(state => state.cart)
     const [name, setname] = useState('')
     const [number, setnumber] = useState()
     const [city, setcity] = useState('')
     const [landmark, setlademark] = useState('')
     const [paymentType, setpaymentType] = useState('')
-
+    const dispatch = useDispatch()
     async function displayRazor(Order) {
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
         if (!res) {
             alert("Razorpay is not loaded are you offline")
             return
-
-
         } else {
-            console.log("Razorpay is loaded")
-
             var options = {
                 "key": "rzp_test_lFLdi5y9B4LWvU", // Enter the Key ID generated from the Dashboard
                 "amount": Order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -55,6 +49,7 @@ function Order() {
                     Axios.post('order/verifypayment', { order: response }).then(res => {
                         if (res.data.status) {
                             alert("Payment Successfull")
+                            dispatch(Checkout())
                             navigate('/')
                         } else {
                             alert("Payment Failed")
@@ -82,15 +77,15 @@ function Order() {
     function OrderNow(e) {
         e.preventDefault()
         Axios.post('cart/place-order', { name: name, number: number, city: city, lademark: landmark, paymentType: paymentType }).then(res => {
-            if (res.data.status) {
-                alert('Order palced successfully')
-                navigate('/')
-            
-            } else if (res.data.status ==="razorpay"){
+            if (res.data.razorpay) {
                 displayRazor(res.data.order)
-
+            
+            } else if (res.data.status) {
+                alert("Order Placed Successfully")
+                dispatch(Checkout())
+                navigate('/')
+                
             }
-
         }).catch(err => {
             alert(err.data.message)
         })

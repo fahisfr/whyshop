@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
 // import { useDispatch, useSelector } from 'react-redux'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchCart} from '../../Features/Cart'
 import NavBar from '../../Components/Navbar/NavBar'
 import RecomendBar from '../../Components/RecomendProducts/RecomendDIv';
@@ -20,7 +20,6 @@ function Home() {
     }
     return (
         <div className='home-main' >
-
             <NavBar />
             <div className="home-1-box">
                 <img src="" style={{maxWidth:"100%"}} alt='loading' />

@@ -56,15 +56,13 @@ function Order() {
                                             <td className='order-ceanter-td' >
                                                 {Product.paymentStatus === 'Success' ? "Payed" : "Cash On Delivery"}
                                             </td>
-                                            <td className='order-ceanter-td' >{ Product.OrderAt}</td>
-                                            <td className='order-ceanter-td'>
-                                                {Product.OrderStatus}
-                                                
+                                        </tr>
+                                    )
 
-                                            </td>
-                                        </tr>)
-                                })
-                                }
+
+                                })}
+
+
                             </tbody>
                         </table>
                     </div>

@@ -12,8 +12,8 @@ export const CartSlice = createSlice({
     name: 'cart',
     initialState: {
         cartInfo: [],
-        error:'',
-        total:0,
+        error: '',
+        total: 0,
     },
     reducers: {
         addToCart: (state, action) => {
@@ -21,16 +21,18 @@ export const CartSlice = createSlice({
             state.cartInfo.push(action.payload)
         },
         changeProductQuantity: (state, action) => {
-            console.log("redux",action.payload)
+            action.payload.quantity === .5 ? state.total += action.payload.price : state.total -= action.payload.price
             state.cartInfo.find(itme => itme._id === action.payload.id).quantity += action.payload.quantity
         },
         removeFromCart: (state, action) => {
-            //remove product in cart use array
             state.cartInfo = state.cartInfo.filter(item => item._id !== action.payload)
         },
         removeAllProducts: (state, action) => {
             state.cartInfo = []
         },
+        Checkout: (state, action) => {
+            state.cartInfo = []
+        }
     },
     extraReducers: {
         [fetchCart.pending]: (state, action) => {
@@ -40,7 +42,7 @@ export const CartSlice = createSlice({
         [fetchCart.fulfilled]: (state, action) => {
             state.cartInfo = action.payload.cart
             state.total = action.payload.totalamout
-            state.totle=action.payload.totleamout
+            state.totle = action.payload.totleamout
             state.loading = false
         }
         ,
@@ -50,5 +52,5 @@ export const CartSlice = createSlice({
         }
     }
 })
-export const { addToCart,changeProductQuantity,removeFromCart,removeAllProducts} = CartSlice.actions;
+export const { addToCart, changeProductQuantity, removeFromCart, removeAllProducts,Checkout } = CartSlice.actions;
 export default CartSlice.reducer;

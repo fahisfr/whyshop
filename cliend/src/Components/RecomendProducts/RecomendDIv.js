@@ -16,8 +16,7 @@ function RecomendBar(props) {
     const { products } = useSelector(state => state.products)
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
-
-
+   
     useEffect(() => {
         if (products.length === 0) {
             dispatch(fetchProduts())

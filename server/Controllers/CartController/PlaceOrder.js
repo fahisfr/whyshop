@@ -1,10 +1,9 @@
-
 const Razorpay = require('razorpay')
-var Cart = require('../../Schemas/Cart')
-var Order = require('../../Schemas/Order')
-var GetCartInfo = require('./GetCartInfo')
+const Cart = require('../../Schemas/Cart')
+const Order = require('../../Schemas/Order')
+const GetCartInfo = require('./GetCartInfo')
 var objectid = require('mongodb').ObjectId
-var instance = new Razorpay({
+const instance = new Razorpay({
     key_id: 'rzp_test_lFLdi5y9B4LWvU',
     key_secret: 'vbG8Jl9hj7gEGbX1n3n8ir4n',
 });
@@ -65,7 +64,7 @@ const PlaceOrder = async (req, res) => {
                 }).then(async (response) => {
                     order.paymentID = response.id;
                     await order.save();
-                    res.json({ status: "razorpay", message: "Order Placed Successfully", order: response })
+                    res.json({razorpay:true, message: "Order Placed Successfully", order: response })
                 }).catch(err => {
                     res.json({ status: false, message: "Oops! something went wrong please try again" })
                 })

@@ -16,7 +16,8 @@ db.connect('mongodb+srv://fahis:cliendaccess@orange.cxvo4.mongodb.net/whyshopDB?
 
 app.use(express.json());
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 app.use(cors())
 app.use(morgan('dev'))
@@ -37,10 +38,8 @@ app.use('/order', require('./Routes/Order'))
 app.use('/admin', require('./Routes/Admin'))
 
 
-//
-app.use('*', (req, res) => {
-    //send the index.html file for all the requests
-    res.sendFile(path.join(__dirname, 'public/static/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
 app.listen(PORT, () => console.log('Server is running on port 4000'))

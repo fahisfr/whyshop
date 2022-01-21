@@ -4,19 +4,14 @@ import './Shop.css'
 import { useParams } from 'react-router-dom'
 import Axios, { ImagePath } from '../../Axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCart,changeProductQuantity,addToCart,removeFromCart } from '../../Features/Cart'
+import {changeProductQuantity,addToCart,removeFromCart } from '../../Features/Cart'
 
 function Products() {
     const { id } = useParams();
     const [products, setproducts] = useState([])
-    const [Search, setSearch] = useState('')
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
-    function addproduct(id) {
-        Axios.put(`cart/add-to-cart/${id}`).then(res => {
-            
-        })
-    }
+   
     
     useEffect(() => {
         Axios.get('/shop/' + id).then((result) => {
@@ -57,7 +52,7 @@ function Products() {
 
     return (
         <div className='shop-main'>
-            <NavBar setSearch={setSearch} />
+            <NavBar/>
             <div className='shop-container'>
                 <div className='shop-1-helper'> 
                 </div>

@@ -13,14 +13,12 @@ import { addToCart, changeProductQuantity,removeFromCart} from '../../Features/C
 
 function RecomendBar(props) {
     const history = useNavigate()
-    const { products } = useSelector(state => state.products)
+    const { products,loading,error } = useSelector(state => state.products)
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
    
     useEffect(() => {
-        if (products.length === 0) {
-            dispatch(fetchProduts())
-        }
+        dispatch(fetchProduts())
     }, [dispatch])
     const changeQuantity = (quantity, id) => {
         dispatch(changeProductQuantity({ id, quantity }))

@@ -2,7 +2,6 @@
 .shop-container{
     width:100%;
     display: flex;
-    padding-top: 63px;
 }
 .shop-1-helper{
     width:20%;
@@ -131,7 +130,6 @@
     .shop-container{
     width:100%;
     display: flex;
-    padding-top: 107px;
     }
     .shop-1-helper{
         display: none;

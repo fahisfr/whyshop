@@ -10,7 +10,15 @@ export const fetchProduts = createAsyncThunk('product/fetchproduct', async () =>
 export const ProdutsSlice = createSlice({
     name: 'produts',
     initialState: {
-        products: [],
+        products: [{
+            availiabel: true,
+            createdAt: "2022-01-04T18:11:47.340Z",
+            imageId: "apple1641320065790",
+            name: "Apple",
+            price: 90,
+            quantity: 130,
+            type: "fruits",
+        }],
         error: null,
         loading: false,
 

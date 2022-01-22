@@ -13,7 +13,7 @@ import { addToCart, changeProductQuantity,removeFromCart} from '../../Features/C
 
 function RecomendBar(props) {
     const history = useNavigate()
-    const { products,loading,error } = useSelector(state => state.products)
+    const { products} = useSelector(state => state.products)
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
    

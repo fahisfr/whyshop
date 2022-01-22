@@ -5,9 +5,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const path = require('path')
 const PORT = process.env.PORT || 3000;
-const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
-const { lookup } = require('geoip-lite');
 const IsAthu = require('./Middlewares/UserAuthentication')
 db.connect('mongodb+srv://fahis:cliendaccess@orange.cxvo4.mongodb.net/whyshopDB?retryWrites=true&w=majority', (err, data) => {
     if (err) return console.log(err)
@@ -35,9 +33,6 @@ app.use('/api/order',IsAthu,require('./Routes/Order'))
 app.use('/api/admin',IsAthu,require('./Routes/Admin'))
 
 app.get('*', (req, res) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log("user ip is"+ip)
-    console.log(lookup(ip));
     res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 

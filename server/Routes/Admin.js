@@ -1,5 +1,5 @@
 const express = require('express')
-const Role    = require('../Config/Role')
+const Role    = require('../Config/Roles')
 const route   = express.Router()
 const multers = require('multer')
 const upload  = multers()
@@ -9,13 +9,14 @@ const ApiValidation     = require('../APIValidations/APIValidation')
 const AdminController   = require('../Controllers/AdminController/AddProduct')
 const GetOrdersInfo     = require('../Controllers/AdminController/GetUsersOrders')
 const ChangeOrderStatus = require('../Controllers/AdminController/ChangeOrderStatus')
+const EditeProduct      = require('../Controllers/AdminController/EditProduct')
 
 
-route.get('/orders', Rolemiddleware(Role.admin, Role.superadmin, Role.employee), GetOrdersInfo)
-route.put('/order/change-status/:id', Rolemiddleware(Role.admin, Role.superadmin, Role.employee),ChangeOrderStatus)
+route.get('/orders', Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee), GetOrdersInfo)
+route.put('/order/change-status/:id', Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee),ChangeOrderStatus)
 route.post('/addproduct', upload.single("image"), ApiValidation.AddProductAPIValidation,
-    Rolemiddleware(Role.admin, Role.superadmin,), AdminController)
-     
+    Rolemiddleware(Role.Admin,Role.SuperAdmin,), AdminController)
+route.post('/editproduct/:id',EditeProduct)
 
 
 

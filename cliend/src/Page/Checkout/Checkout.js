@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Checkout.css'
 import Axios from '../../Axios'
-// import { useSelector } from 'react-redux'
-import {  useDispatch } from 'react-redux'
+import {  useDispatch,useSelector } from 'react-redux'
 import { Checkout } from '../../Features/Cart'
+import Loading from '../../Components/Loading/Loading'
+import Pop from '../../Components/Pop/Pop'
 
-function loadRazorpay(src) {
+const  loadRazorpay=(src)=> {
  
     return new Promise(resolve => {
         const script = document.createElement("script");
@@ -22,15 +23,25 @@ function loadRazorpay(src) {
         document.body.appendChild(script);
     })
 }
-
 function Order() {
     const navigate = useNavigate()
-    const [name, setname] = useState('')
-    const [number, setnumber] = useState()
+    const dispatch = useDispatch()
+    const [pop, setpop] = useState({ status:false, message: '' })
+    const { userInfo } = useSelector(state => state.user)
+    const [name, setname] = useState(userInfo.name)
+    const [number, setnumber] = useState(userInfo.number)
     const [city, setcity] = useState('')
     const [landmark, setlademark] = useState('')
     const [paymentType, setpaymentType] = useState('')
-    const dispatch = useDispatch()
+    const [loading, setloading] = useState(false)
+    const OrderSuccess = (message) => {
+        setloading(false)
+        dispatch(Checkout())
+        setTimeout(() => {
+            navigate('/')
+        }, 8000);
+        setpop({ status: true, message:message })
+    }
     async function displayRazor(Order) {
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
         if (!res) {
@@ -48,9 +59,7 @@ function Order() {
                 "handler": function (response) {
                     Axios.post('order/verifypayment', { order: response }).then(res => {
                         if (res.data.status) {
-                            alert("Payment Successfull")
-                            dispatch(Checkout())
-                            navigate('/')
+                            OrderSuccess(res.data.message)
                         } else {
                             alert("Payment Failed")
                         }
@@ -71,30 +80,32 @@ function Order() {
             };
 
             const PaymentObject = new window.Razorpay(options);
+            setloading(false)
             PaymentObject.open();
         }
     }
     function OrderNow(e) {
         e.preventDefault()
+        setloading(true)
         Axios.post('cart/place-order', { name: name, number: number, city: city, lademark: landmark, paymentType: paymentType }).then(res => {
             if (res.data.razorpay) {
                 displayRazor(res.data.order)
-            
             } else if (res.data.status) {
-                alert("Order Placed Successfully")
-                dispatch(Checkout())
-                navigate('/')
-                
+                OrderSuccess(res.data.message)
+                setpop({ status: true, message: res.data.message })
+            } else {
+                setloading(false)
+                alert(res.data.message)
             }
         }).catch(err => {
             alert(err.data.message)
         })
     }
-
-
     return (
 
         <div className='checkout-container'>
+            <Loading trigger={loading} />
+            <Pop Pop={pop} setPop={setpop} />
             <div className='checkout-form'>
                 <h1 className='checkout-from-tital'>Checkout</h1>
                 <form onSubmit={OrderNow}>

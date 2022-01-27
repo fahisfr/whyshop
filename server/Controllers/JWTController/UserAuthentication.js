@@ -1,13 +1,12 @@
+const jwt       = require('jsonwebtoken');
+const Role_List = require('../../Config/Roles')
 
-const jwt = require('jsonwebtoken');
-const Role_List = require('../../Config/Role')
-var requestIp = require('request-ip');
-
+require("dotenv").config();
 
 const AuthenticationController = (req, res) => {
     let auteheader = req.headers['authorization']
     if (!auteheader) return res.status(401).json({ status: false, message: 'Token not found' })
-    jwt.verify(auteheader, `${process.env.ACCESS_TOKEN_SECRET}`, (err, decoded) => {
+    jwt.verify(auteheader,process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (decoded) {
             return res.status(200).json({
                 UserInfo: {

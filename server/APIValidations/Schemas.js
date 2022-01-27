@@ -3,12 +3,12 @@ const Joi = require('joi');
 
 const signup = Joi.object({
     name: Joi.string().min(4).max(22).required().trim().pattern(/^[a-zA-Z0-9]+$/),
-    number: Joi.string().trim().min(9).max(11).required().pattern(/^[0-9]+$/),
+    number: Joi.string().trim().min(10).max(10).required().pattern(/^[0-9]+$/),
     password: Joi.string().trim().min(6).max(22).required(),
     confirmPassword: Joi.string().trim().min(6).max(22).required().valid(Joi.ref('password')),
 });
 const login = Joi.object({
-    number:Joi.string().trim().min(9).max(11).required().pattern(/^[0-9]+$/),
+    number:Joi.string().trim().min(10).max(10).required().pattern(/^[0-9]+$/),
     password: Joi.string().trim().min(6).max(22).required(),
 });
 

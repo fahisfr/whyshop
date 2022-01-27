@@ -1,6 +1,6 @@
+require("dotenv").config();
+const jwt  = require('jsonwebtoken');
 const User = require('../../Schemas/User');
-const jwt = require('jsonwebtoken');
-const { find } = require('../../Schemas/User');
 
 
 const RefreshTokenController = (req, res) => {
@@ -8,13 +8,13 @@ const RefreshTokenController = (req, res) => {
     if (!Token?.refreshtoken) {
         return res.status(401).json({ auth: false, message: 'No token provided.' });
     }
-    jwt.verify(Token.refreshtoken, `${process.env.REFRESH_TOKEN_SECRET}`, (err, decoded) => {
+    jwt.verify(Token.refreshtoken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
         if (decoded) {  
             User.findOne({ _Id: decoded._id, refreshToken: Token.refreshToken }).then(user => {
                 if (!user) {
                     return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
                 } else {
-                    const accessToken = jwt.sign({ _id: user._Id }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1h' });
+                    const accessToken = jwt.sign({ _id: user._Id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' });
                     res.cookie('accesstoken', accessToken, { httpOnly: true, secure: true });
                     res.json({
                         status: true,

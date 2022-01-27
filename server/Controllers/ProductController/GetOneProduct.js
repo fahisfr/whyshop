@@ -1,7 +1,5 @@
 const Product = require('../../Schemas/Product')
 
-
-
 const GetProdcut = (req, res) => {
     Product.findOne({ name: req.params.id }).then(result => {
         if (result) {

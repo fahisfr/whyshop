@@ -11,6 +11,7 @@ import Navbar from '../../Components/Navbar/NavBar'
 
 
 
+
 function Cart() {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -36,10 +37,11 @@ function Cart() {
             {
                 cartInfo.length === 0 ?
                     <div className='cart-is-empty'>
-                        <h1>Cart is Empty</h1>
+                        <span>Cart is Empty</span>
                     </div> :
                     
                     <div className='cart-container'>
+                      
                         <div className="cart-left">
                             <div className="cart-left-header">
                                 <div className="cart-left-header-left">

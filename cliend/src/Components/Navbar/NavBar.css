@@ -146,9 +146,10 @@
 
 
            /* navbar  */
+
 .nav-search-result{
     width: 40%;
-    height:50%;
+    max-height:50%;
     position: fixed;
     top: 52px;
     background-color: rgb(255, 253, 253);
@@ -162,6 +163,7 @@
 .search-result{
     width:40%;
     height: 15%;
+    
     padding: 20px;
 
 }
@@ -188,6 +190,14 @@
     width: 50px;
     height: 40px;
 }
+.nav-search-result-item-name{
+    color: black;
+    margin-left: 2px;
+}
+.nav-search-result-item-name::first-letter {
+  text-transform: capitalize;
+}
+
 @media screen and (max-width: 750px){
     .navbar {
         display: flex;
@@ -266,7 +276,7 @@
 }
 .nav-search-result{
     width: 95%;
-    height: 60%;
+    max-height: 60%;
     position: fixed;
     top: 91px;
 

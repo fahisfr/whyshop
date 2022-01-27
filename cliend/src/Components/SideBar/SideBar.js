@@ -10,7 +10,7 @@ function SIdeBar(props) {
         axios.delete('logout').then(response => {
             dispatch(logout())
             props.settrigger(false)
-            localStorage.removeItem('accesstoken')
+            localStorage.clear()
         })
     }
     return (props.trigger) ? (

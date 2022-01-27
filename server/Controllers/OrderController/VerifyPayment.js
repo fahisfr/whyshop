@@ -5,8 +5,7 @@ const objectid = require('mongodb').ObjectId
 const verifyPayment =async ( req, res) => {
     req.body = req.body.order
     console.log(req.body)
-        let secret = 'vbG8Jl9hj7gEGbX1n3n8ir4n';
-        let hash = crypto.createHmac('sha256', secret).update(req.body.razorpay_order_id+ "|" + req.body.razorpay_payment_id ).digest('hex');
+    let hash = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET).update(req.body.razorpay_order_id+ "|" + req.body.razorpay_payment_id ).digest('hex');
     if (req.body.razorpay_signature == hash) {
         res.json({ status: true, message: "Payment Successful" })
         console.log(req.body.razorpay_order_id)
@@ -18,9 +17,6 @@ const verifyPayment =async ( req, res) => {
         Cart.deleteOne({ UserID: req.user.id }, (err, result) => {
             if (err) {
                 console.log(err)
-            }
-            else {
-                console.log(result)
             }
         })
     } else {

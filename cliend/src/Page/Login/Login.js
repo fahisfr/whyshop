@@ -1,32 +1,34 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import Axios from '../../Axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import './Login.css'
 import { useDispatch } from 'react-redux'
-import {login} from '../../Features/User'
+import { login } from '../../Features/User'
+import PopUp from '../../Components/Pop/Pop'
+
 
 function Login() {
     const dispatch = useDispatch()
     const [number, setnumber] = useState()
     const [password, setpassword] = useState('')
-    const navigate = useNavigate()
+    const [Pop, setPop] = useState({status:false,message:''})
     function loginform(e) {
         e.preventDefault()
         Axios.post('/login', { number, password }).then((result) => {
             if (result.data.status) {
-                alert('Login Successfully')
-                console.log(result.data);
+                setTimeout(() => {
+                    dispatch(login({ name: result.data.name, roel:result.data.roel,number: result.data.number, isAthu: true }))
+                }, 8000);
+                setPop({ status: true, message:result.data.message})
                 localStorage.setItem('accesstoken', result.data.accesstoken)
-                dispatch(login({ name: result.data.name, number: result.data.number, isAthu: true}))
-                navigate('/')
             } else {
                 alert(result.data.message)
-                
             }
         })
     }
     return (
         <div className='signup-container'>
+            <PopUp Pop={Pop}  setPop={setPop}  />
             <div className="signup-box">
                 <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
@@ -36,11 +38,11 @@ function Login() {
                         <h1>Login</h1>
                         <label>Phone</label>
                         <input type="number" value={number} placeholder="Phone Number"
-                               onChange={(e)=>setnumber(e.target.value)}
+                            onChange={(e) => setnumber(e.target.value)}
                         />
                         <label>Password</label>
                         <input type="password" placeholder="Enther Password"
-                            value={password} onChange={(e)=>setpassword(e.target.value)}
+                            value={password} onChange={(e) => setpassword(e.target.value)}
                         />
                         <Link className='remove-line' to='/signup'><span>Create a new account</span></Link>
                         <button onClick={loginform} >Login</button>
@@ -49,7 +51,7 @@ function Login() {
             </div>
         </div>
 
-        
+
     )
 }
 

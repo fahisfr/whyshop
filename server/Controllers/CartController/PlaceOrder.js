@@ -4,8 +4,8 @@ const Order = require('../../Schemas/Order')
 const GetCartInfo = require('./GetCartInfo')
 var objectid = require('mongodb').ObjectId
 const instance = new Razorpay({
-    key_id: 'rzp_test_lFLdi5y9B4LWvU',
-    key_secret: 'vbG8Jl9hj7gEGbX1n3n8ir4n',
+    key_id:process.env.RAZORPAY_KEY_ID,
+    key_secret:process.env.RAZORPAY_KEY_SECRET ,
 });
 
 const PlaceOrder = async (req, res) => {
@@ -25,10 +25,10 @@ const PlaceOrder = async (req, res) => {
                     },
                 }).then(order => {
                     console.log(order)
-                    Cart.deleteOne({ _id: cart._id }).then(() => {
-                        res.json({ status: true, message: "Order Placed Successfully", })
-                    }).catch(err => {
-                        res.json({ status: false, message: "Order Placed Failed", })
+                    Cart.deleteOne({ UserID: req.user.id }, (err, result) => {
+                        if (!err) {
+                            res.json({ status: true, message: "Order Placed Successfully" })
+                        }
                     })
                 }).catch(err => {
                     res.json({ status: false, message: "Oops! something went wrong please try again" })

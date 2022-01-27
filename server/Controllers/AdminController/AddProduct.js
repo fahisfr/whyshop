@@ -12,6 +12,7 @@ const AddProduct = async (req, res) => {
             const imageID = name+ Date.now()
             NewProduct.imageId = imageID
             NewProduct.save()
+                             // is bad practice to use fs.writeFileSync (for example)
             fs.writeFile(`public/images/${imageID}.jpg`, image.buffer, (err, data) => {
                 if (err) return res.json({ status: false, message: "image not saved" })
                 res.json({ status: true, message: "product added successfully" })})

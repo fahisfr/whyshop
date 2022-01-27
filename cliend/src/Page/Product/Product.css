@@ -35,6 +35,9 @@
     margin-top: 10px;
     line-height: 32px ;
 }
+.p-title::first-letter {
+  text-transform: capitalize;
+}
 .p-price{
     font-size: 20px;
     margin-top: 10px;

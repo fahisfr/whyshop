@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { BiCart, BiSearch } from "react-icons/bi";
 
 import { FiAlignLeft, FiArchive, } from "react-icons/fi";
@@ -11,16 +11,14 @@ import SideBar from '../SideBar/SideBar'
 import Axios, { ImagePath } from '../../Axios'
 
 function NavBar(props) {
-    const history = useNavigate()
-    const {isAthu} = useSelector(state => state.user.userInfo)
+    const { isAthu } = useSelector(state => state.user.userInfo)
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])
-    function SearchProduts(value) {
-        if (value === '') return setresult([])
-        Axios.get('/search-products/' + value, { id: value }).then(res => {
+    const [search, setsearch] = useState('')
+    const  SearchProduts= (id) => {
+        if (id === '') return setresult([])
+        Axios.get(`/search-products/${id}`, {id}).then(res => {
             setresult(res.data.data)
-        }).catch(err => {
-            console.log(err)
         })
     }
     return (
@@ -34,25 +32,34 @@ function NavBar(props) {
             </div>
             <div className='nav-3-box'>
                 <div className='nav-3-1'>
-                    <input type='text' max={12} className='nav-search-input' onChange={(e) => SearchProduts(e.target.value)} placeholder='search for products'></input>
+                    <input type='text' max={12} className='nav-search-input' value={search} onChange={(e) => {
+                        SearchProduts(e.target.value)
+                        setsearch(e.target.value)
+                        
+                    }} onClick={()=>SearchProduts(search)} placeholder='search for products'></input>
                     <button><BiSearch size={22} /></button>
                 </div>
-                    {
-                        result.length !== 0 && (
-                            <div className='nav-search-result'>
-                                {
-                                    result.slice(0, 9).map((item, index) => {
-                                        return (
-                                            <div className='nav-search-result-item' onClick={() => history(`product/${item.name}`)} key={index}>
+                {
+                    result.length !== 0 && (
+                        <div className='nav-search-result'>
+                            {
+                                result.slice(0, 9).map((item, index) => {
+                                    return (
+                                        <Link to={`/product/${item.name}`} style={{ textDecoration: 'none' }} onClick={() => {
+                                            setsearch(item.name)
+                                            setresult([])
+                                        }} >
+                                            <div className='nav-search-result-item'  key={index} >
                                                 <img src={ImagePath(item.imageId)} alt='product' />
-                                                <span>{item.name}</span>
+                                                <span className="nav-search-result-item-name ">{item.name}</span>
                                             </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
-                    }
+                                        </Link>
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                }
             </div>
             {isAthu ? <div className='nav-4-box'>
                 <Link to='/order'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>

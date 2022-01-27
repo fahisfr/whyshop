@@ -1,28 +1,37 @@
 
 import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Axios from '../../Axios'
 import './Signup.css'
+import { useDispatch } from 'react-redux'
+import { login } from '../../Features/User'
+import PopUp from '../../Components/Pop/Pop'
 
 function Signup() {
+    const dispatch = useDispatch()
     const [name, setname] = useState('')
     const [number, setnumber] = useState('')
     const [password, setpassword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
-    const navigate = useNavigate()
+    const [Pop, setPop] = useState({ status: false, message: '' })
     function sumbitform(e) {
         e.preventDefault()
         Axios.post('/signup', { name, number, password,confirmPassword }).then((result) => {
             if (result.data.status) {
-                alert('user add to data base')
-                navigate('/login')
-                }
-        }).catch(err =>alert(err.data.message))
+                setTimeout(() => {
+                    dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAthu: true }))
+                }, 70000);
+                setPop({ status: true, message: result.data.message })
+                localStorage.setItem('accesstoken', result.data.accesstoken)
+            } else {
+                alert(result.data.message)
+            }
+        }).catch(err => setPop({ status: true, message: err.message }))
     }
     return (
             <div className='signup-container'>
-                <div className="signup-box">
-
+            <div className="signup-box">
+                <PopUp Pop={Pop} setPop={setPop} />
                     <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
                     </div>

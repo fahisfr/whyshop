@@ -10,6 +10,7 @@ import Cart from './Features/Cart'
 import Order from './Features/Order'
 import AllOrders from './Features/AllOrders';
 import Produts from './Features/Products';
+import ProductTypes from './Features/ProductTypes'
 
 const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
     cart: Cart,
     order: Order,
     products: Produts,
-    allorders:AllOrders
+    allorders: AllOrders,
+    types:ProductTypes
   }
 })
 ReactDOM.render(

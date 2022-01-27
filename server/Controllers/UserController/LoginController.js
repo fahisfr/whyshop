@@ -1,11 +1,6 @@
-
-const jwt = require('jsonwebtoken');
-var path = require('path');
-const bcrypt = require('bcryptjs');
-const Role_List= require('../../Config/Role')
-const User = require('../../Schemas/User');
-
-
+const jwt      = require('jsonwebtoken');
+const User     = require('../../Schemas/User');
+const bcrypt   = require('bcryptjs');
 
 const handleLogin = (req, res) => {
     const { number, password } = req.body
@@ -13,8 +8,8 @@ const handleLogin = (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
-                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: '4h' });
-                    let refreshtoken = jwt.sign({ id: user._id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: '1d' });
+                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' });
+                    let refreshtoken = jwt.sign({ id: user._id, role: user.role },process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
                     user.refreshToken = refreshtoken;
                     user.save();
                     res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });

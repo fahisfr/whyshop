@@ -15,7 +15,7 @@ function Login() {
     function loginform(e) {
         e.preventDefault()
         Axios.post('/login', { number, password }).then((result) => {
-            if (result.data.status) {
+            if (result.data.success) {
                 setTimeout(() => {
                     dispatch(login({ name: result.data.name, roel:result.data.roel,number: result.data.number, isAthu: true }))
                 }, 8000);

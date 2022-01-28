@@ -1,10 +1,11 @@
-const Product = require("../../Schemas/Product")
+const dbProduct = require("../../Schemas/Product")
 
-const findProduct = async (req, res) => {
-    Product.find({}).then(result => {
-        res.json({status:true,message:"Products found",products:result})
-    }).catch(err=>res.json({status:false,message:"Products not found"}))
-
+const findProduct = async (req, res, next) => {
+    try {
+        dbProduct.find({}).then(product => {
+            res.json({ status: true, message: "Product List", products: product })
+        })
+    } catch (err) { next(err)}
 
 }
 module.exports = findProduct

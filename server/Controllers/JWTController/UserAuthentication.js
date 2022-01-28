@@ -1,7 +1,7 @@
 const jwt       = require('jsonwebtoken');
 const Role_List = require('../../Config/Roles')
 
-require("dotenv").config();
+
 
 const AuthenticationController = (req, res) => {
     let auteheader = req.headers['authorization']

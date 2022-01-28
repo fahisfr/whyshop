@@ -1,54 +1,35 @@
 const jwt      = require('jsonwebtoken');
-const User     = require('../../Schemas/User');
+const dbUser     = require('../../Schemas/User');
 const bcrypt   = require('bcryptjs');
 
-const handleLogin = (req, res) => {
-    const { number, password } = req.body
-    User.findOne({ number: number }).then(user => {
-        if (user) {
-            bcrypt.compare(password, user.password).then(isMatch => {
-                if (isMatch) {
-                    let accesstoken = jwt.sign({ name:user.name,number:user.number,id:user._id,role:user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' });
-                    let refreshtoken = jwt.sign({ id: user._id, role: user.role },process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-                    user.refreshToken = refreshtoken;
-                    user.save();
-                    res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });
-                    res.json({
-                        status: true,
-                        message: 'Login Successful ', accesstoken: accesstoken, UserInfo: {
-                            id:user._id,
-                            name: user.name,
-                            number: user.number,
-                            role:user.role,
-                        },
-                   
-                    })
-                    console.log(user.role)
-                } else {
-                    res.json({
-                        status: false,
-                        message: 'Invalid Password',
-                    })
-                }
-            }).catch(err => {
-                resjson({
-                    status: false,
-                    message: 'Opps! Something went wrong please try again',
-                })
-            })
-        } else {
-            res.json({
-                status: false,
-                message: 'Invalid Number',
+const handleLogin = async (req, res,next) => {
+    try {
+        const { number, password } = req.body
+        const user = await dbUser.findOne({ number: number }).exec()
+        if (!user) res.json({ success: false, message: "Invalid Number" })
+        
+        bcrypt.compare(password,user.password).then(isMatch => {
+            if (isMatch) {
 
-            })
-        }
-    }).catch(err => {
-        res.json({
-            status: false,
-            message: 'Oops! Something went wrong please try again',
+                const accesstoken = jwt.sign({ name: user.name, number: user.number, id: user._id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' });
+                
+                const refreshtoken = jwt.sign({ id: user._id, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+                
+                user.refreshToken = refreshtoken;
+                user.save();
+                res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });
+                res.json({success: true, message: 'Login Successful ',
+                    accesstoken: accesstoken, UserInfo: {
+                        id: user._id,   name: user.name,
+                        number: user.    number,role: user.role,
+                    },
+                })
+            } else {
+                res.json({success: false,message: 'Invalid Password',})
+            }
         })
-    })
+    } catch (err) { next(err) }
 }
+    
 
 module.exports = handleLogin;

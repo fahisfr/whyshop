@@ -6,10 +6,12 @@ const db     = require('mongoose')
 const cors   = require('cors')
 const morgan = require('morgan')
 const path   = require('path')
-const PORT   = process.env.PORT || 3000;
+const PORT   = process.env.PORT || 4000;
 const IsAthu = require('./Middlewares/UserAuthentication')
 const cookieParser = require('cookie-parser')
 const connectDB    = require('./Config/dbConn')
+const errorHandler = require('./Config/errorHandler')
+
 
 connectDB()
 
@@ -35,4 +37,6 @@ app.use('/api/logout', IsAthu, require('./Controllers/UserController/Logout'))
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')))
 
-db.connection.once('open', () => {app.listen(PORT, () => console.log(`Server is running on ${PORT}  && connected to database`))})
+app.use(errorHandler)
+
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))

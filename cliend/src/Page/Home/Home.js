@@ -25,7 +25,7 @@ function Home() {
         <div className='home-main' >
             <NavBar />
             <div className="home-1-box">
-                <img src="" style={{ maxWidth: "100%" }} alt='loading' />
+                <img src="https://image.freepik.com/free-vector/banner-with-phone-cart-gift-bags-isolated-white-background-vector-illustration_548887-134.jpg"  alt='loading' />
             </div>
             <div className='hom-2-product-types'>
                 {
@@ -35,13 +35,12 @@ function Home() {
                                 <img src={type.imageid} alt='loadign' />
                                 <span>{type.name}</span>
                             </div>
+                           
                         )
                     }) 
                 }
             </div>
-            <RecomendBar pricelimit={10} pricemax={100} />
-            <RecomendBar pricelimit={70} pricemax={150} />
-            <RecomendBar pricelimit={10} pricemax={150} />
+            {typesInfo.map(type =>  <RecomendBar  pricelimit={10} pricemax={100} type={type.name} key={type.name} />)}
         </div>
     )
 }

@@ -8,9 +8,6 @@ import { addToCart, changeProductQuantity, removeFromCart } from '../../Features
 
 
 
-
-
-
 function RecomendBar(props) {
  
     const { products} = useSelector(state => state.products)
@@ -18,25 +15,29 @@ function RecomendBar(props) {
     const { cartInfo } = useSelector(state => state.cart)
 
     useEffect(() => {
-        dispatch(fetchProduts())
-    }, [dispatch])
+        if (products.lenght === 0) {
+            dispatch(fetchProduts())}
+    }, [products.lenght,dispatch])
     const changeQuantity = (quantity, id) => {
         dispatch(changeProductQuantity({ id, quantity }))
         Axios.put(`cart/change-product-quantity/${id}`, { quantity })
     }
-    function AddTOCart(id, product) {
+
+    const  AddTOCart=(id, product)=> {
         const { name, price, imageId, type } = product
         dispatch(addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 }))
         Axios.put(`cart/add-to-cart/${id}`)
     }
+
     const removeCartProduct = id => {
         dispatch(removeFromCart(id))
         Axios.put('cart/remove-product/' + id, { id: id })
     }
+
     return (
         <div className='recommend-products'>
             {
-                products.filter(res => res.price >= props.pricelimit && res.price <= props.pricemax).map((product, index) => {
+                products.filter(res => res.type === props.type).map((product, index) => {
                     return (
                         <div className='recommend-item' key={index} >
                             <Link to={`/product/${product.name}`}>

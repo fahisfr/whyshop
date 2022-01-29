@@ -18,7 +18,6 @@ function Products() {
         Axios.get('/shop/' + id).then((result) => {
             if (result.data.product) {
                 setproducts(result.data.product)
-
             }
         })
     }, [id])
@@ -35,9 +34,7 @@ function Products() {
         const { name, price, imageId, type } = product
         dispatch(addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 }))
         Axios.put(`cart/add-to-cart/${id}`).then(res => {
-            // if (res.data.status) {
-            //     dispatch(addToCart({ _id: id, name,type,price, imageId, id, quantity: 1 }))
-            // }
+            
         })
     }
     const removeCartProduct = id => {
@@ -87,8 +84,6 @@ function Products() {
 
                         )
                     })}
-
-
                     <div>
                     </div>
                 </div>

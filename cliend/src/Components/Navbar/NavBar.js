@@ -8,18 +8,18 @@ import { useSelector } from 'react-redux'
 import Button from '@restart/ui/esm/Button';
 
 import SideBar from '../SideBar/SideBar'
-import Axios, { ImagePath } from '../../Axios'
+import  { ImagePath } from '../../Axios'
+
 
 function NavBar(props) {
     const { isAthu } = useSelector(state => state.user.userInfo)
+    const { products } = useSelector(state => state.products)
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])
     const [search, setsearch] = useState('')
     const  SearchProduts= (id) => {
         if (id === '') return setresult([])
-        Axios.get(`/search-products/${id}`, {id}).then(res => {
-            setresult(res.data.data)
-        })
+        setresult(products.filter(item => item.name.toLowerCase().includes(id.toLowerCase())))
     }
     return (
         <div className="navbar" >

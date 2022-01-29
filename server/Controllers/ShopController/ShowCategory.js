@@ -1,7 +1,7 @@
 
 var Product =require("../../Schemas/Product") 
 
-const GetCategory = async (req, res) => {
+const GetCategory = async (req, res,next) => {
     try {
         const { id } = req.params
         const FindProducts = await Product.find({ type: id }).exec()

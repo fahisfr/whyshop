@@ -1,5 +1,5 @@
-import NavBar
-    from "../../Components/Navbar/NavBar"
+import NavBar from "../../Components/Navbar/NavBar"
+import './Order.css'
 function Order() {
     return (
         <div>

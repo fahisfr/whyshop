@@ -53,8 +53,9 @@ function Product() {
                 </div>
             </div>
             <div className='p-recommend'>
-                <RecomendDiv pricelimit={SearchProduct.price} pricemax={SearchProduct.price + 100} />
-                <RecomendDiv pricelimit={SearchProduct.price-50} pricemax={SearchProduct.price + 100} />
+                <RecomendDiv pricelimit={SearchProduct.price} pricemax={SearchProduct.price + 100} type={SearchProduct.type} />
+                <RecomendDiv pricelimit={SearchProduct.price} pricemax={SearchProduct.price + 100} type={SearchProduct.type} />
+                <RecomendDiv pricelimit={SearchProduct.price} pricemax={SearchProduct.price + 100} type={SearchProduct.type} />
             </div>
 
 

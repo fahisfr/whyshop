@@ -14,7 +14,7 @@ function Signup() {
     const [password, setpassword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
     const [Pop, setPop] = useState({ status: false, message: '' })
-    function sumbitform(e) {
+    const  sumbitform=(e)=>{
         e.preventDefault()
         Axios.post('/signup', { name, number, password,confirmPassword }).then((result) => {
             if (result.data.status) {
@@ -36,7 +36,7 @@ function Signup() {
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
                     </div>
                     <div className='signup-box-2'>
-                        <form className="signup-2-from">
+                        <form className="signup-2-from" >
                             <h1>Create a new account</h1>
                             <label>User Name</label>
                             <input  type="text" value={name} onChange={(e) => setname(e.target.value)} placeholder="User Name" />

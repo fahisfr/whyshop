@@ -12,7 +12,7 @@ export const ProdutsSlice = createSlice({
     initialState: {
         products: [],
         error: null,
-        loading: false,
+        loading: true,
 
     },
     reducers: {

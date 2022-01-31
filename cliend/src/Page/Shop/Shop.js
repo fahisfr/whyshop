@@ -56,16 +56,16 @@ function Products() {
                     {products.map((product, index) => {
                         return (
                             <div className='shop-2-item' key={index} >
+                                <div className='shop-2-item-image'>
                                 <Link to={`/product/${product.name}`}>
-                                    <div className='shop-2-item-image'>
                                         <img src={ImagePath(product.imageId)} alt='loading' />
-                                    </div>
                                 </Link>
-                                <div className='shop-2-item-name'>
+                                    </div>
+                                <div className='capitalize shop-2-item-name'>
                                     <span>{product.name}</span>
                                 </div>
                                 <div className='shop-2-item-pirce'>
-                                    <span>₹{product.price}.kg</span>
+                                    <span>₹ {product.price}.kg</span>
                                 </div>
                                 {
                                     cartInfo.find(res => res._id === product._id) ?

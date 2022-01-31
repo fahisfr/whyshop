@@ -5,8 +5,6 @@ import { BiCart, BiSearch } from "react-icons/bi";
 import { FiAlignLeft, FiArchive, } from "react-icons/fi";
 import './NavBar.css'
 import { useSelector } from 'react-redux'
-import Button from '@restart/ui/esm/Button';
-
 import SideBar from '../SideBar/SideBar'
 import  { ImagePath } from '../../Axios'
 
@@ -66,7 +64,7 @@ function NavBar(props) {
                 <Link to='/cart'><BiCart size={31} color='white' /></Link><span  >Cart</span>
             </div>
                 : <div className='nav-4-box-ls'>
-                    <Link to='/login'><Button className='nav-4-3-l'  >Loign in</Button></Link>
+                    <Link to='/login'><button className='nav-4-3-l'  >Loign in</button></Link>
                     <Link to='/signup'><button className='nav-4-4-s'>Sign Up</button></Link>
                 </div>
             }

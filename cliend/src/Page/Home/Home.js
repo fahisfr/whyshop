@@ -40,7 +40,7 @@ function Home() {
                     }) 
                 }
             </div>
-            {typesInfo.map(type =>  <RecomendBar  pricelimit={10} pricemax={100} type={type.name} key={type.name} />)}
+            {typesInfo.map(type =>  <RecomendBar  type={type.name} key={type.name} />)}
         </div>
     )
 }

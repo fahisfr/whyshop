@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-
+import './PageNotFount.css'
 import Axios from '../../Axios'
 
 function PageNotFount() {
@@ -9,8 +9,8 @@ function PageNotFount() {
         }) 
     },)
     return (
-        <div>
-            <h1 style={{textAlign:"center"}}> Page Not Found</h1>
+        <div className="notfount">
+            <span style={{fontSize:'2rem'}}>404 - Page Not Found</span>
         </div>
     )
 }

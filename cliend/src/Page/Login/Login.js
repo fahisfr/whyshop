@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Axios from '../../Axios'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Login.css'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Features/User'
@@ -11,15 +11,12 @@ function Login() {
     const dispatch = useDispatch()
     const [number, setnumber] = useState()
     const [password, setpassword] = useState('')
-    const [Pop, setPop] = useState({status:false,message:''})
+    const [Pop, setPop] = useState({ status: false, message: '' })
     function loginform(e) {
         e.preventDefault()
         Axios.post('/login', { number, password }).then((result) => {
             if (result.data.success) {
-                setTimeout(() => {
-                    dispatch(login({ name: result.data.name, roel:result.data.roel,number: result.data.number, isAthu: true }))
-                }, 8000);
-                setPop({ status: true, message:result.data.message})
+                dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAthu: true }))
                 localStorage.setItem('accesstoken', result.data.accesstoken)
             } else {
                 alert(result.data.message)
@@ -28,7 +25,7 @@ function Login() {
     }
     return (
         <div className='signup-container'>
-            <PopUp Pop={Pop}  setPop={setPop}  />
+            <PopUp Pop={Pop} setPop={setPop} />
             <div className="signup-box">
                 <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />

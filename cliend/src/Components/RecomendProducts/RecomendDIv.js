@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './RecomendDiv.css'
 import { useDispatch, useSelector } from 'react-redux'
-import Products, { fetchProduts } from '../../Features/Products'
+import { fetchProduts } from '../../Features/Products'
 import { Link } from 'react-router-dom'
 import Axios, { ImagePath } from '../../Axios'
 import { addToCart, changeProductQuantity, removeFromCart } from '../../Features/Cart'
@@ -10,7 +10,7 @@ import { addToCart, changeProductQuantity, removeFromCart } from '../../Features
 
 function RecomendBar(props) {
     const { isAthu } = useSelector(state => state.user.userInfo)
-    const { products, loading } = useSelector(state => state.products)
+    const { products} = useSelector(state => state.products)
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
 
@@ -39,7 +39,7 @@ function RecomendBar(props) {
     return (
         <div className='recommend-products'>
             {
-                products.filter(res => res.price >= props.pricelimit && res.price <= props.pricemax || res.type==props.type ).map((product, index) => {
+                products.filter(res => res.price >= props.pricelimit && res.price <= props.pricemax || res.type===props.type ).map((product, index) => {
                     return (
                         <div className='recommend-item' key={index} >
                             <Link to={`/product/${product.name}`}>

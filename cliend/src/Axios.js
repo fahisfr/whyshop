@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://frbots.com/api';
+const baseURL = 'https://frbots.com/';
 
 
 export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;

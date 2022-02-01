@@ -14,14 +14,11 @@ function Signup() {
     const [password, setpassword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
     const [Pop, setPop] = useState({ status: false, message: '' })
-    const  sumbitform=(e)=>{
+    const sumbitform = (e) => {
         e.preventDefault()
-        Axios.post('/signup', { name, number, password,confirmPassword }).then((result) => {
+        Axios.post('/signup', { name, number, password, confirmPassword }).then((result) => {
             if (result.data.status) {
-                setTimeout(() => {
-                    dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAthu: true }))
-                }, 70000);
-                setPop({ status: true, message: result.data.message })
+                dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAthu: true }))
                 localStorage.setItem('accesstoken', result.data.accesstoken)
             } else {
                 alert(result.data.message)
@@ -29,34 +26,34 @@ function Signup() {
         }).catch(err => setPop({ status: true, message: err.message }))
     }
     return (
-            <div className='signup-container'>
+        <div className='signup-container'>
             <div className="signup-box">
                 <PopUp Pop={Pop} setPop={setPop} />
-                    <div className="signup-box-1">
+                <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
-                    </div>
-                    <div className='signup-box-2'>
-                        <form className="signup-2-from" >
-                            <h1>Create a new account</h1>
-                            <label>User Name</label>
-                            <input  type="text" value={name} onChange={(e) => setname(e.target.value)} placeholder="User Name" />
-                            <label>Phone</label>
-                            <input  type="number" value={number} onChange={(e) => setnumber(e.target.value)} placeholder="Phone Number" />
-                            <label>Password</label>
-                            <input type="password" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enther Password" />
-                            <label>Confirm Password</label>
+                </div>
+                <div className='signup-box-2'>
+                    <form className="signup-2-from" >
+                        <h1>Create a new account</h1>
+                        <label>User Name</label>
+                        <input type="text" value={name} onChange={(e) => setname(e.target.value)} placeholder="User Name" />
+                        <label>Phone</label>
+                        <input type="number" value={number} onChange={(e) => setnumber(e.target.value)} placeholder="Phone Number" />
+                        <label>Password</label>
+                        <input type="password" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enther Password" />
+                        <label>Confirm Password</label>
                         <input type="password" placeholder="Enther password"
                             value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)}
                         />
                         <Link className='remove-line' to='/login'><span>Already have an account?</span></Link>
-                            <button  onClick={sumbitform}>Signup</button>
-                        </form>
-                    </div>
+                        <button onClick={sumbitform}>Signup</button>
+                    </form>
                 </div>
-                
             </div>
 
-        
+        </div>
+
+
     )
 }
 

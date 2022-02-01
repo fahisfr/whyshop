@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import './Cart.css'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCart, removeFromCart, changeProductQuantity} from '../../Features/Cart'
 import Axios, { ImagePath } from '../../Axios'
 
-
 import Navbar from '../../Components/Navbar/NavBar'
-
-
 
 
 

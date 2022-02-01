@@ -11,8 +11,8 @@ export const  userSlice = createSlice({
     name: 'user',
     initialState: {
         userInfo: {
-            name: '',
-            number: '',
+            name: 'Unknown',
+            number: '999999999',
             role: '',
             isAthu: false,
         },

@@ -2,7 +2,7 @@ import axios from '../../Axios'
 import React from 'react'
 import './SideBar.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout, userSlice } from '../../Features/User'
+import { logout} from '../../Features/User'
 import { Link } from 'react-router-dom'
 
 

@@ -31,11 +31,19 @@ const ChangeCartProductQuantity = Joi.object({
     quantity: Joi.number().valid(-.5,.5).required(),
 })
 
+const EditProduct = Joi.object({
+    name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).min(3).max(14).required(),
+    quantity: Joi.number().required(),
+    price: Joi.number().required(),
+
+})
+
 
 module.exports = {
     PlaceOrder,
     login,
     signup,
     AddProduct,
-    ChangeCartProductQuantity
+    ChangeCartProductQuantity,
+    EditProduct
 }   

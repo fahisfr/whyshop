@@ -14,9 +14,8 @@ const EditeProduct      = require('../Controllers/AdminController/EditProduct')
 
 route.get('/orders', Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee), GetOrdersInfo)
 route.put('/order/change-status/:id', Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee),ChangeOrderStatus)
-route.post('/addproduct', upload.single("image"), ApiValidation.AddProductAPIValidation,
-    Rolemiddleware(Role.Admin,Role.SuperAdmin,), AdminController)
-route.post('/editproduct/:id',EditeProduct)
+route.post('/addproduct',ApiValidation.AddProductAPIValidation,AdminController)
+route.put('/editproduct/:id',ApiValidation.EditProductAPIValidation,EditeProduct)
 
 
 

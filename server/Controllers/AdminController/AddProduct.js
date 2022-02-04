@@ -1,23 +1,28 @@
 const fs = require('fs');
+
 const Product = require('../../Schemas/Product')
 
-const AddProduct = async (req, res) => {
-    const { name, type, quantity, price } = req.body
-    const  image  = req.file
-    const ProductFind = await Product.findOne({ name: name }).exec()
-    if (ProductFind) { return res.json({ status: false, message: "product already exist" }) }
-    Product.create({ name, type, quantity, price }, async (err, NewProduct) => {
-        console.log(err)
-        if (!err) {
-            const imageID = name+ Date.now()
-            NewProduct.imageId = imageID
-            NewProduct.save()
-                             // is bad practice to use fs.writeFileSync (for example)
-            fs.writeFile(`public/images/${imageID}.jpg`, image.buffer, (err, data) => {
-                if (err) return res.json({ status: false, message: "image not saved" })
-                res.json({ status: true, message: "product added successfully" })})
-            
-        } else {res.json({ status: false, message: "product not added" })}
-    })
+const AddProduct = async (req, res,next) => {
+    try {
+        
+        const { name, type, quantity, price } = req.body
+        console.log(req.body)
+        const image = req.files.image
+        console.log(image)
+        res.json({success:true})
+        const ProductFind = await Product.findOne({ name: name }).exec()
+        if (ProductFind) { return res.json({ status: false, message: "product already exist" }) }
+        const neweProduct = await Product.create({ name, type, quantity, price })
+        const imageName = `${name}${new Date().getTime()}.jpg`
+        image.mv('./public/images/' + imageName, (err) => {
+            if (err) { return res.json({ status: false, message: "image not uploaded" }) }
+            neweProduct.imageId = imageName
+            neweProduct.save()
+            return res.json({ status: true, message: "product added successfully" })
+        })
+    } catch (error) {
+        next(error)
+    }
+       
 }
 module.exports = AddProduct

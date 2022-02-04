@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchUser } from './Features/User'
 
 import Home from './Page/Home/Home'
-import UpdateTap from './AdminPage/Update-Tap/Update-Tap';
-import AddProduct from './AdminPage/AddProduct/AddProduct';
 import Shop from './Page/Shop/Shop'
 import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
@@ -15,7 +13,6 @@ import Cart from './Page/Cart/Cart';
 import PlaceOrder from './Page/Checkout/Checkout';
 import Order from './Page/Order/Order';
 import PageNotFount from './Page/404/PageNotFount';
-import CliendOrders from './AdminPage/CliendOrders/CliendOrders';
 import Product from './Page/Product/Product';
 
 
@@ -39,12 +36,7 @@ function App() {
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="/checkout" element={<PlaceOrder/> }/>
-          <Route path='/whyadmin' element={<UpdateTap />} />
           <Route path='/order' element={<Order />} />
-
-          <Route path='/admin/addproduct' element={<AddProduct />} />
-          <Route path='admin/orders' element={<CliendOrders />} />
-          
           <Route path='*' element={<PageNotFount />} />
         </Routes>
       </Router>

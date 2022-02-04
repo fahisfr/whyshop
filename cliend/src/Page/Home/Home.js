@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
 import { useSelector } from 'react-redux'
-import Axios,{ImagePath} from '../../Axios'
+import Axios from '../../Axios'
 import { useDispatch } from 'react-redux'
 import { SetProducts } from '../../Features/Products'
 import { SetProductTypes } from '../../Features/ProductTypes'

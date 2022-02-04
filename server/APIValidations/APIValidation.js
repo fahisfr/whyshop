@@ -19,7 +19,6 @@ const AddProductAPIValidation = (req, res, next) => {
     console.log(req.file)
     var { error } = ValidationSchema.AddProduct.validate(req.body);
     if (error) { return res.json({ status: false, message: error.details[0].message }) }
-    // if (req.file.maimetype !== "image/jpg") {return res.json({ status: false, message: "only jpg file is allowed" })}
     next()}
 
 const CartProductQuantityAPIValidation = (req, res, next) => {
@@ -27,12 +26,16 @@ const CartProductQuantityAPIValidation = (req, res, next) => {
     if (error) { return res.json({ status: false, message: error.details[0].message }) }
     next()}
     
-    
+const EditProductAPIValidation = (req, res, next) => {
+    var { error } = ValidationSchema.EditProduct.validate(req.body);
+    if (error) { return res.json({ status: false, message: error.details[0].message }) }
+    next()}
 
 module.exports = {
     PlaceOrderAPIValidation,
     LoginAPIValidation,
     SinupAPIValidation,
     AddProductAPIValidation,
-    CartProductQuantityAPIValidation
+    CartProductQuantityAPIValidation,
+    EditProductAPIValidation
 }

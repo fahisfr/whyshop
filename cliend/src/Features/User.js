@@ -18,7 +18,6 @@ export const  userSlice = createSlice({
         },
         error: '',
         loading: false,
-        
     },
     reducers: {
         login: (state, action) => {

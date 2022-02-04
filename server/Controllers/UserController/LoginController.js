@@ -10,11 +10,9 @@ const handleLogin = async (req, res,next) => {
         
         bcrypt.compare(password,user.password).then(isMatch => {
             if (isMatch) {
+                const accesstoken = jwt.sign({ name: user.name, number: user.number, id: user._id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2m' });
+                const refreshtoken = jwt.sign({ id: user._id, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '4d' });
 
-                const accesstoken = jwt.sign({ name: user.name, number: user.number, id: user._id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' });
-                
-                const refreshtoken = jwt.sign({ id: user._id, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-                
                 user.refreshToken = refreshtoken;
                 user.save();
                 res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });
@@ -28,7 +26,9 @@ const handleLogin = async (req, res,next) => {
                 res.json({success: false,message: 'Invalid Password',})
             }
         })
-    } catch (err) { next(err) }
+    } catch (err) {
+        next(err)
+    }
 }
     
 

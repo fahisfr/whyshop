@@ -26,6 +26,10 @@ function Cart() {
     const removeCartProduct = id => {
         dispatch(removeFromCart(id))
         Axios.put('cart/remove-product/' + id, { id: id }).then(res => {
+        }).then(res => {
+            
+        }).catch(err => {
+            
         })
     }
     return (

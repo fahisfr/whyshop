@@ -7,4 +7,5 @@ const corsOptions = {
     sameSite: 'none'
 }
 
+
 module.exports = corsOptions;

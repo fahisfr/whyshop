@@ -27,7 +27,7 @@ const handleLogin = async (req, res,next) => {
             }
         })
     } catch (err) {
-        next(err)
+        next(ApiErrors.InternalServerError(err.message))
     }
 }
     

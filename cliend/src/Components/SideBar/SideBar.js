@@ -11,9 +11,9 @@ function SIdeBar(props) {
     const dispatch = useDispatch()
     const logoutNow = () => {
         axios.delete('logout').then(response => {
+            localStorage.removeItem('accesstoken')
             dispatch(logout())
             props.settrigger(false)
-            localStorage.removeItem('accesstoken')
         })
     }
     return (props.trigger) ? (

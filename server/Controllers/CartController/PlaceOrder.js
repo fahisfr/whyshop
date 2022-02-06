@@ -2,6 +2,7 @@ const Razorpay = require('razorpay')
 const dbCart = require('../../Schemas/Cart')
 const dbOrder = require('../../Schemas/Order')
 const GetCartInfo = require('./GetCartInfo')
+const ApiErrors = require('../../Config/ApiErrors')
 const instance = new Razorpay({
     key_id:process.env.RAZORPAY_KEY_ID,
     key_secret:process.env.RAZORPAY_KEY_SECRET ,
@@ -61,7 +62,7 @@ const PlaceOrder = async (req, res,next) => {
             }).catch(err =>res.status(500).json({ status: false, message: "create order filed try again" }))
 
         }
-    } catch (err) { next(err) }}
+    } catch (error) { next(ApiErrors.InternalServerError(error.message))}}
 
 
 module.exports = PlaceOrder

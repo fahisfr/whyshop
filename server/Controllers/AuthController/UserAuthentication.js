@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
-const Role_List = require('../../Config/Roles')
-
+const ApiErrors = require('../../Config/ApiErrors')
 const AuthenticationController = (req, res,next) => {
     try {
         const auteheader = req.headers['authorization']
-        if (!auteheader) return res.json({ status: false, message: 'Token not found' })
+        if (!auteheader) return ApiErrors.Unauthorized('No token provided.')
         jwt.verify(auteheader, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (decoded) {
                 return res.status(200).json({
@@ -16,11 +15,11 @@ const AuthenticationController = (req, res,next) => {
                     },
                 })
             } else {
-                res.status(401).json({ message:err.message})
+                next(ApiErrors.Unauthorized('Token not valid'))
             }
         })
     } catch (error) {
-        next(error)
+        next(ApiErrors.InternalServerError(error.message))
     }
     
 }

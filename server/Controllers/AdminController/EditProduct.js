@@ -1,4 +1,5 @@
 const Product = require('../../Schemas/Product')
+const ApiErrors = require('../../Config/ApiErrors')
 module.exports = async (req, res, next) => {
     try {
         const { name, quantity, price } = req.body
@@ -7,7 +8,7 @@ module.exports = async (req, res, next) => {
         )
         res.json({ success: true, message: "product updated successfully" })
     } catch (error) {
-        next(error)
+        next(ApiErrors.InternalServerError(error.message))
     }
 
 

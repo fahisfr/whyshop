@@ -1,5 +1,6 @@
 const dbCarts = require('../../Schemas/Cart')
 const dbProducts = require('../../Schemas/Product')
+const ApiErrors = require('../../Config/ApiErrors')
 
 const changeProductQuantity = async (req, res, next) => {
     try {
@@ -15,8 +16,12 @@ const changeProductQuantity = async (req, res, next) => {
             FindCart.save()
             res.json({ status: true, message: 'Product quantity updated successfully' })
         }
-    } catch (err) { next(err) }
+    } catch (error) {
+        next(ApiErrors.InternalServerError(error.message))
+    }
 }
+
+
 const removeCartProduct = async (req, res,next) => {
     try {
         const userCart = await dbCarts.findOne({ userID: req.user.id }).exec()
@@ -26,14 +31,20 @@ const removeCartProduct = async (req, res,next) => {
         userCart.products.pull(Product)
         userCart.save()
         res.json({ status: true, message: 'Product removed from Cart successfully' })
-    } catch (err) { next(err) }
+    } catch (error) {
+        next(ApiErrors.InternalServerError(err.message))
+    }
 
 }
+
+
 const removeAllCartProducts = (req, res,next) => {
     try {
         dbCarts.deleteOne({ userID: req.user.id }).then(result => {
             res.json({ status: true, message: 'All products removed from Cart successfully' })
         })
-    } catch (err) { next(err) }
+    } catch (error) {
+        next(ApiErrors.InternalServerError(error.message))
+    }
 }
 module.exports = { changeProductQuantity, removeCartProduct, removeAllCartProducts }

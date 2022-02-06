@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const Product = require('../../Schemas/Product')
 
 const AddProduct = async (req, res,next) => {

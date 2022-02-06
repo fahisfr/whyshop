@@ -1,5 +1,5 @@
-
-var Product =require("../../Schemas/Product") 
+var Product = require("../../Schemas/Product")
+const ApiErrors = require('../../Config/ApiErrors')
 
 const GetCategory = async (req, res,next) => {
     try {
@@ -8,7 +8,7 @@ const GetCategory = async (req, res,next) => {
         if (!FindProducts) return res.json({ status: false, message: 'Product type  not ' })
         res.json({ status: true, message: "product found", product: FindProducts })
     } catch (err) {
-        next(err)
+        next(ApiErrors.InternalServerError(err.message))
     }
 }
 

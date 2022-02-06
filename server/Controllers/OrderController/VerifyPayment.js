@@ -1,7 +1,8 @@
 const crypto = require('crypto')
 const order = require('../../Schemas/Order')
 const Cart = require('../../Schemas/Cart')
-const objectid = require('mongodb').ObjectId
+const ApiErrors = require('../../Config/ApiErrors')
+
 const verifyPayment = async (req, res,next) => {
     try {
         req.body = req.body.order
@@ -22,8 +23,8 @@ const verifyPayment = async (req, res,next) => {
         } else {
             res.json({ status: false, message: "Payment Failed" })
         }
-    } catch (err) {
-        next(err)
+    } catch (error) {
+        next(ApiErrors.InternalServerError(error.message))
     }
     
 }

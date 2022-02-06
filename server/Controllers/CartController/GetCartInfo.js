@@ -112,7 +112,7 @@ const getCartProductsInfo = async (req, res) => {
     Promise.all([getCartProduct(UsersID), CartProductTolal(UsersID)]).then(result => {
         res.json({status: true,cart: result[0],totalamout: result[1],});}
     ).catch(err => {
-        res.status(400).json({status: false,message: err.message});});
+        res.json({status: false,message: err.message});});
 };
 
 module.exports = {

@@ -3,10 +3,9 @@ import Axios from '../Axios'
 
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
-    const response = await Axios.get('/authentication').then(res=>res.data)
+    const response = await Axios.get('/auth').then(res=>res.data)
     return response
 })
-
 export const  userSlice = createSlice({
     name: 'user',
     initialState: {

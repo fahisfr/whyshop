@@ -30,9 +30,6 @@ export const CartSlice = createSlice({
         removeAllProducts: (state, action) => {
             state.cartInfo = []
         },
-        Checkout: (state, action) => {
-            state.cartInfo = []
-        }
     },
     extraReducers: {
         [fetchCart.pending]: (state, action) => {

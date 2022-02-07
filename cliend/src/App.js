@@ -19,7 +19,7 @@ import Product from './Page/Product/Product';
 
 
 function App() {
-  const user = useSelector(state => state.user.userInfo.isAthu)
+  const user = useSelector(state => state.user.userInfo.isAuth)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchUser())

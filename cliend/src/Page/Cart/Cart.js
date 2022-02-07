@@ -25,24 +25,14 @@ function Cart() {
     }
     const removeCartProduct = id => {
         dispatch(removeFromCart(id))
-        Axios.put('cart/remove-product/' + id, { id: id }).then(res => {
-        }).then(res => {
-            
-        }).catch(err => {
-            
-        })
+        Axios.put('cart/remove-product/' + id, { id: id })
     }
     return (
         <div>
             <Navbar></Navbar>
             {
-                cartInfo.length === 0 ?
-                    <div className='cart-is-empty'>
-                        <span>Cart is Empty</span>
-                    </div> :
-                    
+                cartInfo ?
                     <div className='cart-container'>
-                      
                         <div className="cart-left">
                             <div className="cart-left-header">
                                 <div className="cart-left-header-left">
@@ -108,6 +98,12 @@ function Cart() {
                             </div>
                         </div>
                     </div>
+                    :
+                    <div className='cart-is-empty'>
+                        <span>Cart is Empty</span>
+                    </div> 
+                    
+                    
             }
             
 

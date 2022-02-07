@@ -21,7 +21,7 @@ const RefreshTokenController = (req, res, next) => {
                 })
             } else {
                 console.log(err)
-                res.status(403).json({ auth: false, message: 'Failed to authenticate token.' });
+                res.status(403).json({ auth: false, message: '' });
             }
         });
     } catch (error) {

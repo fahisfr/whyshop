@@ -9,7 +9,7 @@ import { addToCart, changeProductQuantity, removeFromCart } from '../../Features
 
 
 function RecomendBar(props) {
-    const { isAthu } = useSelector(state => state.user.userInfo)
+    const { isAuth } = useSelector(state => state.user.userInfo)
     const { products} = useSelector(state => state.products)
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
@@ -64,7 +64,7 @@ function RecomendBar(props) {
                                         <button onClick={(e) => changeQuantity(.5, product._id)} className="recommend-item-quantity-button">+</button>
                                     </div> :
                                     <div className='recommend-item-addtocart'>{
-                                        isAthu ? <button className='item-add' onClick={() => AddTOCart(product._id, product)} >Add to cart</button> :
+                                        isAuth ? <button className='item-add' onClick={() => AddTOCart(product._id, product)} >Add to cart</button> :
                                             <Link to='/login' ><button className='item-add'>Add to cart</button></Link>
                                     }
                                         

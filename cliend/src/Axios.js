@@ -1,29 +1,24 @@
 import axios from 'axios';
 
-
-const baseURL = 'http://localhost:4000/';
+const baseURL = 'https://frbots.com/';
 
 export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;
 
 const instance = axios.create({
-    baseURL: 'http://localhost:4000/api/',
+    baseURL: 'https://frbots.com/api/',
     headers: {
         'authorization': localStorage.getItem('accesstoken'),
     },
-    withCredentials: true
-   
 });
 instance.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 && error.response.data.message === 'Token not valid') {
             try {
-                localStorage.removeItem('accesstoken')
-                const { data } = await instance.put('/auth/refreshtoken', { withCredentials: true })
+                const { data } = await instance.put('/auth/refreshtoken')
                 localStorage.setItem('accesstoken', data.accesstoken)
                 window.location.reload('/')
             } catch (_error) {
-                localStorage.removeItem('accesstoken');
                 return Promise.reject(error)
             }
         }

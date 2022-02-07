@@ -13,7 +13,7 @@ export const  userSlice = createSlice({
             name: 'Unknown',
             number: '999999999',
             role: '',
-            isAthu: false,
+            isAuth: false,
         },
         error: '',
         loading: false,
@@ -28,7 +28,7 @@ export const  userSlice = createSlice({
                 name: '',
                 number: '',
                 role: '',
-                isAthu: false,
+                isAuth: false,
             }
         }
     }, extraReducers: {

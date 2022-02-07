@@ -16,7 +16,7 @@ function Login() {
         e.preventDefault()
         Axios.post('/login', { number, password }).then((result) => {
             if (result.data.success) {
-                dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAthu: true }))
+                dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number,isAuth: true }))
                 localStorage.setItem('accesstoken', result.data.accesstoken)
             } else {
                 alert(result.data.message)

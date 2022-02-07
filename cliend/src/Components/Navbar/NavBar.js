@@ -10,7 +10,7 @@ import  { ImagePath } from '../../Axios'
 
 
 function NavBar(props) {
-    const { isAthu } = useSelector(state => state.user.userInfo)
+    const { isAuth } = useSelector(state => state.user.userInfo)
     const { products } = useSelector(state => state.products)
     const [sidebar, setsidebar] = useState(false)
     const [result, setresult] = useState([])
@@ -59,7 +59,7 @@ function NavBar(props) {
                     )
                 }
             </div>
-            {isAthu ? <div className='nav-4-box'>
+            {isAuth ? <div className='nav-4-box'>
                 <Link to='/order'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
                 <Link to='/cart'><BiCart size={31} color='white' /></Link><span  >Cart</span>
             </div>

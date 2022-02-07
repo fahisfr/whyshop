@@ -11,7 +11,7 @@ const AuthenticationController = (req, res,next) => {
                         name: decoded.name,
                         number: decoded.number,
                         role: decoded.role,
-                        isAthu: true,
+                        isAuth: true,
                     },
                 })
             } else {

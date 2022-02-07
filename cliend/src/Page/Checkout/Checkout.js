@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './Checkout.css'
 import Axios from '../../Axios'
 import {  useDispatch,useSelector } from 'react-redux'
-import { Checkout } from '../../Features/Cart'
+import { removeAllProducts } from '../../Features/Cart'
 import Loading from '../../Components/Loading/Loading'
 import Pop from '../../Components/Pop/Pop'
 
@@ -36,7 +36,7 @@ function Order() {
     const [loading, setloading] = useState(false)
     const OrderSuccess = (message) => {
         setloading(false)
-        dispatch(Checkout())
+        dispatch(removeAllProducts())
         setTimeout(() => {
             navigate('/')
         }, 8000);

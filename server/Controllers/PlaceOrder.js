@@ -1,9 +1,9 @@
 const Razorpay = require('razorpay')
-const dbCart = require('../../Schemas/Cart')
-const dbProduct = require('../../Schemas/Product')
-const dbOrder = require('../../Schemas/Order')
+const dbCart = require('../DBSchemas/Cart')
+const dbProduct = require('../DBSchemas/Product')
+const dbOrder = require('../DBSchemas/Order')
 const GetCartInfo = require('./GetCartInfo')
-const ApiErrors = require('../../Config/ApiErrors')
+const ApiErrors = require('./../Config/ApiErrors')
 
 const instance = new Razorpay({
     key_id:process.env.RAZORPAY_KEY_ID,

@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 
-const RefreshToken       = require('../Controllers/AuthController/VerifyRefreshToken')
-const userAuthentication = require('../Controllers/AuthController/UserAuthentication')
+const RefreshToken       = require('../Controllers/VerifyRefreshToken')
+const userAuthentication = require('../Controllers/UserAuthentication')
 
 
 router.get('/', userAuthentication)

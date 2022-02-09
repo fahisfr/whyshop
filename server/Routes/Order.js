@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const OrderController = require('../Controllers/OrderController/VerifyPayment')
-const GetOrderInfo    = require('../Controllers/OrderController/GetOrderInfo')
+const OrderController = require('../Controllers/VerifyPayment')
+const GetOrderInfo    = require('../Controllers/GetOrderInfo')
 
 router.get('/', GetOrderInfo)
 router.post('/verifypayment',OrderController)

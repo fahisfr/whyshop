@@ -10,13 +10,11 @@ const LoginAPIValidation = (req, res, next) => {
     next()}
     
 const PlaceOrderAPIValidation = (req, res, next) => {
-    console.log(req.body)
     var { error } = ValidationSchema.PlaceOrder.validate(req.body);
     if (error) { return res.json({ status:false, message: error.details[0].message})}
     next()}
     
 const AddProductAPIValidation = (req, res, next) => {
-    console.log(req.file)
     var { error } = ValidationSchema.AddProduct.validate(req.body);
     if (error) { return res.json({ status: false, message: error.details[0].message }) }
     next()}

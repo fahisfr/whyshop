@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const Userdb = require('../../Schemas/User');
-const ApiErrors = require('../../Config/ApiErrors')
+const Userdb = require('../DBSchemas/User');
+const ApiErrors = require('./../Config/ApiErrors')
 
 const RefreshTokenController = (req, res, next) => {
     try {

@@ -1,5 +1,5 @@
-var Product = require("../../Schemas/Product")
-const ApiErrors = require('../../Config/ApiErrors')
+var Product = require("../DBSchemas/Product")
+const ApiErrors = require('../Config/ApiErrors')
 
 const GetCategory = async (req, res,next) => {
     try {

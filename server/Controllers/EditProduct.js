@@ -1,5 +1,5 @@
-const Product = require('../../Schemas/Product')
-const ApiErrors = require('../../Config/ApiErrors')
+const Product = require('../DBSchemas/Product')
+const ApiErrors = require('../Config/ApiErrors')
 module.exports = async (req, res, next) => {
     try {
         const { name, quantity, price } = req.body

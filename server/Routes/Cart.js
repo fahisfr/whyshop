@@ -1,10 +1,10 @@
 const express  = require('express')
 const router   = express.Router()
 
-const GetCartInfo    =require ('../Controllers/CartController/GetCartInfo')
-const AddToCart      = require('../Controllers/CartController/AddToCart')
-const CartChanges    = require('../Controllers/CartController/CartChanges')
-const PlaceOrder     = require('../Controllers/CartController/PlaceOrder')
+const GetCartInfo    =require ('../Controllers/GetCartInfo')
+const AddToCart      = require('../Controllers/AddToCart')
+const CartChanges    = require('../Controllers/CartChanges')
+const PlaceOrder     = require('../Controllers/PlaceOrder')
 const ApiValidation  = require('../APIValidations/APIValidation')
 const APIValidation  =require('../APIValidations/APIValidation')
 

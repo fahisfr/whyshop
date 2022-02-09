@@ -1,4 +1,4 @@
-const User = require('../Schemas/User')
+const User = require('../DBSchemas/User')
 const jwt = require('jsonwebtoken');
 
 

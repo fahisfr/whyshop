@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const dbProducts = require('../../Schemas/Product')
+const dbProducts = require('../DBSchemas/Product')
 
 module.exports = router.get('/:id', async (req, res,next) => {
     try {

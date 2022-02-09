@@ -1,4 +1,4 @@
-const DB_User=require('../Schemas/User')
+const DB_User=require('../DBSchemas/User')
 const Roles = (...Allowed_Roles) => {
     return async (req, res, next) => {
         try { const FindRole =Allowed_Roles.includes(req.user.role)

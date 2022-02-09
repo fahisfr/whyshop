@@ -1,6 +1,6 @@
-const dbCarts = require('../../Schemas/Cart')
-const dbProducts = require('../../Schemas/Product')
-const ApiErrors = require('../../Config/ApiErrors')
+const dbCarts = require('../DBSchemas/Cart')
+const dbProducts = require('../DBSchemas/Product')
+const ApiErrors = require('./../Config/ApiErrors')
 
 const changeProductQuantity = async (req, res, next) => {
     try {

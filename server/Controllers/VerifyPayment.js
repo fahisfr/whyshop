@@ -1,7 +1,7 @@
 const crypto = require('crypto')
-const order = require('../../Schemas/Order')
-const Cart = require('../../Schemas/Cart')
-const ApiErrors = require('../../Config/ApiErrors')
+const order = require('../DBSchemas/Order')
+const Cart = require('../DBSchemas/Cart')
+const ApiErrors = require('./../Config/ApiErrors')
 
 const verifyPayment = async (req, res,next) => {
     try {

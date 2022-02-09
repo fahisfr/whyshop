@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const dbUser = require('../../Schemas/User');
+const dbUser = require('../DBSchemas/User');
 const bcrept = require('bcryptjs');
 
 

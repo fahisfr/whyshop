@@ -1,4 +1,4 @@
-const dbProduct = require("../../Schemas/Product")
+const dbProduct = require("../DBSchemas/Product")
 
 const findProduct = async (req, res, next) => {
     try {

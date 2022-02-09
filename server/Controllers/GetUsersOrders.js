@@ -1,4 +1,4 @@
-const Orders = require('../../Schemas/Order')
+const Orders = require('../DBSchemas/Order')
 
 
 module.exports = async (req, res) => {

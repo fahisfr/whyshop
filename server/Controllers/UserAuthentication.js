@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const ApiErrors = require('../../Config/ApiErrors')
+const ApiErrors = require('./../Config/ApiErrors')
 const AuthenticationController = (req, res,next) => {
     try {
         const auteheader = req.headers['authorization']

@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-
 const signup = Joi.object({
     name: Joi.string().min(4).max(22).required().trim().pattern(/^[a-zA-Z0-9]+$/),
     number: Joi.string().trim().min(10).max(10).required().pattern(/^[0-9]+$/),
@@ -22,7 +21,7 @@ const PlaceOrder = Joi.object({
 
 const AddProduct = Joi.object({
     name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).min(3).max(14).required(),
-    type: Joi.string().pattern(/^[0-9]+$/).valid("vegetables","fruits","sweets").required(),
+    type: Joi.string().pattern(/^[0-9]+$/).required(),
     quantity: Joi.string().pattern(/^[.0-9]+$/).trim().required(),
     price: Joi.string().pattern(/^[0-9]+$/).trim().required(),
 })

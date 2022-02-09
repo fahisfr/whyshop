@@ -1,6 +1,6 @@
-const ProductType = require('../../Schemas/ProductType')
-const Product = require('../../Schemas/Product')
-const ApiErrors = require('../../Config/ApiErrors')
+const ProductType = require('../DBSchemas/ProductType')
+const Product = require('../DBSchemas/Product')
+const ApiErrors = require('./../Config/ApiErrors')
 module.exports = (req, res,next) => {
     try {
         Promise.all([ProductType.find({}), Product.find({})]).then(([types, products]) => {

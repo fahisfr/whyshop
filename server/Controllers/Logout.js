@@ -1,7 +1,7 @@
 const  express = require('express')
 const router = express.Router()
 
-const User=require('../../Schemas/User')
+const User=require('../DBSchemas/User')
 
 module.exports = router.delete('', async (req, res) => {
     try {

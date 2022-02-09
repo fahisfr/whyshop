@@ -1,4 +1,4 @@
-const Cart = require('../../Schemas/Cart')
+const Cart = require('../DBSchemas/Cart')
 const objectid = require('mongodb').ObjectId
 
 

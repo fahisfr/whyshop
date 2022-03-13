@@ -35,6 +35,7 @@ app.use('/api/search-products', require('./Controllers/SearchProduts'))
 app.use('/api/cart', IsAthu, require('./Routes/Cart'))
 app.use('/api/order', IsAthu, require('./Routes/Order'))
 app.use('/api/admin', require('./Routes/Admin'))
+app.use('/api/feedback', require('./Routes/Feedback'))
 app.use('/api/logout', IsAthu, require('./Controllers/Logout'))
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')))

@@ -1,0 +1,73 @@
+.feedback-container{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: auto;
+   background-color: #f5f5f5;
+}
+.feedback-title{
+   font-size: 2rem;
+   font-weight: bold;
+   font-weight: 500;
+   color: rgb(21, 167, 172);
+   margin-bottom: .5rem;
+}
+.feedback-from{
+   width: 90%;
+   height: 100%;
+  
+}
+.feedback-from label{
+  margin-bottom: 1rem;
+  margin-bottom: 16px;
+}
+.feedback-input{
+   width: 100%;
+   height: 40px;
+   border-radius: 5px;
+   border: 1px solid #ccc;
+   padding: 0 10px;
+   margin-bottom: 20px;
+}
+.feedback-message{
+   min-width: 100%;
+   height: 200px;
+   border-radius: 5px;
+   border: 1px solid #ccc;
+   padding: 0 10px;
+   margin-bottom: 10px;
+
+}
+.feedback-from button{
+   width: 100%;
+   height: 40px;
+   border-radius: 5px;
+   border: 1px solid #ccc;
+   padding: 0 10px;
+   margin-bottom: 20px;
+   background-color: rgb(2, 170, 148);
+   font-weight: 500;
+   color: #fff;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 1.2rem;
+   cursor: pointer;
+}
+.feedback-from button:hover{
+   border: 1px solid #27cdd3;
+}
+.feedback-input:hover {
+   border: 1px solid #27cdd3;
+}
+.feedback-input:focus{
+  outline: none;
+   border: 1px solid #27cdd3;
+}
+.feedback-message:hover {
+   border: 1px solid #27cdd3;
+}
+.feedback-message:focus{
+  outline: none;
+   border: 1px solid #27cdd3;
+}

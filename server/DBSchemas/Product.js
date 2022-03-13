@@ -1,10 +1,10 @@
 var db = require('mongoose')
-const ProductType=require('../Config/ProductType')
+
 
 const AddProduct = new db.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    type: {enum:[...ProductType],type: String, required: true},
+    type: {type: String, required: true},
     quantity: { type: Number, required: Number, min: 1, },
     imageId: { type: String, },
     createdAt: { type: Date, default: new Date() },

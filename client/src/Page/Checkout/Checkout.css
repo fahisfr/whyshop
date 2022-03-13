@@ -1,0 +1,127 @@
+.checkout-container{
+    width:100%;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    overflow: scroll;
+    /* justify-content: space-evenly; */
+}
+.checkout-form{
+    width:50%;
+    height:40em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    overflow: hidden;
+    background-color: #f5f5f5
+
+
+}
+.checkout-form form {
+    width:90%;
+    height:40em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.checkout-form-input{
+    width:100%;
+    height:60px;
+    margin-top:10px;
+    border-radius:5px;
+    display: flex;
+    flex-direction:column;
+    /* border:1px solid #ccc; */
+    padding:10px;
+    font-size:15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.checkout-form-input input{
+    width:100%;
+    height:100%;
+    border:none;
+    outline:none;
+    font-size:15px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 30px;
+    padding-left: 15px;
+}
+.checkout-form-input label{
+ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+   
+}
+.order-button{
+    border: none;
+    margin-top: 20px;
+    width: 140px;
+    height: 40px;
+    font-size: 17px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(0, 255, 0);
+}
+
+.checkout-form-input select{
+    width:100%;
+    height:100%;
+    border:none;
+    outline:none;
+    font-size:15px;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 30px;
+    padding-left: 15px;
+    
+}
+.checkout-from-tital{
+    display: flex;
+    font-size:45px;
+    /* font-family: 'Roboto', sans-serif; */
+    color: rgb(0, 0, 0);
+    margin-top: 20px;
+}
+.checkout-form-input select option{
+    font-size:17px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.checkout-form label{
+     font-size:17px;
+    font-family: 'Roboto', sans-serif;
+   
+}
+.checkout-form-input input:focus{
+    border:1px solid #ccc;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+}
+
+
+@media (max-width:1000px) {
+ .checkout-form{
+    width:70%;
+    
+}
+.checkout-form{
+    justify-content: center;
+}
+}
+
+
+@media (max-width:600px) {
+.checkout-form{
+    width:100%;
+    height: 100%;
+    
+}
+}

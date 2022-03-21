@@ -1,17 +1,116 @@
-import NavBar from "../../Components/Navbar/NavBar"
+import React, {useEffect}from 'react'
+import NavBar from '../../Components/Navbar/NavBar'
+import {useParams,Link} from 'react-router-dom'
+import { fetchOrder } from '../../Features/Order'
+import { useSelector, useDispatch } from 'react-redux'
+import {ImagePath} from '../../Axios'
 import './Order.css'
 
 function Order() {
-   
-    return (
-        <div>
-            <NavBar />
-            <div className='order-main'>
-                <span>Sorry Order Page not available    (developing..)</span>
-            </div>
-        </div>
-    )
+    const dispatch = useDispatch()
+    const {id} = useParams()
+    useEffect(() => {
+        dispatch(fetchOrder())
+    }, [dispatch])
+    const { OrderInfo } = useSelector(state => state.order)
+    const Order = OrderInfo.find(x => x._id === id)
+    console.log(Order)
+    
+  return (
+      <div>
+          <NavBar></NavBar>
+          {
+              Order ?
+                  <div className='order-container'>
+                      <div className="order-left">
+                          <div className="order-left-header">
+                              <div className="order-left-header-left">
+                                  <h1 className="order-h1-myorder">My Order</h1>
+                              </div>
+                              <div className="order-left-header-right">
 
+                              </div>
+                          </div>
+                          <div className="order-left-body">
+                              {
+                                  Order.products.map((item, index) => {
+                                      return (
+                                          <div className="order-left-body-product" >
+
+                                              <div className="order-left-body-product-image">
+                                                  <img src={ImagePath(item.imageId)} alt="loading" />
+                                              </div>
+                                              <div className="order-left-body-product-details">
+                                                  <span className='c-p-name'>{item.name}</span>
+                                                  <span className='c-p-price'>₹{item.price} kg</span>
+                                              </div>
+                                              <div className="order-left-body-product-quantity">
+                                               
+                                                  <span className='order-prdocut-show-quantity'>{item.quantity}<span style={{ fontSize: '18px' }}>kg</span></span>
+                                               
+                                              </div>
+                                              <div className="order-left-body-prdouct-total">
+                                                  <span>₹{item.total}</span>
+                                              </div>
+                                              <div>
+                                              
+                                              </div>
+                                          </div>
+                                      )
+                                    })  
+                                      
+                              }
+                                         
+                               
+                          </div>
+
+                      </div>
+                      <div className="order-right">
+                          <div className='order-bill'>
+                              <span>Order DETAILS</span>
+                          </div>
+                          <div className='order-p-t-billing'>
+                              <span>Total Price</span>
+                              <span>₹{Order.totalPrice}</span>
+                          </div>
+                          <div className='order-p-t-billing'>
+                              <span>OrderAt</span>
+                              <span>{Order.OrderAt}</span>
+                          </div>
+                          <div className='order-p-t-billing'>
+                              <span>PaymentType</span>
+                              <span style={{ color: 'Red' }}>{Order.paymentType}</span>
+                          </div>
+                          <div className='order-d-p-billing' >
+                              <span>PaymentStatus</span>
+                              {
+                                  Order.paymentStatus === 'Success' ?
+                                  <span style={{ color: 'Green' }}>Paid</span>
+                                  :
+                                  <span style={{ color: 'Red' }}>{Order.paymentStatus}</span>
+                                  
+                              }
+                          </div>
+                         
+                         
+                          <div className="order-order-total">
+                              <span>OrderStatus</span>
+                              <span>{Order.OrderStatus}</span>
+                          </div>
+                          
+                      </div>
+                  </div>
+                  :
+                  <div className='order-is-empty'>
+                      <span>Order Not valide</span>
+                  </div>
+
+
+          }
+
+
+      </div>
+  )
 }
 
 export default Order

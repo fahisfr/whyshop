@@ -10,14 +10,18 @@ export const fetchOrder = createAsyncThunk('Order/fetchCart', async () => {
 export const OrderSlice = createSlice({
     name: 'order',
     initialState: {
-        OrderInfo: [],
+        OrderInfo: [
+            
+        ],
+        orders:false,
         error: '',
         loding: false,
     },
     extraReducers: {
         [fetchOrder.fulfilled]: (state, action) => {
-            state.loding=false
+            state.loding = false
             state.OrderInfo = action.payload.order
+            
 
         },
         [fetchOrder.pending]: (state, action) => {

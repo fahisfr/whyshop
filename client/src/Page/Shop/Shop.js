@@ -76,7 +76,10 @@ function Products() {
                                             <button onClick={(e) => changeQuantity(.5, product._id)} className="shop-item-quantity-button">+</button>
                                         </div> :
                                         <div className='shop-2-item-add2cart'>
-                                            <button onClick={() => AddTOCart(product._id, product)}>Add to cart</button>
+                                            {
+                                               <button onClick={() => AddTOCart(product._id, product)}>Add to cart</button> 
+                                            }
+                                            
                                         </div>
 
                                 }

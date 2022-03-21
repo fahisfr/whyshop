@@ -38,9 +38,9 @@ function SIdeBar(props) {
                     </Link>
                     <Link className='sidebar-link' to='/account'>My Account</Link>
                     <Link className='sidebar-link' to='/'> Home</Link>
-                    <Link className='sidebar-link' to='/order'> Orders</Link>
                     <Link className='sidebar-link' to='/cart'> Cart</Link>
-                    <Link className='sidebar-link' to='feedback'>Send Feedback</Link>
+                    <Link className='sidebar-link' to='/orders'> Orders</Link>
+                    <Link className='sidebar-link' to='/feedback'>Send Feedback</Link>
                     <Link className='sidebar-link' to='/support'> My Chats</Link>
                     <Link className='sidebar-link ' onClick={() => logoutNow()} style={{ color: 'red' }} to='/'>Logout</Link>
                 </div>

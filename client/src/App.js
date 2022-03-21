@@ -11,10 +11,11 @@ import Signup from './Page/Signup/Signup';
 import Login from './Page/Login/Login';
 import Cart from './Page/Cart/Cart';
 import PlaceOrder from './Page/Checkout/Checkout';
-import Order from './Page/Order/Order';
+import Orders from './Page/Orders/Orders';
 import PageNotFount from './Page/404/PageNotFount';
 import Product from './Page/Product/Product';
 import Feedback from './Page/Feedback/Feedback'
+import Order from './Page/Order/Order';
 
 
 
@@ -37,7 +38,8 @@ function App() {
           <Route path="/signup" element={user? <Navigate to="/" />:<Signup/>} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="/checkout" element={<PlaceOrder/> }/>
-          <Route path='/order' element={<Order />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path="/order/:id" element={<Order/>} />
           <Route path="feedback" element={<Feedback/>} />
           <Route path='*' element={<PageNotFount />} />
         </Routes>

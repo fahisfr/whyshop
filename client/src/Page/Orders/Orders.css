@@ -1,0 +1,157 @@
+.orders-container{
+     width: 100%;
+    height: 88vh;
+    display: flex;
+    padding-top: 20px;
+    flex-direction:row;
+    justify-content: space-evenly;
+    background-color: #eaeded;
+}
+.ao{
+   width: 90%;
+    height:95%;
+    overflow: scroll; 
+    overflow-x:hidden; 
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.ao::-webkit-scrollbar{
+    display: none;
+}
+.ao-myordre{
+    font-weight: 500;
+    font-size: 35px;
+    color: rgb(190, 184, 184);
+    line-height: 66px
+}
+.ao-a-header{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(190, 184, 184);;
+    align-items: center;
+}
+
+.ao-myorders{
+    font-weight: 500;
+    font-size: 35px;
+    color: rgb(190, 184, 184);
+    line-height: 66px
+}
+
+.ao-body{
+    width:100%;
+    height:90% ;
+    overflow: scroll;
+}
+.order-info{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(211, 202, 202);    
+}
+.oi-product{
+    width: 25%;
+    height: 150px;
+    overflow-x:hidden;
+}
+
+.oi-product::-webkit-scrollbar{
+    display: none;
+}
+
+.oi-images{
+    width:90px;
+    height: 70px;
+    object-fit:contain;
+}
+.oi-price span{
+    font-weight: 200;
+    font-size: 18px;
+    color: rgb(59, 58, 56);
+    
+}
+.oi-status span{
+    font-weight: 300;
+    font-size: 20px;
+    color: rgb(58, 121, 16);
+    line-height: 66px
+}
+
+.oi-md button{
+    width: 100px;
+    height: 35px;
+    margin-right:1.5rem;
+    background-color: white;
+    border: 1px solid rgb(19, 162, 219);
+    color: rgb(44, 165, 221);
+    cursor: pointer;
+}
+.oi-md button:hover{
+    background-color:rgb(44, 165, 221);
+    color:white;
+    border: 1px solid rgb(255, 255, 255);
+}
+.ao-body.ao-body::-webkit-scrollbar{
+    display: none;
+}
+
+@media (max-width:750px){
+    .orders-container{
+        padding-top: 0px;
+    }
+    .ao{
+        width: 100%;
+        height: 100%;
+    }
+    .oi-price span{
+    font-weight: 200;
+    font-size: 14px;
+    color: rgb(59, 58, 56);
+    
+}
+.order-info{
+    height: 120px;
+}
+.oi-product{
+    width: 30%;
+    height: 120px;
+    overflow-x:hidden;
+}
+.oi-images{
+    width:70px;
+    height: 60px;
+    object-fit:contain;
+}
+.oi-status span{
+    font-weight: 300;
+    font-size: 14px;
+    color: rgb(58, 121, 16);
+    line-height: 66px
+}
+
+.oi-md button{
+    width: 80px;
+    height: 25px;
+    margin-right:1.5rem;
+    background-color: white;
+    border: 1px solid rgb(19, 162, 219);
+    color: rgb(44, 165, 221);
+    cursor: pointer;
+    font-size: 10px;
+}
+.ao-myorders{
+    font-size: 25px;
+    color: rgb(190, 184, 184);
+}
+.ao-a-header{
+    height: 7%;
+}
+}
+

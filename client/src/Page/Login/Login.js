@@ -5,26 +5,31 @@ import './Login.css'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Features/User'
 import PopUp from '../../Components/Pop/Pop'
+import Loading from '../../Components/Loading/Loading'
 
 
 function Login() {
     const dispatch = useDispatch()
     const [number, setnumber] = useState()
     const [password, setpassword] = useState('')
-    const [Pop, setPop] = useState({ status: false, message: '' })
+    const [Pop, setPop] = useState({ trigger: false, success: false, message: '' })
+    const [loading, setloading] = useState(false)
     function loginform(e) {
         e.preventDefault()
+        setloading(true)
         Axios.post('/login', { number, password }).then((result) => {
+            setloading(false)
             if (result.data.success) {
                 dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number,isAuth: true }))
                 localStorage.setItem('accesstoken', result.data.accesstoken)
             } else {
-                alert(result.data.message)
+                setPop({ trigger: true, success: false, message: result.data.message })
             }
-        })
+        }).catch(res => setPop({ trigger: true, success: false, message: res.message }))
     }
     return (
         <div className='signup-container'>
+            <Loading trigger={loading}/>
             <PopUp Pop={Pop} setPop={setPop} />
             <div className="signup-box">
                 <div className="signup-box-1">

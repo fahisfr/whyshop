@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCart, removeFromCart, changeProductQuantity} from '../../Features/Cart'
 import Axios, { ImagePath } from '../../Axios'
-
+import { BiCart } from "react-icons/bi";
 import Navbar from '../../Components/Navbar/NavBar'
 
 
@@ -15,7 +15,6 @@ function Cart() {
         dispatch(fetchCart())
     }, [dispatch])
     const { cartInfo,total } = useSelector(state => state.cart)
-
     const changeQuantity = (quantity, id,price) => {
         dispatch(changeProductQuantity({ id, quantity,price }))
         Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then(res => {
@@ -100,7 +99,8 @@ function Cart() {
                     </div>
                     :
                     <div className='cart-is-empty'>
-                        <span>Cart is Empty</span>
+                        <BiCart size={54 } />
+                        <span>Cart Is Empty</span>
                     </div> 
                     
                     

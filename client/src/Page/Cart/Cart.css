@@ -215,7 +215,10 @@
     align-items: center;
     justify-content: center;
 }
-
+.cart-is-empty{
+    font-size: 40px;
+    color: rgb(190, 184, 184);
+}
 @media (max-width:745px) {
    
     .cart-container{
@@ -388,6 +391,10 @@
     position: sticky;
     z-index: 4;
     bottom: 0;
+}
+.cart-is-empty{
+    font-size: 35px;
+    color: rgb(190, 184, 184);
 }
 }
 

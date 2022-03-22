@@ -195,6 +195,10 @@
     align-items: center;
     justify-content: center;
 }
+.order-is-empty {
+    font-size: 35px;
+    color: rgb(190, 184, 184);
+}
 
 @media (max-width:745px) {
    

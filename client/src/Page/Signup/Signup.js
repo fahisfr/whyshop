@@ -6,6 +6,7 @@ import './Signup.css'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Features/User'
 import PopUp from '../../Components/Pop/Pop'
+import Loading from '../../Components/Loading/Loading'
 
 function Signup() {
     const dispatch = useDispatch()
@@ -13,22 +14,27 @@ function Signup() {
     const [number, setnumber] = useState('')
     const [password, setpassword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
-    const [Pop, setPop] = useState({ status: false, message: '' })
+    const [Pop, setPop] = useState({ trigger: false, message: '' })
+    const [loading, setloading] = useState(false)
     const sumbitform = (e) => {
         e.preventDefault()
+        setloading(true)
         Axios.post('/signup', { name, number, password, confirmPassword }).then((result) => {
+            setloading(false)
             if (result.data.status) {
                 dispatch(login({ name: result.data.name, roel: result.data.roel, number: result.data.number, isAuth: true }))
                 localStorage.setItem('accesstoken', result.data.accesstoken)
             } else {
-                alert(result.data.message)
+            
+                setPop({ trigger: true, message: result.data.message })
             }
-        }).catch(err => setPop({ status: true, message: err.message }))
+        }).catch(err => setPop({ trigger: true, message: err.message }))
     }
     return (
         <div className='signup-container'>
+            <Loading trigger={loading} />
+            <PopUp Pop={Pop} setPop={setPop} />
             <div className="signup-box">
-                <PopUp Pop={Pop} setPop={setPop} />
                 <div className="signup-box-1">
                     <img className='signup-1-image' src={process.env.PUBLIC_URL + '/frshopLS.jpg'} alt="logo" />
                 </div>

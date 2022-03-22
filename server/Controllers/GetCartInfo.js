@@ -100,7 +100,7 @@ const CartProductTolal = UserID => {
 
                 }
             }
-        ]).then(result => {resolve(result[0].totalPrice);}
+        ]).then(result => { resolve(result[0].totalPrice); }
         ).catch(err => {reject({status: false, message: "Cart is empty"})});
     })
 }
@@ -111,7 +111,7 @@ const getCartProductsInfo = async (req, res) => {
     Promise.all([getCartProduct(UsersID), CartProductTolal(UsersID)]).then(result => {
         res.json({status: true,cart: result[0],totalamout: result[1],});}
     ).catch(err => {
-        res.json({status: false,message: err.message});});
+        res.json({status: false,cart:[],message: err.message});});
 };
 
 module.exports = {

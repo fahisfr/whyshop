@@ -12,13 +12,13 @@ function RecomendBar(props) {
     const { isAuth } = useSelector(state => state.user.userInfo)
     const { products } = useSelector(state => state.products)
     const dispatch = useDispatch()
-    const { cartInfo } = useSelector(state => state.cart)
-
+    
     useEffect(() => {
-       if (products.length === 0) {
-           dispatch(fetchProduts())
-       }
-    }, [])
+        if (products.length === 0) {
+            dispatch(fetchProduts())
+        }
+    }, [products.length,dispatch])
+    const { cartInfo } = useSelector(state => state.cart)
     const changeQuantity = (quantity, id) => {
         dispatch(changeProductQuantity({ id, quantity }))
         Axios.put(`cart/change-product-quantity/${id}`, { quantity })
@@ -54,6 +54,7 @@ function RecomendBar(props) {
                                 <span>{product.price} kg</span>
                             </div>
                             {
+                                
 
                                 cartInfo.find(res => res._id === product._id) ?
                                     <div className='recommend-item-remove'>
@@ -67,7 +68,8 @@ function RecomendBar(props) {
                                             <Link to='/login' ><button className='item-add'>Add to cart</button></Link>
                                     }
 
-                                    </div>
+                                        </div>
+                                   
 
                             }
                         </div>

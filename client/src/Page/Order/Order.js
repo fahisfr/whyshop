@@ -1,6 +1,6 @@
 import React, {useEffect}from 'react'
 import NavBar from '../../Components/Navbar/NavBar'
-import {useParams,Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import { fetchOrder } from '../../Features/Order'
 import { useSelector, useDispatch } from 'react-redux'
 import {ImagePath} from '../../Axios'
@@ -12,10 +12,8 @@ function Order() {
     useEffect(() => {
         dispatch(fetchOrder())
     }, [dispatch])
-    const { OrderInfo } = useSelector(state => state.order)
+    const { OrderInfo} = useSelector(state => state.order)
     const Order = OrderInfo.find(x => x._id === id)
-    console.log(Order)
-    
   return (
       <div>
           <NavBar></NavBar>
@@ -102,10 +100,8 @@ function Order() {
                   </div>
                   :
                   <div className='order-is-empty'>
-                      <span>Order Not valide</span>
+                      <span >Oops</span>
                   </div>
-
-
           }
 
 

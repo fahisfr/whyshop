@@ -13,7 +13,6 @@ export const OrderSlice = createSlice({
         OrderInfo: [
             
         ],
-        orders:false,
         error: '',
         loding: false,
     },

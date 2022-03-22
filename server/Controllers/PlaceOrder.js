@@ -28,7 +28,7 @@ const PlaceOrder = async (req, res,next) => {
                     city: req.body.city,
                 }
             })
-            res.json({ status: true, message: 'Order placed successfully' })
+            res.json({ status: true, message: 'Order Placed Puccessfully' })
             dbProduct.aggregate([
                 {
                     $match: {
@@ -68,7 +68,7 @@ const PlaceOrder = async (req, res,next) => {
             }).then(orderInfo => {
                userOrder.paymentID =orderInfo.id;
                userOrder.save();
-                res.json({ razorpay: true, message: "Order Placed Successfully", order:orderInfo})
+                res.json({ razorpay: true, message: "Order Placed Puccessfully", order:orderInfo})
             }).catch(err =>res.status(500).json({ status: false, message: "create order filed try again" }))
 
         }

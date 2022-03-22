@@ -37,6 +37,7 @@ export const CartSlice = createSlice({
         ,
         [fetchCart.fulfilled]: (state, action) => {
             state.cartInfo = action.payload.cart
+            
             state.total = action.payload.totalamout
             state.totle = action.payload.totleamout
             state.loading = false

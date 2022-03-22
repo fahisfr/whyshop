@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:4000/';
+const baseURL = 'https://frbots.com/';
 
 export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;
 
 const instance = axios.create({
-    baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://frbots.com/api',
     headers: {
         'authorization': localStorage.getItem('accesstoken'),
     },

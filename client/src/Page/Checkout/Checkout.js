@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import './Checkout.css'
 import Axios from '../../Axios'
 import {  useDispatch,useSelector } from 'react-redux'
@@ -24,9 +23,8 @@ const  loadRazorpay=(src)=> {
     })
 }
 function Order() {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [pop, setpop] = useState({ status:false, message: '' })
+    const [pop, setpop] = useState({ trigger:false,success:false, message: 'Order successfully plased' })
     const { userInfo } = useSelector(state => state.user)
     const [name, setname] = useState(userInfo.name)
     const [number, setnumber] = useState(userInfo.number)
@@ -37,10 +35,7 @@ function Order() {
     const OrderSuccess = (message) => {
         setloading(false)
         dispatch(removeAllProducts())
-        setTimeout(() => {
-            navigate('/')
-        }, 8000);
-        setpop({ status: true, message:message })
+        setpop({ trigger: true,success:true, message:message })
     }
     async function displayRazor(Order) {
         const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js")
@@ -92,13 +87,14 @@ function Order() {
                 displayRazor(res.data.order)
             } else if (res.data.status) {
                 OrderSuccess(res.data.message)
-                setpop({ status: true, message: res.data.message })
+                setpop({ trigger: true,success:true, message: res.data.message })
             } else {
                 setloading(false)
-                alert(res.data.message)
+                setpop({ trigger: true, message: res.data.message })
             }
         }).catch(err => {
-            alert(err.data.message)
+            setloading(false)
+            setpop({trigger:true, message:err.message})
         })
     }
     return (
@@ -145,7 +141,7 @@ function Order() {
                         <label>Cash On Delivery</label>
                     </div>
                     <div className='checkout-form-button'>
-                        <button onClick={OrderNow} className='order-button'>Order Now</button>
+                        <button onClick={OrderNow} className='order-button' >Order Now</button>
                     </div>
                 </form>
             </div>

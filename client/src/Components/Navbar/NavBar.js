@@ -53,11 +53,11 @@ function NavBar(props) {
                             {
                                 result.slice(0, 9).map((item, index) => {
                                     return (
-                                        <Link to={`/product/${item.name}`} style={{ textDecoration: 'none' }} onClick={() => {
+                                        <Link to={`/product/${item.name}`} style={{ textDecoration: 'none' }} key={index} onClick={() => {
                                             setsearch(item.name)
                                             setresult([])
                                         }} >
-                                            <div className='nav-search-result-item'  key={index} >
+                                            <div className='nav-search-result-item'   >
                                                 <img src={ImagePath(item.imageId)} alt='product' />
                                                 <span className="nav-search-result-item-name ">{item.name}</span>
                                             </div>
@@ -70,8 +70,8 @@ function NavBar(props) {
                 }
             </div>
             {isAuth ? <div className='nav-4-box'>
-                <Link to='/order'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
-                <Link to='/cart'><BiCart size={31} color='white' /></Link><span  >Cart</span>
+                <Link to='/orders'>< FiArchive size={22} color='white' /> </Link><span className='nav-4-1-s'>Orders</span>
+                <Link to='/cart'><BiCart size={31} color='white' /></Link><span>Cart</span>
             </div>
                 : <div className='nav-4-box-ls'>
                     <Link to='/login'><button className='nav-4-3-l'  >Loign in</button></Link>

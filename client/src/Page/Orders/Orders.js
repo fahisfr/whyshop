@@ -46,8 +46,8 @@ function Order() {
 
                                                 </div>
                                                 <div className="oi-price">
-                                                    <span>TotalPrice: ₹{order.totalPrice}</span>
-                                                    <span></span>
+                                                    <span>₹{order.totalPrice}</span>
+                                                
                                                 </div>
                                                 <div className='oi-status'>
                                                     <span>{order.OrderStatus}</span>
@@ -70,7 +70,7 @@ function Order() {
                         </div>
                     </div> :
                     <div className="no-orders">
-                        <FiArchive size={46}  />
+                        <FiArchive size={40}  />
                         <sapn>Orders Not Available At This Time</sapn>
                     </div>
                     

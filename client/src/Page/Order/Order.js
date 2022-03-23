@@ -38,17 +38,17 @@ function Order() {
                                               <div className="order-left-body-product-image">
                                                   <img src={ImagePath(item.imageId)} alt="loading" />
                                               </div>
-                                              <div className="order-left-body-product-details">
+                                              <div className="order-left-body-product-details ">
                                                   <span className='c-p-name'>{item.name}</span>
-                                                  <span className='c-p-price'>₹{item.price} kg</span>
+                                                  <span className='c-p-price'>₹{item.price}kg</span>
                                               </div>
                                               <div className="order-left-body-product-quantity">
                                                
-                                                  <span className='order-prdocut-show-quantity'>{item.quantity}<span style={{ fontSize: '18px' }}>kg</span></span>
+                                                  <span className='order-prdocut-show-quantity'>{item.quantity}<span style={{ fontSize: '17px' }}>kg</span></span>
                                                
                                               </div>
                                               <div className="order-left-body-prdouct-total">
-                                                  <span>₹{item.total}</span>
+                                                  <span style={{color:'green'}}>₹{item.total}</span>
                                               </div>
                                               <div>
                                               
@@ -77,7 +77,13 @@ function Order() {
                           </div>
                           <div className='order-p-t-billing'>
                               <span>PaymentType</span>
-                              <span style={{ color: 'Red' }}>{Order.paymentType}</span>
+                              {
+                                  Order.paymentType === "Online" ?
+                                      <span style={{ color: 'green' }}>{Order.paymentType}</span>
+                                      : <span style={{color:'red'}} >{Order.paymentType}</span>
+                                      
+                              }
+                              
                           </div>
                           <div className='order-d-p-billing' >
                               <span>PaymentStatus</span>
@@ -92,8 +98,8 @@ function Order() {
                          
                          
                           <div className="order-order-total">
-                              <span>OrderStatus</span>
-                              <span>{Order.OrderStatus}</span>
+                              <span>OrderStatus  </span>
+                              <span style={{ color: 'Green' }} >{Order.OrderStatus}</span>
                           </div>
                           
                       </div>

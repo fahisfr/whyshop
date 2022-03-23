@@ -123,8 +123,7 @@
         height: 100%;
     }
     .oi-price span{
-    font-weight: 200;
-    font-size: 14px;
+    font-size: 13px;
     color: rgb(59, 58, 56);
     
 }
@@ -143,30 +142,34 @@
 }
 .oi-status span{
     font-weight: 300;
-    font-size: 14px;
+    font-size: 13px;
     color: rgb(58, 121, 16);
     line-height: 66px
 }
-
+.oi-paymet-type {
+    display: none;
+    font-size: 1px;
+}
 .oi-md button{
-    width: 80px;
+    width: 70px;
     height: 25px;
     margin-right:1.5rem;
     background-color: white;
     border: 1px solid rgb(19, 162, 219);
     color: rgb(44, 165, 221);
     cursor: pointer;
-    font-size: 10px;
+    font-size: 9px;
 }
 .ao-myorders{
+  
     font-size: 25px;
     color: rgb(190, 184, 184);
 }
 .ao-a-header{
-    height: 7%;
+    display: none;
 }
 .no-orders{
-    font-size:25px;
+    font-size:15px;
     color: rgb(190, 184, 184);
 }
 }

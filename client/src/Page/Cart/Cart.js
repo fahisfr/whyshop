@@ -30,7 +30,7 @@ function Cart() {
         <div>
             <Navbar></Navbar>
             {
-                cartInfo ?
+                cartInfo.length > 0 ?
                     <div className='cart-container'>
                         <div className="cart-left">
                             <div className="cart-left-header">
@@ -99,7 +99,7 @@ function Cart() {
                     </div>
                     :
                     <div className='cart-is-empty'>
-                        <BiCart size={54 } />
+                        <BiCart size={48 } />
                         <span>Cart Is Empty</span>
                     </div> 
                     

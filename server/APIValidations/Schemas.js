@@ -21,7 +21,7 @@ const PlaceOrder = Joi.object({
 
 const AddProduct = Joi.object({
     name: Joi.string().pattern(/^[a-zA-Z0-9]+$/).min(3).max(14).required(),
-    type: Joi.string().pattern(/^[0-9]+$/).required(),
+    type: Joi.string().pattern(/^[a-zA-Z0-9]+$/).required(),
     quantity: Joi.string().pattern(/^[.0-9]+$/).trim().required(),
     price: Joi.string().pattern(/^[0-9]+$/).trim().required(),
 })

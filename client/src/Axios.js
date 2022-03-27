@@ -8,7 +8,7 @@ const instance = axios.create({
     baseURL: 'https://frbots.com/api',
     headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.getItem('accessToken')? `${localStorage.getItem('accessToken')}` : '',
+        "authorization": localStorage.getItem('accesstoken')? `${localStorage.getItem('accesstoken')}` : '',
     }
 });
 

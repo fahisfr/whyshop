@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const ApiErrors = require('./../Config/ApiErrors')
 const AuthenticationController = (req, res,next) => {
     try {
-        console.log(req.headers['authorization'])
+        
         const autheader = req.headers['authorization']
-        if (!autheader) return res.json({ isAuth: false, })
+        if (!autheader) return res.json({isAuth:false} )
         jwt.verify(autheader, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (decoded) {
                 return res.status(200).json({

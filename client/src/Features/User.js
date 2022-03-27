@@ -33,7 +33,7 @@ export const  userSlice = createSlice({
         }
     }, extraReducers: {
         [fetchUser.fulfilled]: (state, action) => {
-            state= action.payload;
+            state.userInfo= action.payload.UserInfo? action.payload.UserInfo : state.userInfo.isAuth=false
             state.loading = false;
         },
         [fetchUser.pending]: (state, action) => {

@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const ApiErrors = require('./../Config/ApiErrors')
 const AuthenticationController = (req, res,next) => {
     try {
-        const auteheader = req.headers['authorization']
-        if (!auteheader) return ApiErrors.Unauthorized('No token provided.')
-        jwt.verify(auteheader, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        console.log(req.headers['authorization'])
+        const autheader = req.headers['authorization']
+        if (!autheader) return res.json({ isAuth: false, })
+        jwt.verify(autheader, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (decoded) {
                 return res.status(200).json({
                     UserInfo: {
@@ -15,7 +16,8 @@ const AuthenticationController = (req, res,next) => {
                     },
                 })
             } else {
-                next(ApiErrors.Unauthorized('Token not valid'))
+               
+                next(ApiErrors.Forbidden('Token not valid'))
             }
         })
     } catch (error) {

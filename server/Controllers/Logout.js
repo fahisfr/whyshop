@@ -14,7 +14,6 @@ module.exports = router.delete('', async (req, res) => {
             message: 'Logout Successful'
         })
     } catch (err) {
-        console.log(err)
-        res.status(500).json({status:false,message:'token not valid'})
+        res.status(500).json({})
     }
 })

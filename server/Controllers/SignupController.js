@@ -12,13 +12,13 @@ const CareateUser = async (req, res, next) => {
 
             const newUser = await dbUser.create({ name: name, number: number, password: bcreptpassword })
                     
-            const accesstoken = jwt.sign({ name: newUser.name, number: newUser.number, id: newUser._id, role: newUser.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' });
+            const accesstoken = jwt.sign({ name: newUser.name, number: newUser.number, id: newUser._id, role: newUser.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3m' });
 
-            const refreshtoken = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+            const refreshtoken = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
 
             newUser.refreshToken = refreshtoken;
             newUser.save();
-            res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true });
+            res.cookie('refreshtoken', refreshtoken, { maxAge: 806400000, httpOnly: true, secure: true });
             res.json({
                 status: true, message: 'Login Successful ',
                 accesstoken: accesstoken, UserInfo: {

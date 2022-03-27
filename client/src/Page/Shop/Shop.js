@@ -24,34 +24,23 @@ function Products() {
 
     const changeQuantity = (quantity, id) => {
         dispatch(changeProductQuantity({ id, quantity }))
-        Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then(res => {
-            if (res.data.status) {
-
-            }
-        })
+        Axios.put(`cart/change-product-quantity/${id}`, { quantity })
     }
     function AddTOCart(id, product) {
         const { name, price, imageId, type } = product
         dispatch(addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 }))
-        Axios.put(`cart/add-to-cart/${id}`).then(res => {
-            
-        })
+        Axios.put(`cart/add-to-cart/${id}`)
     }
     const removeCartProduct = id => {
         dispatch(removeFromCart(id))
-        Axios.put('cart/remove-product/' + id, { id: id }).then(res => {
-            if (res.data.status) {
-
-            }
-        })
+        Axios.put('cart/remove-product/' + id, { id: id })
+        
     }
 
     return (
         <div className='shop-main'>
             <NavBar />
             <div className='shop-container'>
-                <div className='shop-1-helper'>
-                </div>
                 <div className='shop-2-products'>
                     {products.map((product, index) => {
                         return (

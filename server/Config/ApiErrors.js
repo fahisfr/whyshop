@@ -12,8 +12,12 @@ class ApiError extends Error {
     static Unauthorized(message) {
         return new ApiError(message, 401);
     }
+    static Forbidden(message) {
+        return new ApiError(message, 403);
+    }
     static InternalServerError(message) {
-        return new ApiError(message, 500);
+        console.log(message)
+        return new ApiError('Oops somthing went worng', 500);
     }
 }
 

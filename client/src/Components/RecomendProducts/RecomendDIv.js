@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './RecomendDiv.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProduts } from '../../Features/Products'
+
 import { Link } from 'react-router-dom'
 import Axios, { ImagePath } from '../../Axios'
 import { addToCart, changeProductQuantity, removeFromCart } from '../../Features/Cart'
@@ -13,11 +13,7 @@ function RecomendBar(props) {
     const { products } = useSelector(state => state.products)
     const dispatch = useDispatch()
     
-    useEffect(() => {
-        if (products.length === 0) {
-            dispatch(fetchProduts())
-        }
-    }, [products.length,dispatch])
+    
     const { cartInfo } = useSelector(state => state.cart)
     const changeQuantity = (quantity, id) => {
         dispatch(changeProductQuantity({ id, quantity }))

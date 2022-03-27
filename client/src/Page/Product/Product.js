@@ -15,6 +15,7 @@ import { addToCart,changeProductQuantity } from '../../Features/Cart'
 function Product() {
     const dispatch = useDispatch()
     const { cartInfo } = useSelector(state => state.cart)
+    const {isAuth}=useSelector(sate=>sate.user)
     const [SearchProduct, setproduct] = useState({})
     const inCart = cartInfo.find(item => item._id === SearchProduct._id)
     const { id: idparams } = useParams()
@@ -49,7 +50,7 @@ function Product() {
                         <span className='p-quantity'>{inCart.quantity} <span className="p-kg"> kg</span></span>
                         <button onClick={() => changeQuantity(.5, inCart._id)}>+</button>
                     </div> :
-                        <button className='p-button' onClick={() => AddTOCart(SearchProduct._id, SearchProduct)} >Add to cart</button>}
+                        <button className='p-button' onClick={() => isAuth?AddTOCart(SearchProduct._id, SearchProduct):""} >Add to cart</button>}
                 </div>
             </div>
             <div className='p-recommend'>

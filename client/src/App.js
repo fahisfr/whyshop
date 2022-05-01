@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 
 
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchUser } from './Features/User'
+import { useSelector } from 'react-redux'
+
 
 import Home from './Page/Home/Home'
 import Shop from './Page/Shop/Shop'
@@ -22,11 +22,6 @@ import Order from './Page/Order/Order';
 
 function App() {
   const user = useSelector(state => state.user.userInfo.isAuth)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchUser())
-  },)
-  
   return (
     <div>
       <Router>

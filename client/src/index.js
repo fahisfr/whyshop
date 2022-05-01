@@ -11,6 +11,7 @@ import Order from './Features/Order'
 import AllOrders from './Features/AllOrders';
 import Produts from './Features/Products';
 import ProductTypes from './Features/Categories'
+import { fetchUser } from './Features/User';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     types:ProductTypes
   }
 })
+store.dispatch(fetchUser())
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

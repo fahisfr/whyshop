@@ -4,13 +4,14 @@ import Axios from '../Axios'
 
 
 export const fetchProduts = createAsyncThunk('product/fetchproduct', async () => {
-    const response = await Axios.get('/product').then(res => res.data)
+    const response = await Axios.get('/home').then(res => res.data)
     return response
 })
 export const ProdutsSlice = createSlice({
     name: 'produts',
     initialState: {
         products: [],
+        types: [],
         error: null,
         loading: true,
 
@@ -27,6 +28,7 @@ export const ProdutsSlice = createSlice({
         ,
         [fetchProduts.fulfilled]: (state, action) => {
             state.products = action.payload.products
+            state.types = action.payload.types
             state.loading = false
         }
         ,

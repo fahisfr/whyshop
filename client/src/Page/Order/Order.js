@@ -36,7 +36,7 @@ function Order() {
                                           <div className="order-left-body-product" >
 
                                               <div className="order-left-body-product-image">
-                                                  <img src={ImagePath(item.imageId)} alt="loading" />
+                                                  <img src={`${ImagePath + item?.imageId}.jpg`} alt="loading" />
                                               </div>
                                               <div className="order-left-body-product-details ">
                                                   <span className='c-p-name'>{item.name}</span>

@@ -36,12 +36,12 @@ function SIdeBar(props) {
                 <div className='sidebar-left-menu-body'>
                     <Link to='/' className='sidebar-left-menu-body-link'>
                     </Link>
-                    <Link className='sidebar-link' style={{cursor:"not-allowed"}} to='/account'>My Account</Link>
+                    {/* <Link className='sidebar-link' style={{cursor:"not-allowed"}} to='/account'>My Account</Link> */}
                     <Link className='sidebar-link' to='/'> Home</Link>
                     <Link className='sidebar-link' to='/cart'> Cart</Link>
                     <Link className='sidebar-link' to='/orders'> Orders</Link>
                     <Link className='sidebar-link' to='/feedback'>Send Feedback</Link>
-                    <Link className='sidebar-link' style={{ cursor: "not-allowed" }} to='/support'> My Chats</Link>
+                    {/* <Link className='sidebar-link' style={{ cursor: "not-allowed" }} to='/support'> My Chats</Link> */}
                     <Link className='sidebar-link ' onClick={() => logoutNow()} style={{ color: 'red' }} to='/'>Logout</Link>
                 </div>
             </div>

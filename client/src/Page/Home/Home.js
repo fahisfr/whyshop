@@ -1,27 +1,19 @@
 import { useNavigate } from 'react-router-dom'
 import "./Home.css"
 import { useSelector } from 'react-redux'
-import Axios from '../../Axios'
-import { useDispatch } from 'react-redux'
-import { SetProducts } from '../../Features/Products'
-import { SetProductTypes } from '../../Features/Categories'
+
 import NavBar from '../../Components/Navbar/NavBar'
-import RecomendBar from '../../Components/RecomendProducts/RecomendDIv';
-import { useEffect } from 'react';
+import RecomendBar from '../../Components/RecommendProducts/RecommendDIv';
+
 
 
 
 
 function Home() {
+
     var history = useNavigate();
-    const dispatch = useDispatch()
-    const { typesInfo } = useSelector(state => state.types)
-    useEffect(() => {
-        Axios.get('/home').then(res => {
-            dispatch(SetProductTypes(res.data.types))
-            dispatch(SetProducts(res.data.products))
-        })
-    }, [dispatch])
+    const { types } = useSelector(state => state.products)
+ 
     return (
         <div className='home-main' >
             <NavBar />
@@ -30,7 +22,7 @@ function Home() {
             </div>
             <div className='hom-2-product-types'>
                 {
-                    typesInfo.map((type, index) => {
+                    types.map((type, index) => {
                         return (
                             <div className='product-type-cart' key={index} onClick={() => history(`/shop/${type.name}`)}>
                                 <img src={type.imageid} alt='loadign' />
@@ -41,7 +33,7 @@ function Home() {
                     })
                 }
             </div>
-            {typesInfo.map(type => <RecomendBar type={type.name} key={type.name} />)}
+            {types.map(type => <RecomendBar  type={type.name}  key={type.name} />)}
         </div>
     )
 }

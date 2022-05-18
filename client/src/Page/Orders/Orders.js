@@ -37,7 +37,7 @@ function Order() {
                                                     {
                                                         order.products.map((item, index) => {
                                                             return (
-                                                                <img className='oi-images' src={ImagePath(item.imageId)} alt="" key={index} />
+                                                                <img className='oi-images' src={`${ImagePath + item?.imageId}.jpg`} alt="" key={index} />
 
                                                             )
                                                         }

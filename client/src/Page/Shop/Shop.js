@@ -47,7 +47,7 @@ function Products() {
                             <div className='shop-2-item' key={index} >
                                 <div className='shop-2-item-image'>
                                 <Link to={`/product/${product.name}`}>
-                                        <img src={ImagePath(product.imageId)} alt='loading' />
+                                        <img src={`${ImagePath + product?.imageId}.jpg`} alt='loading' />
                                 </Link>
                                     </div>
                                 <div className='capitalize shop-2-item-name'>

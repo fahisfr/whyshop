@@ -12,11 +12,10 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid rgb(0, 174, 255);
-  width: 50px;
-  height: 50px;
+ border-radius: 50%;
+  border-top: 2px solid rgb(14, 76, 247);
+  width: 60px;
+  height: 60px;
   -webkit-animation: spin 2s linear infinite; 
   animation: spin 2s linear infinite;
 }

@@ -2,24 +2,34 @@ import axios from 'axios';
 
 const baseURL = 'https://frbots.com/';
 
-export const ImagePath = (imageId) => `${baseURL}images/${imageId}.jpg`;
+export const ImagePath = `${baseURL}images/`;
 
 const instance = axios.create({
-    baseURL: 'https://frbots.com/api',
+    baseURL: `${baseURL}api/`,
     headers: {
         'Content-Type': 'application/json',
-        "authorization": localStorage.getItem('accesstoken')? `${localStorage.getItem('accesstoken')}` : '',
     }
 });
+
+instance.interceptors.request.use(config => {
+    const token = localStorage.getItem('accesstoken');
+    if (token) {
+        config.headers.authorization = token;
+    }
+    return config;
+})
 
 instance.interceptors.response.use(
     response => response,
     async error => {
-        const lastrequest = error.config;
+        const prevRequest = error.config;
         if (error?.response?.status === 403) {
+            prevRequest.sent=true;
             const { data } = await instance.put('/auth/refreshtoken')
-            localStorage.setItem('accesstoken', data.accesstoken)
-            window.location.reload()
+            if (data?.status) {
+               localStorage.setItem('accesstoken', data.accesstoken) 
+            }
+            return instance(prevRequest);
         }
         return Promise.reject(error);
     }

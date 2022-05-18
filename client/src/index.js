@@ -10,8 +10,8 @@ import Cart from './Features/Cart'
 import Order from './Features/Order'
 import AllOrders from './Features/AllOrders';
 import Produts from './Features/Products';
-import ProductTypes from './Features/Categories'
 import { fetchUser } from './Features/User';
+import {fetchProduts} from './Features/Products'
 
 const store = configureStore({
   reducer: {
@@ -20,16 +20,16 @@ const store = configureStore({
     order: Order,
     products: Produts,
     allorders: AllOrders,
-    types:ProductTypes
   }
 })
 store.dispatch(fetchUser())
+store.dispatch(fetchProduts())
 ReactDOM.render(
-  <React.StrictMode>
+  
     <Provider store={store}>
     <App />
     </Provider>
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 

@@ -58,7 +58,7 @@ function NavBar(props) {
                                             setresult([])
                                         }} >
                                             <div className='nav-search-result-item'   >
-                                                <img src={ImagePath(item.imageId)} alt='product' />
+                                                <img src={`${ImagePath + item?.imageId}.jpg`} alt='product' />
                                                 <span className="nav-search-result-item-name ">{item.name}</span>
                                             </div>
                                         </Link>

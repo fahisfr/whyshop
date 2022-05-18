@@ -62,7 +62,7 @@ function Order() {
                 },
                 "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
                 "prefill": {
-                    "name": "Fahis",
+                    "name": "fahis",
                     "email": "TestMode.kumar@example.com",
                     "contact": "9999999999"
                 },
@@ -119,9 +119,9 @@ function Order() {
                             onChange={(e) => setcity(e.target.value)}>
 
                             <option value="">Select City</option>
-                            <option value="vengara">Vengara</option>
-                            <option value="Oorakam">Oorakam</option>
-                            <option value="option 3">karibele</option>
+                            <option value="city1">City 1</option>
+                            <option value="city2">City 2</option>
+                            <option value="city3">City 3</option>
                         </select>
                     </div>
                     <div className='checkout-form-input'>

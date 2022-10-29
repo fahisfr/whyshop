@@ -1,47 +1,45 @@
 require("dotenv").config();
 
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors')
-const path = require('path')
-const morgan = require('morgan')
+const cors = require("cors");
+const path = require("path");
+const morgan = require("morgan");
 const PORT = process.env.PORT || 4000;
-const cookieParser = require('cookie-parser')
-const connectDB = require('./Config/dbConn')
-const fileupload = require('express-fileupload')
-const corsOptions = require('./Config/corsOptions')
-const errorHandler = require('./Config/errorHandler')
-const IsAthu = require('./Middlewares/UserAuthentication')
+const cookieParser = require("cookie-parser");
+const connectDB = require("./config/dbConn");
+const fileupload = require("express-fileupload");
+const corsOptions = require("./config/corsOptions");
+const errorHandler = require("./config/errorHandler");
+const IsAthu = require("./middlewares/userAuthentication");
 
-connectDB()
+connectDB();
 
-app.use(cors(corsOptions))
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
-app.use(fileupload())
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors(corsOptions));
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(fileupload());
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/api/home', require('./Routes/Home'))
-app.use('/api/product', require('./Routes/Product'))
-app.use('/api/shop', require('./Routes/Shop'))
-app.use('/api/signup', require('./Routes/Signup'))
-app.use('/api/login', require('./Routes/Login'))
-app.use('/api/auth', require('./Routes/Auth'))
+app.use("/api/home", require("./routes/home"));
+app.use("/api/product", require("./routes/product"));
+app.use("/api/shop", require("./routes/shop"));
+app.use("/api/signup", require("./routes/signup"));
+app.use("/api/login", require("./routes/login"));
+app.use("/api/auth", require("./routes/auth"));
 
-app.use('/api/search-products', require('./Controllers/SearchProduts'))
+app.use("/api/search-products", require("./controllers/searchProduts"));
 
-app.use('/api/cart', IsAthu, require('./Routes/Cart'))
-app.use('/api/order', IsAthu, require('./Routes/Order'))
-app.use('/api/admin', require('./Routes/Admin'))
-app.use('/api/feedback', require('./Routes/Feedback'))
-app.use('/api/logout', IsAthu, require('./Controllers/Logout'))
+app.use("/api/cart", IsAthu, require("./routes/cart"));
+app.use("/api/order", IsAthu, require("./routes/order"));
+app.use("/api/admin", require("./routes/admin"));
+app.use("/api/feedback", require("./routes/feedback"));
+app.use("/api/logout", IsAthu, require("./controllers/logout"));
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')))
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 
-app.use(errorHandler)
+app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
-
-
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

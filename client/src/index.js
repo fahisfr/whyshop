@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import User from './Features/User'
-import Cart from './Features/Cart'
-import Order from './Features/Order'
-import AllOrders from './Features/AllOrders';
-import Produts from './Features/Products';
-import { fetchUser } from './Features/User';
-import {fetchProduts} from './Features/Products'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import User from "./features/user";
+import Cart from "./features/cart";
+import Order from "./features/order";
+import AllOrders from "./features/allOrders";
+import Produts from "./features/products";
+import { fetchUser } from "./features/user";
+import { fetchProduts } from "./features/products";
 
 const store = configureStore({
   reducer: {
@@ -20,17 +20,15 @@ const store = configureStore({
     order: Order,
     products: Produts,
     allorders: AllOrders,
-  }
-})
-store.dispatch(fetchUser())
-store.dispatch(fetchProduts())
+  },
+});
+store.dispatch(fetchUser());
+store.dispatch(fetchProduts());
 ReactDOM.render(
-  
-    <Provider store={store}>
+  <Provider store={store}>
     <App />
-    </Provider>
-  ,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

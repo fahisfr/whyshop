@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/loading.css';
+import '../styles/loading.css';
 function Loading(props) {
 
     return (props.trigger) ? (

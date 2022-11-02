@@ -1,6 +1,6 @@
 import axios from "../axios";
 import React from "react";
-import "../css/sideBar.css";
+import "../styles/sideBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/user";
 import { Link } from "react-router-dom";

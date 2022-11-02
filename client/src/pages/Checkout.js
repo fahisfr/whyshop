@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/checkout.css";
+import "../styles/checkout.css";
 import Axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAllProducts } from "../features/cart";

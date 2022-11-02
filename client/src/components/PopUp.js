@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/popUp.css";
+import "../styles/popUp.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import "../css/shop.css";
+import "../styles/shop.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
 import { useSelector, useDispatch } from "react-redux";
 import { changeProductQuantity, addToCart, removeFromCart } from "../features/cart";
+import ProductCart from "../components/ProductCart";
 
 function Products() {
   const { id } = useParams();
@@ -37,62 +38,12 @@ function Products() {
 
   return (
     <div className="shop-main">
-      <NavBar />
+
       <div className="shop-container">
         <div className="shop-2-products">
-          {products.map((product, index) => {
-            return (
-              <div className="shop-2-item" key={index}>
-                <div className="shop-2-item-image">
-                  <Link to={`/product/${product.name}`}>
-                    <img src={`${ImagePath + product?.imageId}.jpg`} alt="loading" />
-                  </Link>
-                </div>
-                <div className="capitalize shop-2-item-name">
-                  <span>{product.name}</span>
-                </div>
-                <div className="shop-2-item-pirce">
-                  <span>₹ {product.price}.kg</span>
-                </div>
-                {cartInfo.find((res) => res._id === product._id) ? (
-                  <div className="shop-item-remove">
-                    <button
-                      onClick={() => removeCartProduct(product._id)}
-                      className="shop-item-remove-button"
-                    >
-                      Remove
-                    </button>
-                    <button
-                      onClick={(e) => changeQuantity(-0.5, product._id)}
-                      className="shop-item-quantity-button"
-                      style={{ color: "red" }}
-                    >
-                      -
-                    </button>
-                    <span className="shop-item-show-quantity">
-                      {cartInfo.find((res) => res._id === product._id).quantity}
-                      <span> kg</span>
-                    </span>
-                    <button
-                      onClick={(e) => changeQuantity(0.5, product._id)}
-                      className="shop-item-quantity-button"
-                    >
-                      +
-                    </button>
-                  </div>
-                ) : (
-                  <div className="shop-2-item-add2cart">
-                    {
-                      <button onClick={() => AddTOCart(product._id, product)}>
-                        Add to cart
-                      </button>
-                    }
-                  </div>
-                )}
-              </div>
-            );
+          {[...products,...products].map((product, index) => {
+            return <ProductCart product={product} key={index} />;
           })}
-          <div></div>
         </div>
       </div>
     </div>

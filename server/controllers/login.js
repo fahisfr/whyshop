@@ -13,7 +13,7 @@ const handleLogin = async (req, res, next) => {
         const accesstoken = jwt.sign(
           { name: user.name, number: user.number, id: user._id, role: user.role },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "30m" }
+          { expiresIn: "3d" }
         );
         const refreshtoken = jwt.sign(
           { id: user._id, role: user.role },
@@ -25,8 +25,7 @@ const handleLogin = async (req, res, next) => {
         user.save();
         res.cookie("refreshtoken", refreshtoken, {
           maxAge: 806400000,
-          httpOnly: true,
-          secure: true,
+          sameSite: "strict",
         });
         res.json({
           success: true,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../css/product.css";
+import "../styles/product.css";
 import RecomendDiv from "../components/RecommendDIv";
 import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
@@ -35,7 +35,7 @@ function Product() {
   };
   return (
     <div className="product-main">
-      <NavBar />
+
       <div className="show-product-info">
         <div className="show-product-images">
           <img src={`${ImagePath + SearchProductInfo.imageId}.jpg`} alt="product" />

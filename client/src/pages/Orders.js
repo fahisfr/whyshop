@@ -1,4 +1,4 @@
-import "../css/orders.css";
+import "../styles/orders.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import { ImagePath } from "../axios";

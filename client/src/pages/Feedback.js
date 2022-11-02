@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/feedback.css";
+import "../styles/feedback.css";
 import Axios from "../axios";
 
 function Feedback() {

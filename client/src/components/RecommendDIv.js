@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../css/recommendDiv.css";
+import "../styles/recommendDiv.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
 import { addToCart, changeProductQuantity, removeFromCart } from "../features/cart";
+
+import ProductCart from "./ProductCart";
 
 function RecommendBar({ type }) {
   const { isAuth } = useSelector((state) => state.user.userInfo);
@@ -48,60 +50,7 @@ function RecommendBar({ type }) {
   return (
     <div className="recommend-products">
       {recommend.map((product, index) => {
-        return (
-          <div className="recommend-item" key={index}>
-            <Link to={`/product/${product?.name}`}>
-              <div className="recommend-item-image">
-                <img src={`${ImagePath + product?.imageId}.jpg`} alt="loading" />
-              </div>
-            </Link>
-            <div className="recommend-item-name">
-              <span>{product?.name}</span>
-            </div>
-            <div className="recommend-item-pirce">
-              <span>{product?.price} kg</span>
-            </div>
-            {cartInfo.find((res) => res._id === product._id) ? (
-              <div className="recommend-item-remove">
-                <button
-                  onClick={() => removeCartProduct(product._id)}
-                  className="item-remove-button"
-                >
-                  Remove
-                </button>
-                <button
-                  onClick={(e) => changeQuantity(-0.5, product._id)}
-                  className="recommend-item-quantity-button"
-                  style={{ color: "red" }}
-                >
-                  -
-                </button>
-                <span className="recommend-item-show-quantity">
-                  {cartInfo.find((res) => res._id === product._id).quantity}
-                  <span className="random-quantity-kg"> kg</span>
-                </span>
-                <button
-                  onClick={(e) => changeQuantity(0.5, product._id)}
-                  className="recommend-item-quantity-button"
-                >
-                  +
-                </button>
-              </div>
-            ) : (
-              <div className="recommend-item-addtocart">
-                {isAuth ? (
-                  <button className="item-add" onClick={() => AddTOCart(product._id, product)}>
-                    Add to cart
-                  </button>
-                ) : (
-                  <Link to="/login">
-                    <button className="item-add">Add to cart</button>
-                  </Link>
-                )}
-              </div>
-            )}
-          </div>
-        );
+        return <ProductCart product={product} />;
       })}
     </div>
   );

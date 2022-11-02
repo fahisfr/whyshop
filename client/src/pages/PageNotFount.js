@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../css/pageNotFount.css";
+import "../styles/pageNotFount.css";
 import Axios from "../axios";
 
 function PageNotFount() {

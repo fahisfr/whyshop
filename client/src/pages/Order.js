@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchOrder } from "../features/order";
 import { useSelector, useDispatch } from "react-redux";
 import { ImagePath } from "../axios";
-import "../css/order.css";
+import "../styles/order.css";
 
 function Order() {
   const dispatch = useDispatch();

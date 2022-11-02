@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../css/cart.css";
+import "../styles/cart.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCart, removeFromCart, changeProductQuantity } from "../features/cart";
@@ -14,107 +14,99 @@ function Cart() {
   }, [dispatch]);
   const { cartInfo, total } = useSelector((state) => state.cart);
   const changeQuantity = (quantity, id, price) => {
-    dispatch(changeProductQuantity({ id, quantity, price }));
-    Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then((res) => {
-      if (res.data.status) {
-      }
-    });
+    try {
+      dispatch(changeProductQuantity({ id, quantity, price }));
+      Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then((res) => {
+        if (res.data.status) {
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const removeCartProduct = (id) => {
     dispatch(removeFromCart(id));
     Axios.put("cart/remove-product/" + id, { id: id });
   };
+
+  if (!cartInfo?.length > 0) {
+    return (
+      <div className="cart-is-empty">
+        <BiCart size={48} />
+        <span>Cart Is Empty</span>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <Navbar></Navbar>
-      {cartInfo.length > 0 ? (
-        <div className="cart-container">
-          <div className="cart-left">
-            <div className="cart-left-header">
-              <div className="cart-left-header-left">
-                <h1 className="cart-h1-mycart">My Cart</h1>
+    <div className="cart-container">
+      <div className="cart sb-padding-border">
+        <div className="cart-top sb-bottom-pb">
+          <div className="cart-title">
+            <span>Shopping Cart</span>
+          </div>
+          <div className="cart-top-right">
+            <span>Remove All</span>
+          </div>
+        </div>
+        <div className="cart-body">
+          {cartInfo.map((product) => {
+            return (
+              <div className="cart-product">
+                <div className="product-image">
+                  <img src={ImagePath + product.imageId + ".jpg"} alt="loading" />
+                </div>
+                <div className="product-name capitalize">
+                  <span>{product.name}</span>
+                </div>
+                <div className="product-quantity">
+                  <button onClick={() => changeQuantity(-0.5, product._id, product.price / 2)}>
+                    -
+                  </button>
+                  <span>
+                    {product.quantity} <small>kg</small>
+                  </span>
+                  <button onClick={() => changeQuantity(0.5, product._id, product.price / 2)}>
+                    +
+                  </button>
+                </div>
+                <div className="product-total-r">
+                  <span>₹{product.total}</span>
+                  <button
+                    onClick={() => {
+                      removeCartProduct(product._id);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-              <div className="cart-left-header-right"></div>
-            </div>
-            <div className="cart-left-body">
-              {cartInfo.map((item, index) => {
-                return (
-                  <div className="cart-left-body-product" key={index}>
-                    <div className="cart-left-body-product-image">
-                      <img src={ImagePath + item.imageId + ".jpg"} alt="loading" />
-                    </div>
-                    <div className="cart-left-body-product-details">
-                      <span className="c-p-name">{item.name}</span>
-                      <span className="c-p-stock">inStock</span>
-                      <span className="c-p-price">₹{item.price} kg</span>
-                      <span className="c-p-total">total:{item.total}</span>
-                    </div>
-                    <div className="cart-left-body-product-quantity">
-                      <button
-                        onClick={() => changeQuantity(-0.5, item._id, item.price / 2)}
-                        style={{ backgroundColor: "red" }}
-                        className="cart-product-quantity-button"
-                      >
-                        -
-                      </button>
-                      <span className="cart-prdocut-show-quantity">
-                        {item.quantity}
-                        <span style={{ fontSize: "10px" }}>kg</span>
-                      </span>
-                      <button
-                        onClick={() => changeQuantity(0.5, item._id, item.price / 2)}
-                        className="cart-product-quantity-button"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className="cart-left-body-prdouct-total">
-                      <span>₹24</span>
-                    </div>
-                    <div>
-                      <button
-                        onClick={() => {
-                          removeCartProduct(item._id);
-                        }}
-                        className="cart-prdocut-remove"
-                      >
-                        remove
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="cart-right">
-            <div className="cart-bill">
-              <span>PRICE DETAILS</span>
-            </div>
-            <div className="cart-p-t-billing">
-              <span>Products Total </span>
-              <span>₹{total}</span>
-            </div>
-            <div className="cart-d-p-billing">
-              <span>delivery price</span>
-              <span style={{ color: "lightgreen" }}>Free</span>
-            </div>
-            <div className="cart-order-total">
-              <span>Total Price</span>
-              <span>₹{total}</span>
-            </div>
-            <div className="cart-place-order">
-              <Link to="/checkout">
-                <button className="place-order">Place Order</button>
-              </Link>
-            </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="billing sb-padding-border">
+        <div className="billing-top sb-bottom-pb">Billing</div>
+        <div className="billing-body">
+          <div className="billing-group">
+            <span>Products Total </span>
+            <span>₹{total}</span>
+          </div>{" "}
+          <div className="billing-group">
+            <span>Delivery Fee</span>
+            <span className="free">Free</span>
           </div>
         </div>
-      ) : (
-        <div className="cart-is-empty">
-          <BiCart size={48} />
-          <span>Cart Is Empty</span>
+        <div className="billing-bottom">
+          <div className="billing-group">
+            <span>Total Price</span>
+            <span>₹{total}</span>
+          </div>
+          <div className="btn-de">
+            <button>Place Order</button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

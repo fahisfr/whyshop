@@ -1,24 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import "../css/home.css";
+import "../styles/home.scss";
 import { useSelector } from "react-redux";
 
 import NavBar from "../components/NavBar";
 import RecomendBar from "../components/RecommendDIv";
-
+import ProductCart from "../components/ProductCart";
 function Home() {
   var history = useNavigate();
   const { types } = useSelector((state) => state.products);
-
+  const { products } = useSelector((state) => state.products);
   return (
     <div className="home-main">
-      <NavBar />
-      <div className="home-1-box">
+      <section className="home-1-box">
         <img
           src="https://image.freepik.com/free-vector/banner-with-phone-cart-gift-bags-isolated-white-background-vector-illustration_548887-134.jpg"
           alt="loading"
         />
-      </div>
-      <div className="hom-2-product-types">
+      </section>
+      <section className="hom-2-product-types">
         {types.map((type, index) => {
           return (
             <div
@@ -27,14 +26,32 @@ function Home() {
               onClick={() => history(`/shop/${type.name}`)}
             >
               <img src={type.imageid} alt="loadign" />
-              <span className="capitalize">{type.name}</span>
+              <span>{type.name}</span>
             </div>
           );
         })}
-      </div>
-      {types.map((type) => (
-        <RecomendBar type={type.name} key={type.name} />
-      ))}
+      </section>
+      <section className="recomment-products">
+        <div className="recomment-type">
+          <span>People buying</span>
+        </div>
+        <div className="recomment-products-list">
+          {products.map((product) => {
+            return <ProductCart product={product} />;
+          })}
+        </div>
+      </section>
+
+      <section className="recomment-products">
+        <div className="recomment-type">
+          <span>New Products</span>
+        </div>
+        <div className="recomment-products-list">
+          {products.map((product) => {
+            return <ProductCart product={product} />;
+          })}
+        </div>
+      </section>
     </div>
   );
 }

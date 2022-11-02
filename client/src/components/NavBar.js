@@ -1,26 +1,56 @@
-import "../css/navBar.css";
+import "../styles/navBar.scss";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { BiCart, BiSearch } from "react-icons/bi";
-import { FiAlignLeft, FiArchive, FiX } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { BiCart } from "react-icons/bi";
+import { FiAlignLeft, FiArchive } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import SideBar from "./SideBar.js";
 import { ImagePath } from "../axios";
 
 function NavBar(props) {
+  const navigate = useNavigate();
   const { isAuth } = useSelector((state) => state.user.userInfo);
   const { products } = useSelector((state) => state.products);
   const [sidebar, setsidebar] = useState(false);
-  const [result, setresult] = useState([]);
-  const [search, setsearch] = useState("");
-  const ClearSearchbar = () => {
-    setsearch("");
-    setresult([]);
+  const [showResults, setShowResults] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const [results, setResults] = useState([]);
+  console.log(results);
+  const [searchText, setSearchText] = useState("");
+  const handleKeyDown = (e) => {
+    const { key } = e;
+
+    if (key === "ArrowDown") {
+      setFocusedIndex((focusedIndex + 1) % results.length);
+    }
+    if (key === "ArrowUp") {
+      setFocusedIndex((focusedIndex + results.length - 1) % results.length);
+    }
+
+    if (key === "Escape") {
+      setShowResults(false);
+    }
+    if (key === "Enter") {
+      try {
+        e.preventDefault();
+        setShowResults(false);
+        setSearchText("");
+        navigate(`/product/${results[focusedIndex].name}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleSelection = (index) => {
+    const selectedItem = results[index];
+    selectedItem && navigate(`/product/${selectedItem.name}`);
+    setSearchText("");
   };
   const SearchProduts = (id) => {
-    if (id === "") return setresult([]);
-    setresult(products.filter((item) => item.name.toLowerCase().includes(id.toLowerCase())));
+    if (id === "") return setResults([]);
+    setResults(products.filter((item) => item.name.toLowerCase().includes(id.toLowerCase())));
   };
+
   return (
     <div className="navbar">
       <SideBar trigger={sidebar} settrigger={setsidebar} />
@@ -34,52 +64,43 @@ function NavBar(props) {
           </h1>
         </Link>
       </div>
-      <div className="nav-3-box">
+      <div className="nav-3-box" onKeyDown={handleKeyDown}>
         <div className="nav-3-1">
           <input
             type="text"
             max={12}
-            className="nav-search-input"
-            value={search}
+            className="search-input"
+            value={searchText}
+            onFocus={() => setShowResults(true)}
+            onBlur={() => setShowResults(false)}
             onChange={(e) => {
               SearchProduts(e.target.value);
-              setsearch(e.target.value);
+              setSearchText(e.target.value);
             }}
-            onClick={() => SearchProduts(search)}
+            onClick={() => SearchProduts(searchText)}
             placeholder="search for products"
           ></input>
-          {search.length > 0 ? (
-            <button onClick={() => ClearSearchbar()}>
-              <FiX size={22} />
-            </button>
+          {searchText.length > 0 ? (
+            <div className="icon-cancel"onClick={() => setSearchText("")}></div>
           ) : (
-            <button>
-              <BiSearch size={22} />
-            </button>
-          )}
-        </div>
-        {result.length !== 0 && (
+            <div className="icon-search" ></div>
+          )}  {showResults && (
           <div className="nav-search-result">
-            {result.slice(0, 9).map((item, index) => {
+            {results.slice(0, 6).map((item, index) => {
               return (
-                <Link
-                  to={`/product/${item.name}`}
-                  style={{ textDecoration: "none" }}
-                  key={index}
-                  onClick={() => {
-                    setsearch(item.name);
-                    setresult([]);
-                  }}
+                <div
+                  className={`nav-search-result-item ${index === focusedIndex && "bg-hover"}`}
+                  onMouseDown={() => handleSelection(index)}
                 >
-                  <div className="nav-search-result-item">
-                    <img src={`${ImagePath + item?.imageId}.jpg`} alt="product" />
-                    <span className="nav-search-result-item-name ">{item.name}</span>
-                  </div>
-                </Link>
+                  <img src={`${ImagePath + item?.imageId}.jpg`} alt="product" />
+                  <span className="nav-search-result-item-name ">{item.name}</span>
+                </div>
               );
             })}
           </div>
         )}
+        </div>
+      
       </div>
       {isAuth ? (
         <div className="nav-4-box">

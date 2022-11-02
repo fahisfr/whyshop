@@ -1,0 +1,145 @@
+.home-main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.home-1-box {
+  width: 100%;
+  display: flex;
+  height: 300px;
+  background-color: white;
+
+}
+
+.home-1-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.hom-2-product-types {
+
+  height: 150px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.938);
+  display: flex;
+
+  .product-type-cart {
+    position: relative;
+    flex: 1;
+    object-fit: cover;
+    object-fit: cover;
+    background-color: white;
+    text-align: center;
+    transition: all .2s ease-in-out;
+    box-shadow: inset 1px 93px 18px 3px rgba(0, 0, 0, 0.75);
+    transform: skew(15deg);
+    -webkit-box-shadow: 0 0 1px 3px #000 inset;
+    -moz-box-shadow: 0 0 15px 3px #000 inset;
+    box-shadow: 0 40px 14px 35px #000 inset;
+  }
+
+  span {
+    position: absolute;
+    right: 2rem;
+    bottom: 1px;
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+  }
+}
+
+
+.product-type-cart img {
+  box-shadow: inset 13px 13px 13px black;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+
+.recomment-products {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-primary);
+  border-bottom: none;
+
+  .recomment-type {
+
+
+    border: 1px solid var(--border-primary);
+    padding: .7rem;
+
+    .re-name {
+      width: 10rem;
+      background-color: #2727272f;
+      border-radius: 15px;
+    }
+
+    span {
+
+      font-size: 19px;
+      font-weight: 600;
+    }
+  }
+
+  .recomment-products-list {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+
+}
+
+
+
+
+@media (max-width: 870px) {
+  .home-1-box {
+    height: 200px;
+  }
+
+  .product-type-cart {
+    width: 160px;
+
+  }
+
+  .product-type-cart {
+    width: 120px;
+    height: 120px;
+
+  }
+
+}
+
+@media (max-width: 400px) {
+  .home-1-box {
+    height: 150px;
+  }
+
+  .hom-2-product-types {
+    padding-top: 5px;
+    height: auto;
+    padding-bottom: 7px;
+    background-color: rgba(255, 255, 255, 0.89);
+  }
+
+  .product-type-cart {
+    width: 70px;
+    height: 70px;
+  }
+
+  .product-type-cart span {
+    font-size: 13px;
+
+    border: none;
+
+  }
+}

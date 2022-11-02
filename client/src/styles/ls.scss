@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Convergence&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Convergence&family=Merriweather:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Merriweather:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+
+.ls-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 4.5rem;
+    overflow: hidden;
+    background-color: #dad1d123;
+
+}
+
+.ls-box {
+
+    width: 60rem;
+    background-color: #fafafa;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: row;
+    border-radius: 5px;
+    border: 1px solid #e5e7eb;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.055) 0px 0px 0px 1px;
+
+}
+
+.ls-box > * {
+    flex: 1;
+}
+
+.ls-box-1 {
+    background-color: #ffffff;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.ls-box-2 {
+
+    border-radius: 5px;
+    border: 1px solid rgb(223, 214, 214);
+
+}
+
+.ls-2-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 3rem;
+
+    .title {
+        align-self: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding: 5px 0;
+        font-style: italic;
+    }
+
+
+}
+
+.ls-group {
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 5px;
+
+    input {
+        height: 2.6rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        padding-left: 0.65rem;
+        outline: none;
+        background-color: none;
+        border: 1px solid rgba(177, 177, 177, 0.973);
+    }
+
+    span {
+        font-size: 17px;
+        font-family: 'Roboto', sans-serif;
+        border: none;
+        color: white;
+    }
+
+    label {
+        font-size: 14px;
+        font-family: "Convergence", sans-serif;
+    }
+}
+
+.ls-form-bt {
+    padding: 0 1rem;
+
+
+    .btn {
+        position: relative;
+        width: 100%;
+        margin-top: 5px;
+        border: none;
+        border-radius: .5rem;
+        height: 2.4rem;
+        background-color: var(--primary-color);
+
+        color: #ffffff;
+        cursor: pointer;
+
+        .btn-text {
+            font-size: 20px;
+            font-weight: 600;
+
+        }
+    }
+
+}
+
+.btn-loading .btn {
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        width: 16px;
+        height: 16px;
+        border: 4px solid transparent;
+        border-left-color: var(--color-blue);
+        border-top-color: var(--color-blue);
+        border-radius: 50%;
+        animation: var(--just-loading) .4s linear infinite;
+    }
+
+    .btn-text {
+        display: none;
+    }
+
+
+
+}
+
+
+
+.link {
+    text-decoration: none;
+    color: var(--color-blue);
+    font-family: "Convergence", sans-serif;
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .ls-container {
+        padding: 6rem 1rem 0 1rem;
+    }
+
+
+}
+
+@media (max-width: 767px) {
+    .ls-container {
+        padding: 6rem 1rem 0 1rem;
+    }
+
+    .ls-box {
+        border-radius: 10px;
+        flex-direction: column;
+        padding: 0 4rem;
+    }
+
+    .ls-box-1 {
+        display: none;
+    }
+
+}

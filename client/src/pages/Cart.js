@@ -2,34 +2,36 @@ import React, { useEffect } from "react";
 import "../styles/cart.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart, removeFromCart, changeProductQuantity } from "../features/cart";
-import Axios, { ImagePath } from "../axios";
+import { fetchCart, removeFromCart, changeProductQuantity } from "../features/user";
+import axios, { ImagePath } from "../axios";
 import { BiCart } from "react-icons/bi";
 import Navbar from "../components/NavBar";
 
 function Cart() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
-  const { cartInfo, total } = useSelector((state) => state.cart);
+
+  const { cart } = useSelector((state) => state.user.userInfo);
+
+  const total = cart.reduce((prev, cur) => {
+    return prev + cur.price;
+  }, 0);
+
+  console.log(total);
+
   const changeQuantity = (quantity, id, price) => {
     try {
       dispatch(changeProductQuantity({ id, quantity, price }));
-      Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then((res) => {
-        if (res.data.status) {
-        }
-      });
+      const { data } = axios.put(`cart/change-product-quantity/${id}`, { quantity });
     } catch (error) {
       console.log(error);
     }
   };
   const removeCartProduct = (id) => {
     dispatch(removeFromCart(id));
-    Axios.put("cart/remove-product/" + id, { id: id });
+    axios.put("cart/remove-product/" + id, { id: id });
   };
 
-  if (!cartInfo?.length > 0) {
+  if (!cart?.length > 0) {
     return (
       <div className="cart-is-empty">
         <BiCart size={48} />
@@ -50,7 +52,7 @@ function Cart() {
           </div>
         </div>
         <div className="cart-body">
-          {cartInfo.map((product) => {
+          {cart.map((product) => {
             return (
               <div className="cart-product">
                 <div className="product-image">
@@ -71,7 +73,7 @@ function Cart() {
                   </button>
                 </div>
                 <div className="product-total-r">
-                  <span>₹{product.total}</span>
+                  <span>₹{product.price * product.quantity}</span>
                   <button
                     onClick={() => {
                       removeCartProduct(product._id);

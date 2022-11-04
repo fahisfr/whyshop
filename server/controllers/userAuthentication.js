@@ -1,25 +1,59 @@
-const jwt = require("jsonwebtoken");
-const ApiErrors = require("../config/apiErrors");
-const AuthenticationController = (req, res, next) => {
+const dbUser = require("../dbSchemas/user");
+const objectId = require("mongoose").Types.ObjectId;
+
+const AuthenticationController = async (req, res, next) => {
   try {
-    const autheader = req.headers["authorization"];
-    if (!autheader) return res.json({ isAuth: false });
-    jwt.verify(autheader, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-      if (decoded) {
-        return res.status(200).json({
-          UserInfo: {
-            name: decoded.name,
-            number: decoded.number,
-            role: decoded.role,
-            isAuth: true,
+    const dbResult = await dbUser.aggregate([
+      {
+        $match: {
+          _id: objectId(req.user.id),
+        },
+      },
+
+      {
+        $project: {
+          cart: 1,
+        },
+      },
+      {
+        $unwind: {
+          path: "$cart",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          foreignField: "_id",
+          localField: "cart.productID",
+          as: "info",
+        },
+      },
+      {
+        $set: {
+          cart: {
+            $mergeObjects: ["$cart", { $arrayElemAt: ["$info", 0] }],
           },
-        });
-      } else {
-        next(ApiErrors.Forbidden("Token not valid"));
-      }
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          cart: { $push: "$cart" },
+        },
+      },
+    ]);
+
+    res.json({
+      status: "ok",
+      userInfo: {
+        ...req.user,
+        cart: dbResult[0].cart,
+        isAuth: true,
+      },
     });
   } catch (error) {
-    next(ApiErrors.InternalServerError(error.message));
+    next(error);
   }
 };
 

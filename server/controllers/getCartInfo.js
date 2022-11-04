@@ -1,7 +1,7 @@
-const Cart = require("../dbSchemas/cart");
+const dbUser = require("../dbSchemas/user");
 const objectid = require("mongodb").ObjectId;
 
-const getCartProduct = (UserID) => {
+const getCartProduct = (userID) => {
   return new Promise((resolve, reject) => {
     Cart.aggregate([
       {
@@ -109,7 +109,11 @@ const CartProductTolal = (UserID) => {
 };
 
 const getCartProductsInfo = async (req, res) => {
-  let UsersID = req.user.id;
+  const userId = req.user.id;
+
+  const cartInfo = dbUser.aggregate({ $match: { _id: userId }
+  
+  });
   Promise.all([getCartProduct(UsersID), CartProductTolal(UsersID)])
     .then((result) => {
       res.json({ status: true, cart: result[0], totalamout: result[1] });

@@ -1,51 +1,65 @@
-const dbCarts = require("../dbSchemas/cart");
+const dbUser = require("../dbSchemas/user");
 const dbProducts = require("../dbSchemas/product");
 const ApiErrors = require("../config/apiErrors");
 
 const changeProductQuantity = async (req, res, next) => {
   try {
-    const FindCart = await dbCarts.findOne({ userID: req.user.id }).exec();
-    if (!FindCart) return res.status(404).json({ status: false, message: "Cart not found" });
-    const Product = await FindCart.products.find(
-      (product) => product.productID == req.params.id
+    const dbResult = dbUser.updateOne(
+      { _id: req.user.id },
+      {
+        quantity: {
+          $sum: req.body.quantity,
+        },
+      }
     );
-    const ProductInfo = await dbProducts.findOne({ _id: req.params.id });
-    if (ProductInfo.quantity === Product.quantity && req.body.quantity === 0.5)
-      return res.json({ status: false, message: "Product out of stock" });
-    if (Product.quantity <= 0.5 && req.body.quantity == -0.5) {
-      return res.json({ status: false, message: "Product minimum quantity is .5" });
-    } else {
-      Product.quantity += req.body.quantity;
-      FindCart.save();
-      res.json({ status: true, message: "Product quantity updated successfully" });
+
+    if (dbResult) {
+      return res.json({ status: "ok", message: "Product quantity updated successfully" });
     }
+
+    res.json({ status: "error", error: "faild to update quantity" });
   } catch (error) {
-    next(ApiErrors.InternalServerError(error.message));
+    next(error);
   }
 };
 
 const removeCartProduct = async (req, res, next) => {
   try {
-    const userCart = await dbCarts.findOne({ userID: req.user.id }).exec();
-    if (!userCart) return res.status(404).json({ status: false, message: "Cart not found" });
-    const Product = userCart.products.find((product) => product.productID == req.params.id);
-    if (!Product)
-      return res.status(404).json({ status: false, message: "Product not found in Cart" });
-    userCart.products.pull(Product);
-    userCart.save();
-    res.json({ status: true, message: "Product removed from Cart successfully" });
+    const dbResult = await dbUser.updateOne(
+      {
+        _id: req.user.id,
+      },
+      {
+        $pull: {
+          cart: {
+            productID: req.params.id,
+          },
+        },
+      }
+    );
+
+    if (dbResult) {
+      return res.json({ status: "ok", message: "Product removed from Cart successfully" });
+    }
+
+    res.json({ status: "error", error: "faild to remove product from cart" });
   } catch (error) {
-    next(ApiErrors.InternalServerError(err.message));
+    next(error);
   }
 };
 
-const removeAllCartProducts = (req, res, next) => {
+const removeAllCartProducts = async (req, res, next) => {
   try {
-    dbCarts.deleteOne({ userID: req.user.id }).then((result) => {
-      res.json({ status: true, message: "All products removed from Cart successfully" });
-    });
+    const dbResult = await dbCarts.deleteOne({ userID: req.user.id });
+    if (dbResult) {
+      return res.json({
+        status: "ok",
+        message: "All products removed from Cart successfully",
+      });
+    }
+    res.json({ status: "error", error: "faild to" });
   } catch (error) {
-    next(ApiErrors.InternalServerError(error.message));
+    next(error);
   }
 };
 module.exports = { changeProductQuantity, removeCartProduct, removeAllCartProducts };

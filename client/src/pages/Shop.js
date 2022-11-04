@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
 import { useSelector, useDispatch } from "react-redux";
-import { changeProductQuantity, addToCart, removeFromCart } from "../features/cart";
+import { changeProductQuantity, addToCart, removeFromCart } from "../features/user";
 import ProductCart from "../components/ProductCart";
 
 function Products() {

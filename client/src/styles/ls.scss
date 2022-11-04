@@ -28,11 +28,10 @@
 
 }
 
-.ls-box > * {
-    flex: 1;
-}
+
 
 .ls-box-1 {
+    display: none;
     background-color: #ffffff;
 
     img {
@@ -42,7 +41,7 @@
 }
 
 .ls-box-2 {
-
+    width: 30rem;
     border-radius: 5px;
     border: 1px solid rgb(223, 214, 214);
 

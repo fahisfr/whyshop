@@ -9,6 +9,10 @@ function Home() {
   var history = useNavigate();
   const { types } = useSelector((state) => state.products);
   const { products } = useSelector((state) => state.products);
+  const { loading } = useSelector((state) => state.user);
+  if (loading) {
+    return <div></div>;
+  }
   return (
     <div className="home-main">
       <section className="home-1-box">
@@ -47,8 +51,8 @@ function Home() {
           <span>New Products</span>
         </div>
         <div className="recomment-products-list">
-          {products.map((product) => {
-            return <ProductCart product={product} />;
+          {products.map((product, index) => {
+            return <ProductCart product={product} key={index} />;
           })}
         </div>
       </section>

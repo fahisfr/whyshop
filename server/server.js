@@ -11,7 +11,7 @@ const connectDB = require("./config/dbConn");
 const fileupload = require("express-fileupload");
 const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./config/errorHandler");
-const IsAthu = require("./middlewares/userAuthentication");
+const isAuth = require("./middlewares/userAuthentication");
 
 connectDB();
 
@@ -28,15 +28,15 @@ app.use("/api/product", require("./routes/product"));
 app.use("/api/shop", require("./routes/shop"));
 app.use("/api/signup", require("./routes/signup"));
 app.use("/api/login", require("./routes/login"));
-app.use("/api/auth", require("./routes/auth"));
+app.use("/api/auth", isAuth, require("./routes/auth"));
 
 app.use("/api/search-products", require("./controllers/searchProduts"));
 
-app.use("/api/cart", IsAthu, require("./routes/cart"));
-app.use("/api/order", IsAthu, require("./routes/order"));
+app.use("/api/cart", isAuth, require("./routes/cart"));
+app.use("/api/order", isAuth, require("./routes/order"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/feedback", require("./routes/feedback"));
-app.use("/api/logout", IsAthu, require("./controllers/logout"));
+app.use("/api/logout", isAuth, require("./controllers/logout"));
 
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 

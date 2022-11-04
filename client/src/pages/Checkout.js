@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/checkout.css";
 import Axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAllProducts } from "../features/cart";
+import { removeAllProducts } from "../features/user";
 import Loading from "../components/Loading";
 import Pop from "../components/PopUp";
 

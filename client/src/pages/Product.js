@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, changeProductQuantity } from "../features/cart";
+import { addToCart, changeProductQuantity } from "../features/user";
 import { useNavigate } from "react-router-dom";
 
 function Product() {
@@ -20,9 +20,9 @@ function Product() {
     findProduct ? setSearchProduct(findProduct) : navigate("/");
   }, [productName]);
 
-  const { cartInfo } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.user.userInfo?.cart);
   const { isAuth } = useSelector((sate) => sate.user);
-  const inCart = cartInfo.find((item) => item._id === SearchProductInfo._id);
+  const inCart = cart.find((item) => item._id === SearchProductInfo._id);
 
   function AddTOCart(id, product) {
     const { name, price, imageId, type } = product;
@@ -35,7 +35,6 @@ function Product() {
   };
   return (
     <div className="product-main">
-
       <div className="show-product-info">
         <div className="show-product-images">
           <img src={`${ImagePath + SearchProductInfo.imageId}.jpg`} alt="product" />
@@ -70,12 +69,6 @@ function Product() {
             </button>
           )}
         </div>
-      </div>
-
-      <div className="p-recommend">
-        <RecomendDiv by="type" type={SearchProductInfo.type} />
-        <RecomendDiv />
-        <RecomendDiv />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const PlaceOrder = require("../controllers/placeOrder");
 const ApiValidation = require("../apiValidations/apiValidation");
 const APIValidation = require("../apiValidations/apiValidation");
 
-router.get("/", GetCartInfo.getCartProductsInfo);
+// router.get("/", GetCartInfo.getCartProductsInfo);
 router.put("/add-to-cart/:id", AddToCart);
 router.put(
   "/change-product-quantity/:id",

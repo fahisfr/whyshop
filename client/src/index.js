@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import User from "./features/user";
-import Cart from "./features/cart";
 import Order from "./features/order";
 import AllOrders from "./features/allOrders";
 import Produts from "./features/products";
@@ -16,7 +15,6 @@ import { fetchProduts } from "./features/products";
 const store = configureStore({
   reducer: {
     user: User,
-    cart: Cart,
     order: Order,
     products: Produts,
     allorders: AllOrders,

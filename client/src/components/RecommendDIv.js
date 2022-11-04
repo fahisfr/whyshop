@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
-import { addToCart, changeProductQuantity, removeFromCart } from "../features/cart";
+import { addToCart, changeProductQuantity, removeFromCart } from "../features/user";
 
 import ProductCart from "./ProductCart";
 

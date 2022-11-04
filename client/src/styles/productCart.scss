@@ -15,7 +15,7 @@
 
 
 
-    &:hover .add-to-cart {
+    &:hover .aq-op {
         visibility: visible;
         opacity: 1;
         transform: translateY(60%);
@@ -56,7 +56,7 @@
     }
 }
 
-.add-to-cart {
+.aq-op {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -64,18 +64,18 @@
     z-index: 33;
     width: 100%;
     display: flex;
-    justify-content: center;
-    padding: .6rem;
     background-color: #ffffff;
-    display: flex;
     border: 1px solid var(--border-primary);
     visibility: hidden;
+    padding: .6rem;
     border-top: none;
     opacity: 0;
     box-shadow: var(--box-shadow);
     transition: all .25s ease-out 0s;
 
-    button {
+
+
+    .addtocart-btn {
         border-radius: 5px;
         border: none;
         padding: 10px;
@@ -84,4 +84,23 @@
         background-color: rgb(39, 223, 39);
     }
 
+}
+
+.addtocart {
+    display: flex;
+    justify-content: center;
+}
+
+.change-quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    button {
+        cursor: pointer;
+        padding: 7px 13px;
+        border: none;
+        border-radius: 50%;
+    }
 }

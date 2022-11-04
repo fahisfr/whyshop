@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Axios from "../axios";
+import axios from "../axios";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (userId) => {
-  const response = await Axios.get("/auth").then((res) => res.data);
+  const response = await axios.get("/auth").then((res) => res.data);
   return response;
 });
 export const userSlice = createSlice({
@@ -12,6 +12,7 @@ export const userSlice = createSlice({
       name: "",
       number: "",
       role: "",
+      cart: [],
       isAuth: false,
     },
     error: "",
@@ -29,12 +30,25 @@ export const userSlice = createSlice({
         isAuth: false,
       };
     },
+    addToCart: (state, action) => {
+      state.userInfo.cart.push(action.payload);
+    },
+    changeProductQuantity: (state, action) => {
+      state.userInfo.cart.find((itme) => itme._id === action.payload.id).quantity +=
+        action.payload.quantity;
+    },
+    removeFromCart: (state, action) => {
+      state.userInfo.cart = state.userInfo.cart.filter((item) => item._id !== action.payload);
+    },
+    removeAllProducts: (state, action) => {
+      state.products = [];
+    },
   },
   extraReducers: {
-    [fetchUser.fulfilled]: (state, action) => {
-      state.userInfo = action.payload.UserInfo
-        ? action.payload.UserInfo
-        : (state.userInfo.isAuth = false);
+    [fetchUser.fulfilled]: (state, { payload }) => {
+      if (payload.status === "ok") {
+        state.userInfo = payload.userInfo;
+      }
       state.loading = false;
     },
     [fetchUser.pending]: (state, action) => {
@@ -47,6 +61,14 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const {
+  login,
+  logout,
+  addToCart,
+  changeProductQuantity,
+  removeFromCart,
+  removeAllProducts,
+  Checkout,
+} = userSlice.actions;
 
 export default userSlice.reducer;

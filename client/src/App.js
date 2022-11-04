@@ -19,7 +19,7 @@ import Test from "./pages/Test";
 import Headers from "./components/NavBar";
 
 function App() {
-  const user = useSelector((state) => state.user.userInfo.isAuth);
+  const user = useSelector((state) => state.user.userInfo?.isAuth);
   return (
     <div className="container">
       <Router>

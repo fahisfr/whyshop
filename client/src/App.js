@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="container">
       <Router>
-        <Headers />
+        <Headers  />
         <div className="main">
           <Routes>
             <Route exact path="/" element={<Home />} />

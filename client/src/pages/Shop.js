@@ -12,7 +12,7 @@ function Products() {
   const { id } = useParams();
   const [products, setproducts] = useState([]);
   const dispatch = useDispatch();
-  const { cartInfo } = useSelector((state) => state.cart);
+    const { cartInfo } = useSelector((state) => state.cart);
 
   useEffect(() => {
     Axios.get("/shop/" + id).then((result) => {

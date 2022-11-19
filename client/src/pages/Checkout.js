@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import "../styles/checkout.css";
 import Axios from "../axios";
@@ -40,7 +42,9 @@ function Order() {
     setpop({ trigger: true, success: true, message: message });
   };
   async function displayRazor(Order) {
-    const res = await loadRazorpay("https://checkout.razorpay.com/v1/checkout.js");
+    const res = await loadRazorpay(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
     if (!res) {
       alert("Razorpay is not loaded are you offline");
       return;
@@ -116,7 +120,11 @@ function Order() {
         <form onSubmit={OrderNow}>
           <div className="checkout-form-input">
             <label>Name</label>
-            <input type="text" value={name} onChange={(e) => setname(e.target.value)}></input>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            ></input>
           </div>
           <div className="checkout-form-input">
             <label>Number</label>

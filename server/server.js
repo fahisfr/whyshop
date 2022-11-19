@@ -11,11 +11,12 @@ const connectDB = require("./config/dbConn");
 const fileupload = require("express-fileupload");
 const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./config/errorHandler");
-const isAuth = require("./middlewares/userAuthentication");
+const  isAuth = require("./middlewares/userAuthentication");
 
 connectDB();
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions
+));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

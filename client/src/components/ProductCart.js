@@ -56,6 +56,7 @@ function ProductCart({ product }) {
           <button onClick={() => changeQuantity(0.5, product._id, product.price / 2)}>
             +
           </button>
+       
         </div>
       ) : (
         <div className="aq-op addtocart">

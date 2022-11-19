@@ -1,5 +1,7 @@
+/** @format */
+
 import "../styles/navBar.scss";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { FiAlignLeft, FiArchive } from "react-icons/fi";
@@ -15,8 +17,10 @@ function NavBar(props) {
   const [showResults, setShowResults] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
   const [results, setResults] = useState([]);
-  console.log(results);
   const [searchText, setSearchText] = useState("");
+  const navRef = useRef(null);
+
+  console.log(navRef.current?.clientHeight);
   const handleKeyDown = (e) => {
     const { key } = e;
 
@@ -48,24 +52,31 @@ function NavBar(props) {
   };
   const SearchProduts = (id) => {
     if (id === "") return setResults([]);
-    setResults(products.filter((item) => item.name.toLowerCase().includes(id.toLowerCase())));
+    setResults(
+      products.filter((item) =>
+        item.name.toLowerCase().includes(id.toLowerCase())
+      )
+    );
   };
 
   return (
-    <div className="navbar">
+    <div className="navbar" ref={navRef}>
       <SideBar trigger={sidebar} settrigger={setsidebar} />
-      <div className="nav-1-box">
-        <FiAlignLeft size={37} onClick={(e) => setsidebar(!sidebar)} color=" white" />
-      </div>
-      <div className="nav-2-box">
+   
+      <div className="left">
+        <FiAlignLeft
+          size={37}
+          onClick={(e) => setsidebar(!sidebar)}
+          color=" white"
+        />
         <Link to="/">
           <h1>
             WhyShop<span>.com</span>
           </h1>
         </Link>
       </div>
-      <div className="nav-3-box" onKeyDown={handleKeyDown}>
-        <div className="nav-3-1">
+      <div className="center" onKeyDown={handleKeyDown}>
+        <div className="center-con">
           <input
             type="text"
             max={12}
@@ -81,45 +92,55 @@ function NavBar(props) {
             placeholder="search for products"
           ></input>
           {searchText.length > 0 ? (
-            <div className="icon-cancel"onClick={() => setSearchText("")}></div>
+            <div
+              className="icon-cancel"
+              onClick={() => setSearchText("")}
+            ></div>
           ) : (
-            <div className="icon-search" ></div>
-          )}  {showResults && (
-          <div className="nav-search-result">
-            {results.slice(0, 6).map((item, index) => {
-              return (
-                <div
-                  className={`nav-search-result-item ${index === focusedIndex && "bg-hover"}`}
-                  onMouseDown={() => handleSelection(index)}
-                >
-                  <img src={`${ImagePath + item?.imageId}.jpg`} alt="product" />
-                  <span className="nav-search-result-item-name ">{item.name}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+            <div className="icon-search"></div>
+          )}
+          {showResults && (
+            <div className="nav-search-result">
+              {results.slice(0, 6).map((item, index) => {
+                return (
+                  <div
+                    className={`nav-search-result-item ${
+                      index === focusedIndex && "bg-hover"
+                    }`}
+                    onMouseDown={() => handleSelection(index)}
+                  >
+                    <img
+                      src={`${ImagePath + item?.imageId}.jpg`}
+                      alt="product"
+                    />
+                    <span className="nav-search-result-item-name ">
+                      {item.name}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
-      
       </div>
       {isAuth ? (
-        <div className="nav-4-box">
+        <div className="right">
           <Link to="/orders">
             <FiArchive size={22} color="white" />{" "}
           </Link>
-          <span className="nav-4-1-s">Orders</span>
+          <span className="right-text">Orders</span>
           <Link to="/cart">
             <BiCart size={31} color="white" />
           </Link>
-          <span>Cart</span>
+          <span className="right-text">Cart</span>
         </div>
       ) : (
-        <div className="nav-4-box-ls">
+        <div className="right-ls">
           <Link to="/login">
-            <button className="nav-4-3-l">Loign in</button>
+            <button className="right-l">Loign in</button>
           </Link>
           <Link to="/signup">
-            <button className="nav-4-4-s">Sign Up</button>
+            <button className="right-s">Sign Up</button>
           </Link>
         </div>
       )}

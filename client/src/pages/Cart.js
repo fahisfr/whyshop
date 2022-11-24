@@ -1,11 +1,10 @@
 /** @format */
 
-import React, { useEffect } from "react";
 import "../styles/cart.scss";
-import { Link } from "react-router-dom";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
-  fetchCart,
   removeFromCart,
   changeProductQuantity,
   removeAllProducts,
@@ -15,7 +14,7 @@ import { BiCart } from "react-icons/bi";
 
 function Cart() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { cart } = useSelector((state) => state.user.userInfo);
 
   const total = cart.reduce((prev, cur) => {
@@ -55,7 +54,7 @@ function Cart() {
       <div className="cart sb-padding-border">
         <div className="cart-top sb-bottom-pb">
           <div className="cart-title">
-            <span>Shopping Cart</span>
+            <span className="title-text">Shopping Cart</span>
           </div>
           <div className="cart-top-right" onClick={remoeAll}>
             <span>Remove All</span>
@@ -107,47 +106,28 @@ function Cart() {
             );
           })}
         </div>
-        <div className="cart-billing sb-padding-border ">
-          <div className="billing-body">
-            <div className="billing-group">
-              <span>Products Total </span>
+      </div>
+      <div className="billing">
+        <div className="bg-wrap sb-padding-border">
+          <div className="bg-top sb-bottom-pb title-text">billing</div>
+          <div className="bg-body">
+            <div className="bg-group">
+              <span className="font-size-md">Products Total </span>
               <span>₹{total}</span>
             </div>
-            <div className="billing-group">
-              <span>Delivery Fee</span>
+            <div className="bg-group">
+              <span className="font-size-md">Delivery Fee</span>
               <span className="free">Free</span>
             </div>
           </div>
-          <div className="billing-bottom">
-            <div className="billing-group">
-              <span>Total Price</span>
-              <span>₹{total}</span>
+          <div className="bg-bottom">
+            <div className="bg-group">
+              <span className="font-size-md">Total Price</span>
+              <span >₹{total}</span>
             </div>
             <div className="btn-de">
-              <button>Place Order</button>
+              <button onClick={() => navigate("/checkout")}>Place Order</button>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="billing sb-padding-border">
-        <div className="billing-top sb-bottom-pb">Billing</div>
-        <div className="billing-body">
-          <div className="billing-group">
-            <span>Products Total </span>
-            <span>₹{total}</span>
-          </div>
-          <div className="billing-group">
-            <span>Delivery Fee</span>
-            <span className="free">Free</span>
-          </div>
-        </div>
-        <div className="billing-bottom">
-          <div className="billing-group">
-            <span>Total Price</span>
-            <span>₹{total}</span>
-          </div>
-          <div className="btn-de">
-            <button>Place Order</button>
           </div>
         </div>
       </div>

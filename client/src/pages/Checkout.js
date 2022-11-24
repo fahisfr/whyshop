@@ -1,12 +1,14 @@
 /** @format */
 
+import "../styles/checkout.scss";
 import React, { useState } from "react";
-import "../styles/checkout.css";
 import Axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAllProducts } from "../features/user";
-import Loading from "../components/Loading";
-import Pop from "../components/PopUp";
+import {
+  BsFillCreditCard2FrontFill as CardIcon,
+  BsCashStack,
+} from "react-icons/bs";
 
 const loadRazorpay = (src) => {
   return new Promise((resolve) => {
@@ -111,78 +113,89 @@ function Order() {
         setpop({ trigger: true, message: err.message });
       });
   }
+
   return (
     <div className="checkout-container">
-      <Loading trigger={loading} />
-      <Pop Pop={pop} setPop={setpop} />
-      <div className="checkout-form">
-        <h1 className="checkout-from-tital">Checkout</h1>
-        <form onSubmit={OrderNow}>
-          <div className="checkout-form-input">
-            <label>Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-            ></input>
+      <div className="ct-left sb-padding-border ">
+        <div className="as-top ac-bottom-pb">
+          <span className="title-text">Checkout</span>
+        </div>
+        <div className="as-body">
+          <form className="as-form">
+            <div className="as-group">
+              <label className="as-lable ">Name</label>
+              <input className="as-input" placeholder="" />
+            </div>
+            <div className="as-group">
+              <label className="as-lable ">Phone Number</label>
+              <input className="as-input" />
+            </div>{" "}
+            <div className="as-group ">
+              <label className="as-lable ">City</label>
+              <div>
+                <select
+                  name="selectList"
+                  id="selectList"
+                  className="as-input as-select"
+                  value={city}
+                  onChange={(e) => setcity(e.target.value)}
+                >
+                  <option value="">Select City</option>
+                  <option value="city1">City 1</option>
+                  <option value="city2">City 2</option>
+                  <option value="city3">City 3</option>
+                </select>
+              </div>
+            </div>
+            <div className="as-group">
+              <label className="as-lable font-size-14">Landmark</label>
+              <input className="as-input" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="ct-right sb-padding-border">
+        <div className="payment">
+          <div className="pt-top ac-bottom-pb">
+            <span className="title-text">Payment</span>
           </div>
-          <div className="checkout-form-input">
-            <label>Number</label>
-            <input
-              type="text"
-              value={number}
-              onChange={(e) => setnumber(e.target.value)}
-            ></input>
-          </div>
-          <div className="checkout-form-input">
-            <label>City</label>
-            <select
-              name="selectList"
-              id="selectList"
-              value={city}
-              onChange={(e) => setcity(e.target.value)}
-            >
-              <option value="">Select City</option>
-              <option value="city1">City 1</option>
-              <option value="city2">City 2</option>
-              <option value="city3">City 3</option>
-            </select>
-          </div>
-          <div className="checkout-form-input">
-            <label>Landmark</label>
-            <input
-              type="text"
-              value={landmark}
-              onChange={(e) => setlademark(e.target.value)}
-            ></input>
+          <div className="pt-types">
+            <div className="pt-card" onClick={(e) => setpaymentType("online")}>
+              <input
+                type="radio"
+                name="paymentType"
+                value="online"
+                className="pt-input"
+                id="card1"
+              />
+              <label for="card1" className="card-body">
+                <span> Pay Online </span>
+                <CardIcon className="icon" />
+              </label>
+            </div>
+            <div className="pt-card" onClick={(e) => setpaymentType("cod")}>
+              <input
+                type="radio"
+                name="paymentType"
+                value="cod"
+                id="card2"
+                className="pt-input"
+              />
+              <label for="card2" className="card-body">
+                <span>Cash On Delivery</span>
+                <BsCashStack className="icon" />
+              </label>
+            </div>
           </div>
 
-          <label>Paymen Type</label>
-          <div className="order-billinginfo">
-            <input
-              type="radio"
-              name="paymentType"
-              value="Online"
-              checked={paymentType === "Online"}
-              onChange={(e) => setpaymentType(e.target.value)}
-            />
-            <label>Online</label>
-            <input
-              type="radio"
-              name="paymentType"
-              value="COD"
-              checked={paymentType === "COD"}
-              onChange={(e) => setpaymentType(e.target.value)}
-            />
-            <label>Cash On Delivery</label>
-          </div>
-          <div className="checkout-form-button">
-            <button onClick={OrderNow} className="order-button">
-              Order Now
+          <div>
+            <button className="order-btn" disabled={!paymentType}>
+              <span>Order Now</span>
             </button>
           </div>
-        </form>
+        </div>
       </div>
+    
     </div>
   );
 }

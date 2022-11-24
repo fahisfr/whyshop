@@ -3,11 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
-
-import NavBar from "../components/NavBar";
-import RecomendBar from "../components/RecommendDIv";
-import ProductCart from "../components/ProductCart";
-import { createRef, useRef } from "react";
+import { useRef } from "react";
 import RecommentProducts from "../components/RecommentProducts";
 function Home() {
   var history = useNavigate();
@@ -35,10 +31,26 @@ function Home() {
           })}
         </div>
       </section>
-
-        <RecommentProducts title="Pepole buying" products={products} />
-        <RecommentProducts title="New Products" products={products} />
-      
+      <section className="category">
+        {types.map((type, index) => {
+          return (
+            <div
+              className="category-card"
+              key={index}
+              onClick={() => history(`/shop/${type.name}`)}
+            >
+              <div className="category-img">
+                <img src={type.imageid} alt="loadign" />
+              </div>
+              {/* <div className="category-info">
+                <span>{type.name}</span>
+              </div> */}
+            </div>
+          );
+        })}
+      </section>
+      <RecommentProducts title="Pepole buying" products={products} />
+      <RecommentProducts title="New Products" products={products} />
     </div>
   );
 }

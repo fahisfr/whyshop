@@ -20,8 +20,8 @@ function Signup() {
     try {
       const { data } = await axios.post("/signup", {
         name,
-        number,
         password,
+        number,
         confirmPassword,
       });
       console.log(data)

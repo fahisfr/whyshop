@@ -1,6 +1,8 @@
+/** @format */
+
 import axios from "../axios";
 import React from "react";
-import "../styles/sideBar.css";
+import "../styles/sideBar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/user";
 import { Link } from "react-router-dom";
@@ -15,53 +17,22 @@ function SIdeBar(props) {
       props.settrigger(false);
     });
   };
-  return props.trigger ? (
+  return true ? (
     <div className="sidebar-container">
-      <div className="sidebar-left-menu">
-        <div className="sidebar-left-menu-header">
-          <img src="/profile640.png" alt="" />
-          {isAuth ? (
-            <div className="sidebar-left-header-info">
-              <span className="sidebar-we">{name}</span>
-              <span>{number}</span>
+      {/* <div className="sidebar-wrap">
+        <div className="sr-top">
+          <div className="sr-top-left">
+            <div>
+              <img />
             </div>
-          ) : (
-            <div className="sidebar-left-header-info">
-              <span className="sidebar-we">Unknown</span>
-              <span>9999999999</span>
-            </div>
-          )}
+            <div></div>
+          </div>
         </div>
-        <div className="sidebar-left-menu-body">
-          <Link to="/" className="sidebar-left-menu-body-link"></Link>
-          {/* <Link className='sidebar-link' style={{cursor:"not-allowed"}} to='/account'>My Account</Link> */}
-          <Link className="sidebar-link" to="/">
-            {" "}
-            Home
-          </Link>
-          <Link className="sidebar-link" to="/cart">
-            {" "}
-            Cart
-          </Link>
-          <Link className="sidebar-link" to="/orders">
-            {" "}
-            Orders
-          </Link>
-          <Link className="sidebar-link" to="/feedback">
-            Send Feedback
-          </Link>
-          {/* <Link className='sidebar-link' style={{ cursor: "not-allowed" }} to='/support'> My Chats</Link> */}
-          <Link
-            className="sidebar-link "
-            onClick={() => logoutNow()}
-            style={{ color: "red" }}
-            to="/"
-          >
-            Logout
-          </Link>
+        <div>
+          <div></div>
         </div>
       </div>
-      <div className="sidebar-close" onClick={() => props.settrigger(false)}></div>
+      <div className="sr-close"></div> */}
     </div>
   ) : (
     ""

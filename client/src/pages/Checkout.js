@@ -2,7 +2,7 @@
 
 import "../styles/checkout.scss";
 import React, { useState } from "react";
-import Axios from "../axios";
+import axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAllProducts } from "../features/user";
 import {
@@ -32,11 +32,11 @@ function Order() {
     message: "Order successfully plased",
   });
   const { userInfo } = useSelector((state) => state.user);
-  const [name, setname] = useState(userInfo.name);
-  const [number, setnumber] = useState(userInfo.number);
-  const [city, setcity] = useState("");
-  const [landmark, setlademark] = useState("");
-  const [paymentType, setpaymentType] = useState("");
+  const [name, setname] = useState("fahis");
+  const [number, setnumber] = useState(333333333);
+  const [city, setcity] = useState("aaaaaaa");
+  const [landmark, setlademark] = useState("aaaaa");
+  const [paymentType, setpaymentType] = useState("cod");
   const [loading, setloading] = useState(false);
   const OrderSuccess = (message) => {
     setloading(false);
@@ -60,7 +60,7 @@ function Order() {
         image: "https://example.com/your_logo",
         order_id: Order.id,
         handler: function (response) {
-          Axios.post("order/verifypayment", { order: response }).then((res) => {
+          axios.post("order/verifypayment", { order: response }).then((res) => {
             if (res.data.status) {
               OrderSuccess(res.data.message);
             } else {
@@ -87,32 +87,31 @@ function Order() {
       PaymentObject.open();
     }
   }
-  function OrderNow(e) {
-    e.preventDefault();
-    setloading(true);
-    Axios.post("cart/place-order", {
-      name: name,
-      number: number,
-      city: city,
-      lademark: landmark,
-      paymentType: paymentType,
-    })
-      .then((res) => {
-        if (res.data.razorpay) {
-          displayRazor(res.data.order);
-        } else if (res.data.status) {
-          OrderSuccess(res.data.message);
-          setpop({ trigger: true, success: true, message: res.data.message });
-        } else {
-          setloading(false);
-          setpop({ trigger: true, message: res.data.message });
-        }
-      })
-      .catch((err) => {
-        setloading(false);
-        setpop({ trigger: true, message: err.message });
+  const OrderNow = async (e) => {
+    try {
+      e.preventDefault();
+      setloading(true);
+      const { data } = await axios.post("cart/place-order", {
+        name: name,
+        number: number,
+        city: city,
+        lademark: landmark,
+        paymentType: paymentType,
       });
-  }
+      if (data.razorpay) {
+        displayRazor(data.order);
+      } else if (data.status) {
+        OrderSuccess(data.message);
+        setpop({ trigger: true, success: true, message: data.message });
+      } else {
+        setloading(false);
+        setpop({ trigger: true, message: data.message });
+      }
+    } catch (error) {
+      setloading(false);
+      setpop({ trigger: true, message: error.message });
+    }
+  };
 
   return (
     <div className="checkout-container">
@@ -124,7 +123,7 @@ function Order() {
           <form className="as-form">
             <div className="as-group">
               <label className="as-lable ">Name</label>
-              <input className="as-input" placeholder="" />
+              <input value={name}  className="as-input" placeholder="" />
             </div>
             <div className="as-group">
               <label className="as-lable ">Phone Number</label>
@@ -189,13 +188,16 @@ function Order() {
           </div>
 
           <div>
-            <button className="order-btn" disabled={!paymentType}>
+            <button
+              className="order-btn"
+              onClick={OrderNow}
+              disabled={!paymentType}
+            >
               <span>Order Now</span>
             </button>
           </div>
         </div>
       </div>
-    
     </div>
   );
 }

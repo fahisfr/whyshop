@@ -20,7 +20,6 @@ function NavBar(props) {
   const [searchText, setSearchText] = useState("");
   const navRef = useRef(null);
 
-  console.log(navRef.current?.clientHeight);
   const handleKeyDown = (e) => {
     const { key } = e;
 
@@ -61,8 +60,8 @@ function NavBar(props) {
 
   return (
     <div className="navbar" ref={navRef}>
-      <SideBar trigger={sidebar} settrigger={setsidebar} />
-   
+      <SideBar trigger={sidebar} setTrigger={setsidebar} />
+
       <div className="left">
         <FiAlignLeft
           size={37}

@@ -1,62 +1,31 @@
 /** @format */
-
-import React from "react";
-import "../styles/popUp.css";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
-
-function Pop(props) {
-  const navigate = useNavigate();
-  const PopOff = () => {
-    if (props.Pop.success) {
-      props.setPop(false);
-      navigate("/");
-    } else {
-      props.setPop(false);
+import "../styles/popUp.scss";
+import React, { useEffect } from "react";
+import { BiError } from "react-icons/bi";
+import { BsCheckCircle } from "react-icons/bs";
+function Pop({ trigger, setTrigger, error, message }) {
+  useEffect(() => {
+    if (trigger) {
+      setTimeout(() => {
+        setTrigger({
+          trigger: false,
+          error: false,
+          message
+        });
+      }, 5000);
     }
-  };
-  return props.Pop.trigger ? (
-    <div onClick={() => PopOff()} className="pop-up">
-      {props.Pop.success ? (
-        <div className="pop-up-content">
-          <div className="pop-up-content-header">
-            <AiOutlineCheckCircle color="green" size={57} />
-          </div>
-          <div className="pop-up-content-body">
-            <span className="pop-up-message">{props.Pop.message}</span>
-          </div>
-
-          <div className="pop-up-content-button">
-            <button onClick={() => PopOff()} className="pop-up-button">
-              Ok
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="pop-up-content">
-          <div className="pop-up-content-header">
-            <AiOutlineInfoCircle color="red" size={57} />
-          </div>
-          <div className="pop-up-content-body">
-            <span className="pop-up-message" style={{ color: "red" }}>
-              {props.Pop.message}
-            </span>
-          </div>
-
-          <div className="pop-up-content-button">
-            <button
-              onClick={() => PopOff()}
-              className="pop-up-button"
-              style={{ backgroundColor: "red" }}
-            >
-              Ok
-            </button>
-          </div>
-        </div>
-      )}
+  }, [trigger]);
+  return (
+    <div className={`popup-message ${trigger ? "mount" : "un-mount"}`}>
+      <div className="pm-content">
+        {error ? (
+          <BiError className="pm-icon-error" />
+        ) : (
+          <BsCheckCircle className="pm-icon-success" />
+        )}
+        <span className="pm-message">{message}</span>
+      </div>
     </div>
-  ) : (
-    ""
   );
 }
 export default Pop;

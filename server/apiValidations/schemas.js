@@ -16,7 +16,7 @@ const PlaceOrder = Joi.object({
     number: Joi.number().required(),
     city: Joi.string().required(),
     lademark: Joi.string().required(),
-    paymentType: Joi.valid("COD","Online").required(),
+    paymentType: Joi.valid("cod","online").required(),
 })
 
 const AddProduct = Joi.object({

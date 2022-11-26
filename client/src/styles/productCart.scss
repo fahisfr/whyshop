@@ -1,9 +1,9 @@
 
 .product {
   position: relative;
-  min-width: 10rem;
   display: flex;
   max-width: 10rem;
+  flex-shrink: 0;
   flex-direction: column;
   background-color: #ffffff;
   margin: 3px;

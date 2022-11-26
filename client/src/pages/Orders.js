@@ -1,3 +1,5 @@
+/** @format */
+
 import "../styles/orders.css";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,10 +18,18 @@ function Order() {
   }, [dispatch]);
   const { OrderInfo } = useSelector((state) => state.order);
 
+  if (OrderInfo.length > 0) {
+    return (
+      <div className="no-orders">
+        <FiArchive size={40} />
+        <sapn>Orders Not Available At This Time</sapn>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <NavBar />
-      {OrderInfo.length > 0 ? (
+      {
         <div className="orders-container">
           <div className="ao">
             <div className="ao-a-header">
@@ -61,12 +71,7 @@ function Order() {
             </div>
           </div>
         </div>
-      ) : (
-        <div className="no-orders">
-          <FiArchive size={40} />
-          <sapn>Orders Not Available At This Time</sapn>
-        </div>
-      )}
+      }
     </div>
   );
 }

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
-    userID: { type: mongoose.Schema.Types.ObjectId,  required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId,  required: true },
     OrderAt: { type: Date, default: Date.now,required: true },
     paymentType: { type: String, required: true },
     paymentStatus: { type: String, default: "Pending" },
@@ -17,11 +17,11 @@ const OrderSchema = new mongoose.Schema({
         name: { type: String, required: true  ,min:10,max:12},
         number: { type: String, required: true },
         city: { type: String, required: true },
-        lademark: { type: String, required: true },
+        lademark: { type: String,  },
         _id:false
         
     },
-    totalPrice: {type: Number,required: true},
+    totalPrice: {type: Number,},
     paymentID: { type: String, default: null },
     OrderStatus: {
         type: String,

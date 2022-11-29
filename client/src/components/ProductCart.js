@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/productCart.scss";
@@ -16,7 +18,9 @@ function ProductCart({ product }) {
   const changeQuantity = (quantity, id, price) => {
     try {
       dispatch(changeProductQuantity({ id, quantity, price }));
-      const { data } = axios.put(`cart/change-product-quantity/${id}`, { quantity });
+      const { data } = axios.put(`cart/change-product-quantity/${id}`, {
+        quantity,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -25,14 +29,15 @@ function ProductCart({ product }) {
   const addToCarts = async () => {
     try {
       const { _id: id, name, price, imageId, type } = product;
-      dispatch(addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 }));
+      dispatch(
+        addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
+      );
       const { data } = await axios.put(`cart/add-to-cart/${id}`);
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <div className="product">
       <div className="product-img">
@@ -49,14 +54,17 @@ function ProductCart({ product }) {
 
       {productIn ? (
         <div className="aq-op change-quantity">
-          <button onClick={() => changeQuantity(-0.5, product._id, product.price / 2)}>
+          <button
+            onClick={() => changeQuantity(-0.5, product._id, product.price / 2)}
+          >
             -
           </button>
           <span>{productIn.quantity} kg</span>
-          <button onClick={() => changeQuantity(0.5, product._id, product.price / 2)}>
+          <button
+            onClick={() => changeQuantity(0.5, product._id, product.price / 2)}
+          >
             +
           </button>
-       
         </div>
       ) : (
         <div className="aq-op addtocart">
@@ -69,4 +77,13 @@ function ProductCart({ product }) {
   );
 }
 
+function SkeletonProductCart() {
+  return (
+    <div className="product-ld ">
+      <div className="product-top-ld skeleton"></div>
+      <div className="product-bottom-ld  skeleton"></div>
+    </div>
+  );
+}
 export default ProductCart;
+export { SkeletonProductCart };

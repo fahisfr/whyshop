@@ -37,7 +37,6 @@ function Products() {
 
   return (
     <div className="shop-main">
-
       <div className="shop-container">
         <div className="shop-2-products">
           {[...products,...products].map((product, index) => {

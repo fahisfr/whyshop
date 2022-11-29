@@ -32,11 +32,11 @@ function Order() {
     message: "Order successfully plased",
   });
   const { userInfo } = useSelector((state) => state.user);
-  const [name, setname] = useState("fahis");
-  const [number, setnumber] = useState(333333333);
+  const [name, setName] = useState("fahis");
+  const [number, setNumber] = useState(333333333);
   const [city, setcity] = useState("aaaaaaa");
-  const [landmark, setlademark] = useState("aaaaa");
-  const [paymentType, setpaymentType] = useState("cod");
+  const [landmark, setLademark] = useState("aaaaa");
+  const [paymentType, setPaymentType] = useState("cod");
   const [loading, setloading] = useState(false);
   const OrderSuccess = (message) => {
     setloading(false);
@@ -122,19 +122,35 @@ function Order() {
         <div className="as-body">
           <form className="as-form">
             <div className="as-group">
-              <label className="as-lable ">Name</label>
-              <input value={name}  className="as-input" placeholder="" />
+              <label className="as-lable" for="name">
+                Name
+              </label>
+              <input
+                id="name"
+                className="as-input"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
             </div>
             <div className="as-group">
-              <label className="as-lable ">Phone Number</label>
-              <input className="as-input" />
+              <label className="as-lable" for="phoneNumber">
+                Phone Number
+              </label>
+              <input
+                className="as-input"
+                id="phoneNumber"
+                value={number}
+                onChange={(e) => e.target.value}
+              />
             </div>{" "}
             <div className="as-group ">
-              <label className="as-lable ">City</label>
+              <label className="as-lable">City</label>
               <div>
                 <select
                   name="selectList"
-                  id="selectList"
+                  id="selectCity"
                   className="as-input as-select"
                   value={city}
                   onChange={(e) => setcity(e.target.value)}
@@ -147,8 +163,15 @@ function Order() {
               </div>
             </div>
             <div className="as-group">
-              <label className="as-lable font-size-14">Landmark</label>
-              <input className="as-input" />
+              <label className="as-lable font-size-14" for="landMark">
+                Landmark
+              </label>
+              <input
+                id="landMark"
+                className="as-input"
+                value={landmark}
+                onChange={(e) => setLademark(e.target.value)}
+              />
             </div>
           </form>
         </div>
@@ -159,7 +182,7 @@ function Order() {
             <span className="title-text">Payment</span>
           </div>
           <div className="pt-types">
-            <div className="pt-card" onClick={(e) => setpaymentType("online")}>
+            <div className="pt-card" onClick={(e) => setPaymentType("online")}>
               <input
                 type="radio"
                 name="paymentType"
@@ -172,7 +195,7 @@ function Order() {
                 <CardIcon className="icon" />
               </label>
             </div>
-            <div className="pt-card" onClick={(e) => setpaymentType("cod")}>
+            <div className="pt-card" onClick={(e) => setPaymentType("cod")}>
               <input
                 type="radio"
                 name="paymentType"

@@ -3,36 +3,40 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
-import { useRef, useState } from "react";
-import PopUp from "../components/PopUp";
+import { useRef } from "react";
 import RecommentProducts from "../components/RecommentProducts";
+
 function Home() {
-  var history = useNavigate();
+  const history = useNavigate();
+
   const { types } = useSelector((state) => state.products);
   const { products } = useSelector((state) => state.products);
   const { loading } = useSelector((state) => state.user);
   const sliderRef = useRef(null);
-
-  const [popUpMessage, setPopUpMessage] = useState({
-    trigger: false,
-    error: false,
-    message: "",
-  });
 
   const array = [
     "https://image.freepik.com/free-vector/banner-with-phone-cart-gift-bags-isolated-white-background-vector-illustration_548887-134.jpg",
     "https://img.global.news.samsung.com/in/wp-content/uploads/2020/10/Master-banner-Horizontal.jpg",
   ];
 
-  setInterval(() => {});
-
   if (loading) {
-    return <div></div>;
+    return (
+      <div className="home-container">
+        <section className="slider-wrapper border-white">
+          <div className="wh-full skeleton"></div>
+        </section>
+        <section className="category">
+          <div className="wh-full skeleton border-white"></div>
+        </section>
+        <section className="he-recomment">
+          <RecommentProducts loading={loading} />
+          <RecommentProducts loading={loading} />
+        </section>
+      </div>
+    );
   }
   return (
     <div className="home-container">
-
-      <PopUp {...popUpMessage} setTrigger={setPopUpMessage} />
 
       <section className="slider-wrapper">
         <div className="slider">
@@ -52,9 +56,6 @@ function Home() {
               <div className="category-img">
                 <img src={type.imageid} alt="loadign" />
               </div>
-              {/* <div className="category-info">
-                <span>{type.name}</span>
-              </div> */}
             </div>
           );
         })}

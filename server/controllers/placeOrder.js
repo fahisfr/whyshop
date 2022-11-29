@@ -2,7 +2,6 @@
 
 const Razorpay = require("razorpay");
 const dbUser = require("../dbSchemas/user");
-const dbProduct = require("../dbSchemas/product");
 const dbOrder = require("../dbSchemas/order");
 const GetCartInfo = require("./getCartInfo");
 const ApiErrors = require("../config/apiErrors");
@@ -14,11 +13,11 @@ const instance = new Razorpay({
 
 const PlaceOrder = async (req, res, next) => {
   try {
-    //COD stands for Cash on Delivery
+
     const userId = req.user.id;
 
     if (req.body.paymentType === "cod") {
-      const cartInfo = await dbUser.aggregate([
+      const dbResult = await dbUser.aggregate([
         {
           $match: {
             _id: objectId(userId),
@@ -57,6 +56,7 @@ const PlaceOrder = async (req, res, next) => {
               name: 1,
               price: 1,
               imageId: 1,
+              quantity: "$quantity",
               total: { $multiply: ["$product.price", "$quantity"] },
             },
           },
@@ -68,30 +68,26 @@ const PlaceOrder = async (req, res, next) => {
               $sum: "$product.total",
             },
             products: {
-              $push: {
-                name: "$product.name",
-                price: "$product.price",
-                quantity: "$quantity",
-                imageId: "$product.imageId",
-              },
+              $push: "$product",
             },
           },
         },
       ]);
-      console.log("hello", cartInfo[0]);
-      const newOrder = await dbOrder.create({
+      const orderObj = {
         userId,
         paymentType: "COD",
-        products: cartInfo.products,
-        totalPrice: cartInfo.totalPrice,
+        products: dbResult[0].products,
+        totalPrice: dbResult[0].totalPrice,
         address: {
           name: req.body.name,
           number: req.body.number,
           lademark: req.body.lademark,
           city: req.body.city,
         },
-      });
-      console.log(newOrder)
+      };
+ 
+      const newOrder = await dbOrder.create(orderObj);
+      
       if (!newOrder) {
         return res.json({ status: true, message: "order faild" });
       }

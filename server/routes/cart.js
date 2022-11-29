@@ -1,3 +1,5 @@
+/** @format */
+
 const express = require("express");
 const router = express.Router();
 
@@ -11,7 +13,7 @@ const APIValidation = require("../apiValidations/apiValidation");
 // router.get("/", GetCartInfo.getCartProductsInfo);
 router.put("/add-to-cart/:id", AddToCart);
 router.put(
-  "/change-product-quantity/:id",
+  "/change-quantity/",
   APIValidation.CartProductQuantityAPIValidation,
   CartChanges.changeProductQuantity
 );

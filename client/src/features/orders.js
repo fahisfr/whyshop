@@ -5,17 +5,17 @@ export const fetchOrder = createAsyncThunk("Order/fetchCart", async () => {
   const response = await Axios.get("/order").then((res) => res.data);
   return response;
 });
-export const OrderSlice = createSlice({
-  name: "order",
+export const OrdersSlice = createSlice({
+  name: "orders",
   initialState: {
-    OrderInfo: [],
+    orders: [],
     error: "",
     loding: false,
   },
   extraReducers: {
     [fetchOrder.fulfilled]: (state, action) => {
       state.loding = false;
-      state.OrderInfo = action.payload.order;
+      state.orders = action.payload.order;
     },
     [fetchOrder.pending]: (state, action) => {
       state.loding = true;
@@ -26,4 +26,4 @@ export const OrderSlice = createSlice({
     },
   },
 });
-export default OrderSlice.reducer;
+export default OrdersSlice.reducer;

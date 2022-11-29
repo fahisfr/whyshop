@@ -1,5 +1,12 @@
+/** @format */
+
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
@@ -15,7 +22,7 @@ import Product from "./pages/Product";
 import Feedback from "./pages/Feedback";
 import Order from "./pages/Order";
 import Test from "./pages/Test";
-
+import SidePopUpMessage from "./components/SidePopUpMessage";
 import Headers from "./components/NavBar";
 
 function App() {
@@ -23,15 +30,22 @@ function App() {
   return (
     <div className="container">
       <Router>
-        <Headers  />
+        <Headers />
         <div className="main">
+          <SidePopUpMessage />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/shop/:id" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="product/:id" element={<Product />} />
-            <Route path="/signup" element={user ? <Navigate to="/" /> : <Signup />} />
-            <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+            <Route
+              path="/signup"
+              element={user ? <Navigate to="/" /> : <Signup />}
+            />
+            <Route
+              path="/login"
+              element={user ? <Navigate to="/" /> : <Login />}
+            />
             <Route path="/checkout" element={<PlaceOrder />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:id" element={<Order />} />

@@ -1,3 +1,5 @@
+/** @format */
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 
@@ -34,11 +36,14 @@ export const userSlice = createSlice({
       state.userInfo.cart.push(action.payload);
     },
     changeProductQuantity: (state, action) => {
-      state.userInfo.cart.find((itme) => itme._id === action.payload.id).quantity +=
-        action.payload.quantity;
+      state.userInfo.cart.find(
+        (itme) => itme._id === action.payload.id
+      ).quantity += action.payload.quantity;
     },
     removeFromCart: (state, action) => {
-      state.userInfo.cart = state.userInfo.cart.filter((item) => item._id !== action.payload);
+      state.userInfo.cart = state.userInfo.cart.filter(
+        (item) => item._id !== action.payload
+      );
     },
     removeAllProducts: (state, action) => {
       state.products = [];

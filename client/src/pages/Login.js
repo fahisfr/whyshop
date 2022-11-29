@@ -1,17 +1,22 @@
+/** @format */
+
 import React, { useState } from "react";
 import axios from "../axios";
 import { Link } from "react-router-dom";
 import "../styles/ls.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../features/user";
-import PopUp from "../components/PopUp";
-import Loading from "../components/Loading";
+
 
 function Login() {
   const dispatch = useDispatch();
   const [number, setnumber] = useState("1111111111");
   const [password, setpassword] = useState("fahis123");
-  const [Pop, setPop] = useState({ trigger: false, success: false, message: "" });
+  const [Pop, setPop] = useState({
+    trigger: false,
+    success: false,
+    message: "",
+  });
   const [loading, setloading] = useState(false);
   const onSubmit = async (e) => {
     try {

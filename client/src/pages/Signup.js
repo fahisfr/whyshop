@@ -1,11 +1,12 @@
+/** @format */
+
 import "../styles/ls.scss";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../axios";
 import { useDispatch } from "react-redux";
 import { login } from "../features/user";
-import PopUp from "../components/PopUp";
-import Loading from "../components/Loading";
+
 
 function Signup() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function Signup() {
         number,
         confirmPassword,
       });
-      console.log(data)
+      console.log(data);
       if (data.status) {
         dispatch(
           login({

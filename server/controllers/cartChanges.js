@@ -1,20 +1,31 @@
+/** @format */
+
 const dbUser = require("../dbSchemas/user");
-const dbProducts = require("../dbSchemas/product");
-const ApiErrors = require("../config/apiErrors");
 
 const changeProductQuantity = async (req, res, next) => {
   try {
-    const dbResult = dbUser.updateOne(
-      { _id: req.user.id },
+    const {
+      user: { id },
+      body: { quantity, productId },
+    } = req;
+
+    const dbResult = await dbUser.updateOne(
+      { _id: id },
       {
-        quantity: {
-          $sum: req.body.quantity,
+        $inc: {
+          "cart.$[ind].quantity": quantity,
         },
+      },
+      {
+        arrayFilters: [{ "ind.productID": productId }],
       }
     );
 
-    if (dbResult) {
-      return res.json({ status: "ok", message: "Product quantity updated successfully" });
+    if (dbResult.modifiedCount > 0) {
+      return res.json({
+        status: "ok",
+        message: "Product quantity updated successfully",
+      });
     }
 
     res.json({ status: "error", error: "faild to update quantity" });
@@ -25,6 +36,7 @@ const changeProductQuantity = async (req, res, next) => {
 
 const removeCartProduct = async (req, res, next) => {
   try {
+    console.log(req.params);
     const dbResult = await dbUser.updateOne(
       {
         _id: req.user.id,
@@ -38,8 +50,11 @@ const removeCartProduct = async (req, res, next) => {
       }
     );
 
-    if (dbResult) {
-      return res.json({ status: "ok", message: "Product removed from Cart successfully" });
+    if (dbResult.modifiedCount) {
+      return res.json({
+        status: "ok",
+        message: "Product removed from Cart successfully",
+      });
     }
 
     res.json({ status: "error", error: "faild to remove product from cart" });
@@ -50,8 +65,15 @@ const removeCartProduct = async (req, res, next) => {
 
 const removeAllCartProducts = async (req, res, next) => {
   try {
-    const dbResult = await dbCarts.deleteOne({ userID: req.user.id });
-    if (dbResult) {
+    const dbResult = await dbUser.updateOne(
+      { _id: req.user.id },
+      {
+        $set: {
+          cart: [],
+        },
+      }
+    );
+    if (dbResult.modifiedCount > 0) {
       return res.json({
         status: "ok",
         message: "All products removed from Cart successfully",
@@ -62,4 +84,8 @@ const removeAllCartProducts = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { changeProductQuantity, removeCartProduct, removeAllCartProducts };
+module.exports = {
+  changeProductQuantity,
+  removeCartProduct,
+  removeAllCartProducts,
+};

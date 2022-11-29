@@ -3,18 +3,22 @@ import "../styles/popUp.scss";
 import React, { useEffect } from "react";
 import { BiError } from "react-icons/bi";
 import { BsCheckCircle } from "react-icons/bs";
-function Pop({ trigger, setTrigger, error, message }) {
+import { useDispatch, useSelector } from "react-redux";
+import { closeSidePopUp } from "../features/popUpMessage";
+function Pop() {
+  const dispatch = useDispatch();
+  const { trigger, error, message } = useSelector(
+    (state) => state.popUpMessage.sidePopUp
+  );
+
   useEffect(() => {
     if (trigger) {
       setTimeout(() => {
-        setTrigger({
-          trigger: false,
-          error: false,
-          message
-        });
+        dispatch(closeSidePopUp());
       }, 5000);
     }
   }, [trigger]);
+
   return (
     <div className={`popup-message ${trigger ? "mount" : "un-mount"}`}>
       <div className="pm-content">

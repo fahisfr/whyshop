@@ -7,7 +7,6 @@ import "../styles/ls.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../features/user";
 
-
 function Login() {
   const dispatch = useDispatch();
   const [number, setnumber] = useState("1111111111");
@@ -25,7 +24,7 @@ function Login() {
 
       const { data } = await axios.post("/login", { number, password });
 
-      if (data.success) {
+      if (data.status === "ok") {
         dispatch(
           login({
             name: data.name,

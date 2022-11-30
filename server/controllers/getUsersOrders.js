@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   Orders.find({})
     .exec()
     .then((result) => {
-      console.log(result);
+
       res.json({ status: true, Orders: result });
     })
     .catch((error) => {

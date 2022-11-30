@@ -2,13 +2,12 @@
 
 .un-mount {
   opacity: 0;
-  display: none;
-  transform: translateY(-50%);
+  visibility: hidden;
+  transform: translateY(-100%);
 }
 
 .mount {
   visibility: visible;
-  display: block;
   opacity: 1;
   transform: translate(0);
 }

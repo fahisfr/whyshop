@@ -1,3 +1,5 @@
+/** @format */
+
 const express = require("express");
 const router = express.Router();
 const dbProducts = require("../dbSchemas/product");
@@ -14,9 +16,15 @@ module.exports = router.get("/:id", async (req, res, next) => {
         },
       ],
     });
-    if (products.length === 0)
-      return res.json({ status: false, message: "Product not found" });
-    res.json({ status: true, message: "product found", data: products });
+    if (products) {
+      return res.json({
+        status: true,
+        message: "product found",
+        data: products,
+      });
+    }
+
+    res.json({ status: "error", message: "" });
   } catch (err) {
     next(err);
   }

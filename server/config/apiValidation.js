@@ -1,4 +1,4 @@
-/** @format */
+
 
 const Joi = require("joi");
 
@@ -33,7 +33,7 @@ const login = Joi.object({
   password: Joi.string().trim().min(6).max(22).required(),
 });
 
-const PlaceOrder = Joi.object({
+const placeOrder = Joi.object({
   name: Joi.string().trim().required(),
   number: Joi.number().required(),
   city: Joi.string().required(),
@@ -41,7 +41,7 @@ const PlaceOrder = Joi.object({
   paymentType: Joi.valid("cod", "online").required(),
 });
 
-const AddProduct = Joi.object({
+const addProduct = Joi.object({
   name: Joi.string()
     .pattern(/^[a-zA-Z0-9]+$/)
     .min(3)
@@ -60,12 +60,12 @@ const AddProduct = Joi.object({
     .required(),
 });
 
-const ChangeCartProductQuantity = Joi.object({
+const changeCartProductQuantity = Joi.object({
   quantity: Joi.number().valid(-0.5, 0.5).required(),
   productId: Joi.string().required(),
 });
 
-const EditProduct = Joi.object({
+const editProduct = Joi.object({
   name: Joi.string()
     .pattern(/^[a-zA-Z0-9]+$/)
     .min(3)
@@ -74,12 +74,20 @@ const EditProduct = Joi.object({
   quantity: Joi.number().required(),
   price: Joi.number().required(),
 });
-
+const apiValidation = (schema) => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.body, { convert: false });
+    error
+      ? res.json({ status: "error", error: error.details[0].message })
+      : next();
+  };
+};
 module.exports = {
-  PlaceOrder,
+  placeOrder,
   login,
   signup,
-  AddProduct,
-  ChangeCartProductQuantity,
-  EditProduct,
+  addProduct,
+  changeCartProductQuantity,
+  editProduct,
+  apiValidation,
 };

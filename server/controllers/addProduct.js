@@ -3,9 +3,8 @@ const Product = require("../dbSchemas/product");
 const AddProduct = async (req, res, next) => {
   try {
     const { name, type, quantity, price } = req.body;
-    console.log(req.body);
     const image = req.files.image;
-    console.log(image);
+
     const ProductFind = await Product.findOne({ name: name });
     if (ProductFind) {
       return res.json({ status: false, message: "product already exist" });

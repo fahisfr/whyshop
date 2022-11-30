@@ -4,12 +4,14 @@ import "../styles/checkout.scss";
 import React, { useState } from "react";
 import axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAllProducts } from "../features/user";
+import { clearCart } from "../features/user";
 import {
   BsFillCreditCard2FrontFill as CardIcon,
   BsCashStack,
 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
+import { triggerSidePopUp as triggerSidePopUpMesaage } from "../features/popUpMessage";
 const loadRazorpay = (src) => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -26,29 +28,38 @@ const loadRazorpay = (src) => {
 };
 function Order() {
   const dispatch = useDispatch();
-  const [pop, setpop] = useState({
-    trigger: false,
-    success: false,
-    message: "Order successfully plased",
-  });
+  const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.user);
   const [name, setName] = useState("fahis");
   const [number, setNumber] = useState(333333333);
   const [city, setcity] = useState("aaaaaaa");
   const [landmark, setLademark] = useState("aaaaa");
   const [paymentType, setPaymentType] = useState("cod");
-  const [loading, setloading] = useState(false);
-  const OrderSuccess = (message) => {
-    setloading(false);
-    dispatch(removeAllProducts());
-    setpop({ trigger: true, success: true, message: message });
+  const [btnLoading, setBtnloading] = useState(false);
+
+  const triggerSidePopUp = (info) => {
+    dispatch(triggerSidePopUpMesaage(info));
+  };
+
+  const orderPlaced = () => {
+    dispatch(clearCart());
+    dispatch(
+      triggerSidePopUpMesaage({
+        error: false,
+        message: "Order Placed Successfully",
+      })
+    );
+    navigate("/");
   };
   async function displayRazor(Order) {
     const res = await loadRazorpay(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
     if (!res) {
-      alert("Razorpay is not loaded are you offline");
+      triggerSidePopUp({
+        error: true,
+        message: "Razorpay is not loaded are you offline",
+      });
       return;
     } else {
       var options = {
@@ -62,7 +73,7 @@ function Order() {
         handler: function (response) {
           axios.post("order/verifypayment", { order: response }).then((res) => {
             if (res.data.status) {
-              OrderSuccess(res.data.message);
+              orderPlaced();
             } else {
               alert("Payment Failed");
             }
@@ -83,14 +94,14 @@ function Order() {
       };
 
       const PaymentObject = new window.Razorpay(options);
-      setloading(false);
+      setBtnloading(false);
       PaymentObject.open();
     }
   }
   const OrderNow = async (e) => {
     try {
       e.preventDefault();
-      setloading(true);
+      setBtnloading(true);
       const { data } = await axios.post("cart/place-order", {
         name: name,
         number: number,
@@ -98,18 +109,19 @@ function Order() {
         lademark: landmark,
         paymentType: paymentType,
       });
-      if (data.razorpay) {
+      if (data.status === "razorpay") {
         displayRazor(data.order);
-      } else if (data.status) {
-        OrderSuccess(data.message);
-        setpop({ trigger: true, success: true, message: data.message });
-      } else {
-        setloading(false);
-        setpop({ trigger: true, message: data.message });
+      } else if (data.status === "ok") {
+        orderPlaced();
+      } else if (data.status === "error") {
+        dispatch(triggerSidePopUp({ error: true, message: data.message }));
       }
     } catch (error) {
-      setloading(false);
-      setpop({ trigger: true, message: error.message });
+      dispatch(
+        triggerSidePopUp({ trigger: true, error: true, message: error.message })
+      );
+    } finally {
+      setBtnloading(false);
     }
   };
 
@@ -210,13 +222,13 @@ function Order() {
             </div>
           </div>
 
-          <div>
+          <div className={`${btnLoading ? "btn-loading" : ""}`}>
             <button
-              className="order-btn"
+              className="order-btn ld-btn"
               onClick={OrderNow}
               disabled={!paymentType}
             >
-              <span>Order Now</span>
+              <span className="ld-text">Order Now</span>
             </button>
           </div>
         </div>

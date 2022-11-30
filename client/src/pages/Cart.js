@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import {
   removeFromCart,
   changeProductQuantity,
-  removeAllProducts,
+  clearCart,
 } from "../features/user";
 import axios, { ImagePath } from "../axios";
 import { BiCart } from "react-icons/bi";
@@ -39,7 +39,7 @@ function Cart() {
   };
 
   const remoeAll = async () => {
-    dispatch(removeAllProducts());
+    dispatch(clearCart());
     const { data } = await axios.delete("/cart/remove-all-products");
   };
 
@@ -54,7 +54,9 @@ function Cart() {
           </div>
           <div className="overflow-scroll-d-h">
             {new Array(6).fill(0).map((item, index) => {
-              return <div key={index} className="skeleton-item  skeleton"></div>;
+              return (
+                <div key={index} className="skeleton-item  skeleton"></div>
+              );
             })}
           </div>
         </div>

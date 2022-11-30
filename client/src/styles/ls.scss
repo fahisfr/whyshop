@@ -118,32 +118,6 @@
 
 }
 
-.btn-loading .btn {
-
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        margin: auto;
-        width: 16px;
-        height: 16px;
-        border: 4px solid transparent;
-        border-left-color: var(--color-blue);
-        border-top-color: var(--color-blue);
-        border-radius: 50%;
-        animation: var(--just-loading) .4s linear infinite;
-    }
-
-    .btn-text {
-        display: none;
-    }
-
-
-
-}
 
 
 

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const User = require("../dbSchemas/user");
 
-module.exports = router.delete("", async (req, res) => {
+module.exports = router.delete("", async (req, res,next) => {
   try {
     const FindUser = await User.findById(req.user.id);
     FindUser.refreshToken = null;
@@ -13,7 +13,7 @@ module.exports = router.delete("", async (req, res) => {
       status: true,
       message: "Logout Successful",
     });
-  } catch (err) {
-    res.status(500).json({});
+  } catch (error) {
+    next(error)
   }
 });

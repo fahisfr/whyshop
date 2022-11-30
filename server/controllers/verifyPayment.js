@@ -1,8 +1,6 @@
 const crypto = require("crypto");
 const order = require("../dbSchemas/order");
 
-const ApiErrors = require("../config/apiErrors");
-
 const verifyPayment = async (req, res, next) => {
   try {
     // req.body = req.body.order;

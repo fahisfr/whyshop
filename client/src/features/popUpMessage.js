@@ -20,11 +20,7 @@ export const PopUpMessageSlice = createSlice({
       };
     },
     closeSidePopUp: (state, { payload }) => {
-      state.sidePopUp = {
-        trigger: false,
-        error: false,
-        message: state.sidePopUp.message,
-      };
+      state.sidePopUp.trigger = false;
     },
   },
 });

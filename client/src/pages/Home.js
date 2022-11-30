@@ -5,13 +5,12 @@ import "../styles/home.scss";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 import RecommentProducts from "../components/RecommentProducts";
+import Confirmation from "../components/Confirmation";
 
 function Home() {
   const history = useNavigate();
 
-  const { types } = useSelector((state) => state.products);
-  const { products } = useSelector((state) => state.products);
-  const { loading } = useSelector((state) => state.user);
+  const { types, products, loading } = useSelector((state) => state.products);
   const sliderRef = useRef(null);
 
   const array = [
@@ -37,7 +36,6 @@ function Home() {
   }
   return (
     <div className="home-container">
-
       <section className="slider-wrapper">
         <div className="slider">
           {array.map((img, index) => {

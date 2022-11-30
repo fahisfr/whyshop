@@ -1,28 +1,32 @@
 /** @format */
 
 import axios from "../axios";
-import React from "react";
+import React, { useState } from "react";
 import "../styles/sideBar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/user";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { VscFeedback } from "react-icons/vsc";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiCart, BiCategoryAlt } from "react-icons/bi";
 import { FiActivity, FiArchive } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
+import Confirmation from "./Confirmation";
 function SIdeBar({ trigger, setTrigger }) {
   const { name, number, isAuth } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const logoutNow = () => {
-  //   axios.delete("logout").then((response) => {
-  //     localStorage.removeItem("accesstoken");
-  //     dispatch(logout());
-  //     setTrigger(false);
-  //   });
-  // };
+
+  const [confirmation, setConfirmation] = useState({
+    trigger: false,
+    message: "",
+    btnText: "",
+  });
+
+  const LogoutNow = () => {
+    localStorage.removeItem("accesstoken");
+    const { data } = axios.delete("/logout");
+    navigate("/login");
+  };
 
   const onClick = (path) => {
     navigate(path);
@@ -31,6 +35,14 @@ function SIdeBar({ trigger, setTrigger }) {
 
   return trigger ? (
     <div className="sidebar-container">
+      {confirmation.trigger && (
+        <Confirmation
+          {...confirmation}
+          setTrigger={setConfirmation}
+          confirmed={LogoutNow}
+        />
+      )}
+
       <div className="sr-close" onClick={() => setTrigger(false)}></div>
       <div className="sidebar-wrap slider-on">
         <div className="sr-body">
@@ -57,7 +69,16 @@ function SIdeBar({ trigger, setTrigger }) {
             <VscFeedback className="sr-icon" />
             <span className="sr-text">FeedBack</span>
           </div>
-          <div className="sr-group">
+          <div
+            className="sr-group"
+            onClick={() =>
+              setConfirmation({
+                trigger: true,
+                message: "Are you sure you want to logout",
+                btnText: "Logout",
+              })
+            }
+          >
             <MdLogout className="sr-icon color-red" />
             <button className="sr-logout-btn">Logout</button>
           </div>

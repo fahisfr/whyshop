@@ -1,8 +1,10 @@
+/** @format */
+
 const dbUser = require("../dbSchemas/user");
 
 const PrdoductAddToCart = async (req, res, next) => {
   try {
-    const dbResult = await dbUser.updateOne(
+    const productAdded = await dbUser.updateOne(
       { _id: req.user.id },
       {
         $addToSet: {
@@ -13,11 +15,13 @@ const PrdoductAddToCart = async (req, res, next) => {
         },
       }
     );
-    console.log(dbResult);
-    if (dbResult) {
-      return res.json({ status: "ok", message: "product added to the cart" });
+    
+    if (productAdded.modifiedCount > 0) {
+      res.json({ status: "ok", message: "product added to  cart" });
+      return;
     }
-    res.json({ status: "error", error: "Failed to add  product to cart" });
+
+    res.json({ status: "error", error: "Failed to add  item to cart" });
   } catch (err) {
     next(err);
   }

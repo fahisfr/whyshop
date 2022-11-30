@@ -79,7 +79,7 @@ const removeAllCartProducts = async (req, res, next) => {
         message: "All products removed from Cart successfully",
       });
     }
-    res.json({ status: "error", error: "faild to" });
+    res.json({ status: "error", error: "" });
   } catch (error) {
     next(error);
   }

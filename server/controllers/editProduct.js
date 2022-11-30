@@ -1,5 +1,5 @@
 const Product = require("../dbSchemas/product");
-const ApiErrors = require("../config/apiErrors");
+
 module.exports = async (req, res, next) => {
   try {
     const { name, quantity, price } = req.body;

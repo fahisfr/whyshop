@@ -46,7 +46,7 @@
   .right-l:hover {
     box-shadow: inset 87px 0 0 0 #79f704;
     cursor: pointer;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
   }
 
   .right-s:hover {
@@ -149,6 +149,7 @@
       align-items: center;
       justify-content: center;
       flex-basis: 2rem;
+      height: 100%;
       background-color: #ffffff;
       cursor: pointer;
       border-radius: 0 15px 15px 0;
@@ -176,7 +177,11 @@
       bottom: -3px;
       right: 0;
       transform: translateY(100%);
-      border-radius: 5px;
+      border-radius: 10px;
+      .item-bg-hover{
+        border-radius: 10px;
+        background-color: var(--bg-hover);
+      }
       .nav-search-result-item {
         width: 100%;
         padding: 10px;
@@ -192,6 +197,7 @@
         }
 
         &:hover {
+          border-radius: 10px;
           background-color: var(--bg-hover);
         }
 

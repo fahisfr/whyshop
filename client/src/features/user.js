@@ -45,8 +45,8 @@ export const userSlice = createSlice({
         (item) => item._id !== action.payload
       );
     },
-    removeAllProducts: (state, action) => {
-      state.products = [];
+    clearCart: (state, action) => {
+      state.userInfo.cart = [];
     },
   },
   extraReducers: {
@@ -61,7 +61,6 @@ export const userSlice = createSlice({
     },
     [fetchUser.rejected]: (state, action) => {
       state.error = action.error;
-      state.loading = false;
     },
   },
 });
@@ -72,7 +71,7 @@ export const {
   addToCart,
   changeProductQuantity,
   removeFromCart,
-  removeAllProducts,
+  clearCart,
   Checkout,
 } = userSlice.actions;
 

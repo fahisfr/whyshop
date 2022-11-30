@@ -10,7 +10,7 @@ export const ProdutsSlice = createSlice({
   initialState: {
     products: [],
     types: [],
-    error: null,
+    error: false,
     loading: true,
   },
   reducers: {
@@ -29,7 +29,6 @@ export const ProdutsSlice = createSlice({
     },
     [fetchProduts.rejected]: (state, action) => {
       state.error = action.error;
-      state.loading = false;
     },
   },
 });

@@ -1,0 +1,59 @@
+/** @format */
+
+.confirmation-container {
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.39);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cf-con {
+  max-width: 33rem;
+  width: 90%;
+  max-height: 15rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.cf-top {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem;
+  text-align: center;
+}
+.cf-message {
+  font-weight: 600;
+  font-size: 20px;
+  font-style: italic;
+}
+.cf-bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.cf-btn {
+  width: 6rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.cf-continue-btn {
+  background-color: red;
+  color: #ffffff;
+}

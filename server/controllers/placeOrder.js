@@ -3,155 +3,130 @@
 const Razorpay = require("razorpay");
 const dbUser = require("../dbSchemas/user");
 const dbOrder = require("../dbSchemas/order");
-const GetCartInfo = require("./getCartInfo");
-const ApiErrors = require("../config/apiErrors");
+const dbProduct = require("../dbSchemas/product");
 const objectId = require("mongoose").Types.ObjectId;
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
+
+
 const PlaceOrder = async (req, res, next) => {
   try {
-
     const userId = req.user.id;
+    const { paymentType } = req.body;
+    const cartInfo = await dbUser.aggregate([
+      {
+        $match: {
+          _id: objectId(userId),
+        },
+      },
+      {
+        $project: {
+          cart: 1,
+        },
+      },
+      {
+        $unwind: "$cart",
+      },
+      {
+        $replaceWith: "$cart",
+      },
 
-    if (req.body.paymentType === "cod") {
-      const dbResult = await dbUser.aggregate([
-        {
-          $match: {
-            _id: objectId(userId),
+      {
+        $lookup: {
+          from: "products",
+          localField: "productID",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      {
+        $set: {
+          product: { $arrayElemAt: ["$product", 0] },
+        },
+      },
+      {
+        $project: {
+          quantity: 1,
+          product: {
+            _id: 1,
+            name: 1,
+            price: 1,
+            imageId: 1,
+            quantity: "$quantity",
+            total: { $multiply: ["$product.price", "$quantity"] },
           },
         },
-        {
-          $project: {
-            cart: 1,
+      },
+      {
+        $group: {
+          _id: null,
+          totalPrice: {
+            $sum: "$product.total",
+          },
+          products: {
+            $push: "$product",
           },
         },
-        {
-          $unwind: "$cart",
-        },
-        {
-          $replaceWith: "$cart",
-        },
+      },
+    ]);
+    const { products, totalPrice } = cartInfo[0];
+    const orderObj = {
+      userId,
+      paymentType: paymentType ? "online" : "cod",
+      products,
+      totalPrice,
+      address: {
+        name: req.body.name,
+        number: req.body.number,
+        lademark: req.body.lademark,
+        city: req.body.city,
+      },
+    };
 
-        {
-          $lookup: {
-            from: "products",
-            localField: "productID",
-            foreignField: "_id",
-            as: "product",
-          },
-        },
-        {
-          $set: {
-            product: { $arrayElemAt: ["$product", 0] },
-          },
-        },
-        {
-          $project: {
-            quantity: 1,
-            product: {
-              _id: 1,
-              name: 1,
-              price: 1,
-              imageId: 1,
-              quantity: "$quantity",
-              total: { $multiply: ["$product.price", "$quantity"] },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: null,
-            totalPrice: {
-              $sum: "$product.total",
-            },
-            products: {
-              $push: "$product",
-            },
-          },
-        },
-      ]);
-      const orderObj = {
-        userId,
-        paymentType: "COD",
-        products: dbResult[0].products,
-        totalPrice: dbResult[0].totalPrice,
-        address: {
-          name: req.body.name,
-          number: req.body.number,
-          lademark: req.body.lademark,
-          city: req.body.city,
-        },
-      };
- 
-      const newOrder = await dbOrder.create(orderObj);
-      
-      if (!newOrder) {
-        return res.json({ status: true, message: "order faild" });
+    const userOrder = await dbOrder.create(orderObj);
+    console.log(paymentType);
+    if (paymentType === "cod") {
+      if (!userOrder) {
+        return res.json({ status: "error", message: "order faild" });
       }
+      const dbBulk = await dbProduct.collection.initializeUnorderedBulkOp();
 
-      res.json({ status: true, message: "Order Placed Puccessfully" });
-      // dbProduct
-      //   .aggregate([
-      //     {
-      //       $match: {
-      //         _id: {
-      //           $in: userCart.products.map((product) => product.productID),
-      //         },
-      //       },
-      //     },
-      //   ])
-      //   .then((result) => {
-      //     console.log(result);
-      //   });
-    } else if (req.body.paymentType === "online") {
-      const user = await dbUser.findOne({ userId: req.user.id });
-
-      if (user?.cart?.length > 0)
-        return res.json({ status: false, message: "Cart is empty" });
-      const ProductInfo = await Promise.all([
-        GetCartInfo.getCartProduct(userId),
-        GetCartInfo.CartProductTolal(userId),
-      ]);
-      const userOrder = await dbOrder.create({
-        userId: userCart.userId,
-        paymentType: "Online",
-        products: ProductInfo[0],
-        totalPrice: ProductInfo[1],
-        address: {
-          name: req.body.name,
-          number: req.body.number,
-          lademark: req.body.lademark,
-          city: req.body.city,
-        },
-        paymentID: null,
+      products.forEach((product) => {
+        dbBulk.find({ _id: product._id }).updateOne({
+          $inc: {
+            quantity: -product.quantity,
+          },
+        });
       });
-      instance.orders
-        .create({
-          amount: ProductInfo[1] * 100,
-          currency: "INR",
-          receipt: userOrder._id,
-          payment_capture: 1,
-        })
-        .then((orderInfo) => {
-          userOrder.paymentID = orderInfo.id;
-          userOrder.save();
-          res.json({
-            razorpay: true,
-            message: "Order Placed Puccessfully",
-            order: orderInfo,
-          });
-        })
-        .catch((err) =>
-          res
-            .status(500)
-            .json({ status: false, message: "create order filed try again" })
-        );
+      Promise.all([
+        dbBulk.execute(),
+        dbUser.updateOne({ _id: userId }, { cart: [] }),
+      ]);
+      res.json({ status: "ok", message: "Order Placed Puccessfully" });
+    } else if (paymentType === "online") {
+      console.log();
+      const createOrder = await instance.orders.create({
+        amount: totalPrice * 100,
+        currency: "INR",
+        receipt: userOrder._id,
+        payment_capture: 1,
+      });
+      userOrder.paymentID = createOrder.id;
+      userOrder.save();
+      if (createOrder) {
+        return res.json({
+          status: "razorpay",
+          message: "Order Placed Puccessfully",
+          order: createOrder,
+        });
+      }
+      res.json({ status: "error", message: "create order filed try again" });
     }
   } catch (error) {
-    next(ApiErrors.InternalServerError(error));
+    next(error);
   }
 };
 

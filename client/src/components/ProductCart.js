@@ -6,6 +6,7 @@ import "../styles/productCart.scss";
 import { useDispatch, useSelector } from "react-redux";
 import axios, { ImagePath } from "../axios";
 import { addToCart, changeProductQuantity } from "../features/user";
+import { triggerSidePopUp } from "../features/popUpMessage";
 
 function ProductCart({ product }) {
   const dispatch = useDispatch();
@@ -15,27 +16,44 @@ function ProductCart({ product }) {
   const productIns = () => cart.find((item) => item._id === product._id);
   const productIn = productIns();
 
-  const changeQuantity = (quantity, id, price) => {
+  const triggerSidePopUpErrorMessage = (
+    message = "Oops something went wrong"
+  ) => {
+    dispatch(triggerSidePopUp({ error: true, message }));
+  };
+
+  const changeQuantity = async (quantity, id, price) => {
     try {
-      dispatch(changeProductQuantity({ id, quantity, price }));
-      const { data } = axios.put(`cart/change-product-quantity/${id}`, {
+      const { data } = await axios.put(`cart/change-quantity`, {
         quantity,
+        productId: id,
       });
+      if (data.status === "ok") {
+        dispatch(changeProductQuantity({ id, quantity, price }));
+      } else {
+        triggerSidePopUpErrorMessage(data.error);
+      }
     } catch (error) {
-      console.log(error);
+      triggerSidePopUpErrorMessage();
     }
   };
 
   const addToCarts = async () => {
     try {
       const { _id: id, name, price, imageId, type } = product;
-      dispatch(
-        addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
-      );
+
       const { data } = await axios.put(`cart/add-to-cart/${id}`);
-      console.log(data);
+
+      if (data.status === "ok") {
+        dispatch(
+          addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
+        );
+      } else {
+        console.log(data, "from else");
+        triggerSidePopUpErrorMessage(data.error);
+      }
     } catch (error) {
-      console.log(error);
+      triggerSidePopUpErrorMessage();
     }
   };
   return (

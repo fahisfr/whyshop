@@ -1,5 +1,5 @@
 /** @format */
-import "../styles/popUp.scss";
+import "../styles/sidePopUpMessage.scss";
 import React, { useEffect } from "react";
 import { BiError } from "react-icons/bi";
 import { BsCheckCircle } from "react-icons/bs";
@@ -15,7 +15,7 @@ function Pop() {
     if (trigger) {
       setTimeout(() => {
         dispatch(closeSidePopUp());
-      }, 5000);
+      },3500);
     }
   }, [trigger]);
 

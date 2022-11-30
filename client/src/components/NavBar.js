@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import SideBar from "./SideBar.js";
 import { ImagePath } from "../axios";
 
-function NavBar(props) {
+function NavBar() {
   const navigate = useNavigate();
   const { isAuth } = useSelector((state) => state.user.userInfo);
   const { products } = useSelector((state) => state.products);
@@ -104,7 +104,7 @@ function NavBar(props) {
                 return (
                   <div
                     className={`nav-search-result-item ${
-                      index === focusedIndex && "bg-hover"
+                      index === focusedIndex && "item-bg-hover"
                     }`}
                     onMouseDown={() => handleSelection(index)}
                   >

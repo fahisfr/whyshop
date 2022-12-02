@@ -1,3 +1,4 @@
+/** @format */
 
 const dbUser = require("../dbSchemas/user");
 const objectId = require("mongoose").Types.ObjectId;
@@ -32,13 +33,13 @@ const AuthenticationController = async (req, res, next) => {
       },
       {
         $set: {
-          product: {$arrayElemAt: ["$product", 0] },
+          product: { $arrayElemAt: ["$product", 0] },
         },
       },
       {
         $project: {
           product: {
-            _id:1,
+            _id: 1,
             name: 1,
             price: 1,
             imageId: 1,
@@ -52,8 +53,15 @@ const AuthenticationController = async (req, res, next) => {
           cart: { $push: "$product" },
         },
       },
+      {
+        $set: {
+          cart: {
+            $cond: [{ $eq: ["$cart", [{}]] }, [], "$cart"],
+          },
+        },
+      },
     ]);
- 
+
     res.json({
       status: "ok",
       userInfo: {

@@ -72,9 +72,9 @@ function Cart() {
 
   if (!cart?.length > 0) {
     return (
-      <div className="cart-is-empty">
-        <BiCart size={48} />
-        <span>Cart Is Empty</span>
+      <div className="cart-empty">
+        <BiCart  className="ct-icon" />
+        <span className="ct-text">Cart Is Empty</span>
       </div>
     );
   }

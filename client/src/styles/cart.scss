@@ -1,13 +1,18 @@
 /** @format */
 
-.cart-is-empty {
-  display: flex;
-  width: 100%;
+.cart-empty {
   height: 100%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: 40px;
-  color: rgb(190, 184, 184);
-  border: 1px solid black;
+  background-color: #ffffff;
+  color: #737373;
+  .ct-icon {
+    font-size: 3.3rem;
+  }
+  .ct-text {
+    font-size: 2rem;
+  }
 }
 
 .sb-bottom-pb {

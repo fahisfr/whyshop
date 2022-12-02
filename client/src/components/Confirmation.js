@@ -1,9 +1,11 @@
+/** @format */
 
 import React from "react";
 import "../styles/confirmation.scss";
 function Confirmation({ message, setTrigger, confirmed, btnText }) {
   return (
-    <div className="confirmation-container" onClick={() => setTrigger(false)}>
+    <div className="confirmation-container">
+      <div onClick={() => setTrigger(false)} className="cf-close"></div>
       <div className="cf-con">
         <div className="cf-top">
           <span className="cf-message">{message} </span>

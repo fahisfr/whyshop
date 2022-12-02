@@ -1,5 +1,7 @@
 /** @format */
 
+
+
 .product {
   position: relative;
   display: flex;
@@ -102,6 +104,8 @@
   min-height: 14rem;
   background-color: #ffffff;
   margin: 3px;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-primary);
   .product-top-ld {
     width: 100%;
     height: 65%;

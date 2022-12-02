@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { ImagePath } from "../axios";
 import "../styles/order.scss";
 import "../styles/cart.scss";
+import { format } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 function Order() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -81,7 +83,15 @@ function Order() {
             </div>
             <div className="od-group">
               <span className="font-size-md">OrderAt </span>
-              <span>{order.orderAt}</span>
+              <span>
+                {format(
+                  zonedTimeToUtc(
+                    order.orderAt,
+                    Intl.DateTimeFormat().resolvedOptions().timeZone
+                  ),
+                  "d/M/yyy hh:mm a"
+                )}
+              </span>
             </div>{" "}
             <div className="od-group">
               <span className="font-size-md"> Payment</span>

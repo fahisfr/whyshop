@@ -61,10 +61,9 @@ function NavBar() {
   return (
     <div className="navbar" ref={navRef}>
       <SideBar trigger={sidebar} setTrigger={setsidebar} />
-
       <div className="left">
         <FiAlignLeft
-          size={37}
+          className="sidebar-icon"
           onClick={(e) => setsidebar(!sidebar)}
           color=" white"
         />
@@ -125,22 +124,28 @@ function NavBar() {
       {isAuth ? (
         <div className="right">
           <Link to="/orders">
-            <FiArchive size={22} color="white" />{" "}
+            <div className="rt-group">
+              <FiArchive size={22} color="white" />
+              <span className="rt-text">Orders</span>
+            </div>
           </Link>
-          <span className="right-text">Orders</span>
           <Link to="/cart">
-            <BiCart size={31} color="white" />
+            <div className="rt-group">
+              <BiCart size={31} color="white" />
+              <span className="rt-text">Cart</span>
+            </div>
           </Link>
-          <span className="right-text">Cart</span>
         </div>
       ) : (
-        <div className="right-ls">
-          <Link to="/login">
-            <button className="right-l">Loign in</button>
-          </Link>
-          <Link to="/signup">
-            <button className="right-s">Sign Up</button>
-          </Link>
+        <div className="right">
+          <div className="rt-btn-wrap">
+            <Link to="/login">
+              <button className="ls-btn login-btn">Loign in</button>
+            </Link>
+            <Link to="/signup">
+              <button className="ls-btn signup-btn">Sign Up</button>
+            </Link>
+          </div>
         </div>
       )}
     </div>

@@ -1,12 +1,14 @@
-import "../styles/product.css";
+/** @format */
+
+import "../styles/product.scss";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios, { ImagePath } from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, changeProductQuantity } from "../features/user";
 import { useNavigate } from "react-router-dom";
-import RecommentProduct from "../components/RecommentProducts";
 
+import ProductCart from "../components/ProductCart";
 function Product() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,60 +25,38 @@ function Product() {
   const { isAuth } = useSelector((sate) => sate.user);
   const inCart = cart.find((item) => item._id === SearchProductInfo._id);
 
-  function AddTOCart(id, product) {
-    const { name, price, imageId, type } = product;
-    dispatch(
-      addToCart({ _id: id, name, price, imageId, id, quantity: 1, type })
-    );
-    Axios.put(`cart/add-to-cart/${id}`).then((res) => {});
-  }
-  const changeQuantity = (quantity, id) => {
-    dispatch(changeProductQuantity({ id, quantity }));
-    Axios.put(`cart/change-product-quantity/${id}`, { quantity }).then(
-      (res) => {}
-    );
-  };
   return (
-    <div className="product-main">
-      <div className="show-product-info">
-        <div className="show-product-images">
-          <img
-            src={`${ImagePath + SearchProductInfo.imageId}.jpg`}
-            alt="product"
-          />
-        </div>
-        <div className="show-product-details">
-          <span className="p-title">{SearchProductInfo.name}</span>
-          <span className="p-stock"> In stock</span>
-          <span className="p-price">₹{SearchProductInfo.price} Kg</span>
+    <div className="product-container">
+      <div className="pt-left">
+        <img src={`${ImagePath + SearchProductInfo.imageId}.jpg`} alt="" />
+      </div>
+      <div className="pt-right">
+        <div className="pt-details">
+          <span className="pt-name capitalize">{SearchProductInfo.name}</span>
+          <span className="pt-price">₹{SearchProductInfo.price} </span>
           {inCart ? (
-            <div className="p-change-quantity">
-              <button
-                style={{ backgroundColor: "red" }}
-                onClick={() => changeQuantity(-0.5, inCart._id)}
-              >
-                -
-              </button>
-              <span className="p-quantity">
-                {inCart.quantity} <span className="p-kg"> kg</span>
+            <div className="pt-quantity">
+              <button className="pt-button">-</button>
+              <span className="pt-quantity">
+                {inCart.quantity}kg
               </span>
-              <button onClick={() => changeQuantity(0.5, inCart._id)}>+</button>
+              <button className="pt-button">+</button>
             </div>
           ) : (
-            <button
-              className="p-button"
-              onClick={() =>
-                isAuth
-                  ? AddTOCart(SearchProductInfo._id, SearchProductInfo)
-                  : navigate("/signup")
-              }
-            >
-              Add to cart
-            </button>
+            <button className="pt-addtocart">Add to cart</button>
           )}
+        </div>{" "}
+        <div className="pt-recomment">
+          <div className="pt-title">
+            <span>Related Products</span>
+          </div>
+          <div className="pt-products">
+            {products.map((product) => {
+              return <ProductCart product={product} />;
+            })}
+          </div>
         </div>
       </div>
-      <RecommentProduct title="People bying" products={products} />
     </div>
   );
 }

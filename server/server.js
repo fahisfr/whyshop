@@ -1,3 +1,5 @@
+/** @format */
+
 require("dotenv").config();
 
 const express = require("express");
@@ -14,6 +16,7 @@ const errorHandler = require("./config/errorHandler");
 const isAuth = require("./middlewares/userAuthentication");
 const { apiValidation, signup, login } = require("./config/apiValidation");
 
+
 connectDB();
 
 app.use(cors(corsOptions));
@@ -25,6 +28,7 @@ app.use(fileupload());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/home", require("./routes/home"));
+app.use("/api/recommendations", require("./controllers/recommendations"));
 app.use("/api/product", require("./routes/product"));
 app.use("/api/shop", require("./routes/shop"));
 app.post("/api/signup", apiValidation(signup), require("./controllers/signup"));
@@ -34,10 +38,11 @@ app.use("/api/auth", isAuth, require("./routes/auth"));
 app.use("/api/search-products", require("./controllers/searchProduts"));
 
 app.use("/api/cart", isAuth, require("./routes/cart"));
-app.use("/api/order", isAuth, require("./routes/order"));
+app.use("/api/orders", isAuth, require("./routes/order"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/feedback", require("./controllers/feedback"));
 app.use("/api/logout", isAuth, require("./controllers/logout"));
+
 
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))

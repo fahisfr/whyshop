@@ -9,7 +9,7 @@ const PrdoductAddToCart = async (req, res, next) => {
       {
         $addToSet: {
           cart: {
-            productID: req.params.id,
+            productId: req.params.id,
             quantity: 1,
           },
         },

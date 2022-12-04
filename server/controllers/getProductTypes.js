@@ -1,16 +1,20 @@
 /** @format */
 
-const ProductType = require("../dbSchemas/categories");
-const Product = require("../dbSchemas/product");
+const productType = require("../dbSchemas/categories");
+const dbProduct = require("../dbSchemas/product");
+const dbOrder = require("../dbSchemas/order");
 
-module.exports = (req, res, next) => {
+const home = async (req, res, next) => {
   try {
-    Promise.all([ProductType.find({}), Product.find({})]).then(
+    Promise.all([productType.find({}), dbProduct.find({})]).then(
       ([types, products]) => {
-        res.json({ types, products });
+        res.json({ status: "ok", types, products });
       }
     );
+   
   } catch (error) {
     next(error);
   }
 };
+
+module.exports = home;

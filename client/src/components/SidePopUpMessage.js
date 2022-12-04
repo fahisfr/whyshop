@@ -1,4 +1,4 @@
-/** @format */
+
 import "../styles/sidePopUpMessage.scss";
 import React, { useEffect } from "react";
 import { BiError } from "react-icons/bi";

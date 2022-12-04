@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect } from "react";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import order, { fetchOrder } from "../features/orders";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,29 +19,30 @@ function Order() {
   const { orders, loading } = useSelector((state) => state.orders);
   const order = orders?.find((x) => x._id === id);
 
-  if (loading || !order) {
-    return (
-      <div className="order-container">
-        <div className="order sb-padding-border">
-          <div className="sb-bottom-pb">
-            <span className="title-text">Order</span>
-          </div>
-          {new Array(6).fill(0).map((item, index) => {
-            return <div className="skeleton-item skeleton"></div>;
-          })}
-        </div>
-        <div className="order-details">
-          <div className="od-wrap sb-padding-border">
-            <div className=" sb-bottom-pb title-text">Order Details</div>
-            <div className="skeleton-item skeleton"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (loading || !order) {
+  //   return (
+  //     <div className="order-container">
+  //       <div className="order sb-padding-border">
+  //         <div className="sb-bottom-pb">
+  //           <span className="title-text">Order</span>
+  //         </div>
+  //         {new Array(6).fill(0).map((item, index) => {
+  //           return <div className="skeleton-item skeleton"></div>;
+  //         })}
+  //       </div>
+  //       <div className="order-details">
+  //         <div className="od-wrap sb-padding-border">
+  //           <div className=" sb-bottom-pb title-text">Order Details</div>
+  //           <div className="skeleton-item skeleton"></div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="order-container">
+      <NavBar />
       <div className="order sb-padding-border">
         <div className="sb-bottom-pb">
           <span className="title-text">Order</span>

@@ -1,3 +1,5 @@
+/** @format */
+
 const db = require("mongoose");
 const Role_list = require("../config/roles");
 
@@ -14,12 +16,12 @@ const user = new db.Schema({
   updateAt: { type: Date, default: () => new Date() },
   cart: [
     {
-      productID: { type: db.Schema.ObjectId },
-
+      productId: { type: db.Schema.ObjectId },
       quantity: { type: Number, default: 1 },
       _id: false,
     },
   ],
+  orders: [{ type: db.Schema.ObjectId }],
   password: { type: String, required: true },
   creaetAt: { type: Date, default: Date.now },
   refreshToken: { type: String, default: null },

@@ -151,6 +151,8 @@ button:disabled {
   width: 100vw;
   height: 100vh;
   max-width: 100%;
+  overflow: auto;
+  background-color: #eaeded;
 }
 
 .main {
@@ -174,19 +176,17 @@ button:disabled {
   }
 }
 
-/* @media (min-width: 1281px) {
+// @media (min-width: 1281px) {
+//   // .container {
+//   //   width: 100vw;
+//   //   display: flex;
+//   //   flex-direction: column;
+//   //   justify-content: center;
+//   //   align-items: center;
+ 
+//   // }
 
-  .container {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-
-  }
-
-  .main {
-    width: 1281px;
-  }
-} */
+//   .main {
+//     width: 1281px;
+//   }
+// }

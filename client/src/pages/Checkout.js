@@ -10,6 +10,7 @@ import {
   BsCashStack,
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../components/Navbar";
 
 import { triggerSidePopUp as triggerSidePopUpMesaage } from "../features/popUpMessage";
 const loadRazorpay = (src) => {
@@ -127,6 +128,7 @@ function Order() {
 
   return (
     <div className="checkout-container">
+      <NavBar />
       <div className="ct-left sb-padding-border ">
         <div className="as-top ac-bottom-pb">
           <span className="title-text">Checkout</span>

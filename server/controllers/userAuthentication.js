@@ -27,7 +27,7 @@ const AuthenticationController = async (req, res, next) => {
         $lookup: {
           from: "products",
           foreignField: "_id",
-          localField: "cart.productID",
+          localField: "cart.productId",
           as: "product",
         },
       },
@@ -39,7 +39,7 @@ const AuthenticationController = async (req, res, next) => {
       {
         $project: {
           product: {
-            _id: 1,
+            productId: 1,
             name: 1,
             price: 1,
             imageId: 1,

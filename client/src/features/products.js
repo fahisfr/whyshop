@@ -1,15 +1,21 @@
+/** @format */
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "../axios";
 
-export const fetchProduts = createAsyncThunk("product/fetchproduct", async () => {
-  const response = await Axios.get("/home").then((res) => res.data);
-  return response;
-});
+export const fetchProduts = createAsyncThunk(
+  "product/fetchproduct",
+  async () => {
+    const response = await Axios.get("/home").then((res) => res.data);
+    return response;
+  }
+);
 export const ProdutsSlice = createSlice({
   name: "produts",
   initialState: {
     products: [],
     types: [],
+    recomments: [],
     error: false,
     loading: true,
   },
@@ -22,13 +28,18 @@ export const ProdutsSlice = createSlice({
     [fetchProduts.pending]: (state, action) => {
       state.loading = true;
     },
-    [fetchProduts.fulfilled]: (state, action) => {
-      state.products = action.payload.products;
-      state.types = action.payload.types;
-      state.loading = false;
+    [fetchProduts.fulfilled]: (state, { payload }) => {
+      if (payload.status === "ok") {
+        state.products = payload.products;
+        state.types = payload.types;
+
+        state.loading = false;
+      } else if (payload.status === "error") {
+        state.error = payload.error;
+      }
     },
     [fetchProduts.rejected]: (state, action) => {
-      state.error = action.error;
+      state.error = action.error.message;
     },
   },
 });

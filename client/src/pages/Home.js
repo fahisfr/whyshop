@@ -3,12 +3,40 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import RecommentProducts from "../components/RecommentProducts";
-import Confirmation from "../components/Confirmation";
+import NavBar from "../components/Navbar";
+import axios from "../axios";
 
 function Home() {
   const history = useNavigate();
+  const navigate = useNavigate();
+
+  const [reco, setReco] = useState({
+    loading: false,
+    fetched: false,
+    data: [],
+  });
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        if (!reco.fetched && !reco.loading) {
+          setReco({ ...reco, loading: true });
+          const { data } = await axios.get("/recommendations");
+          if (data.status === "ok") {
+            console.log(data);
+            setReco({
+              loading: false,
+              fetched: true,
+              data: data.recommendations,
+            });
+          }
+        }
+      } catch (error) {}
+    };
+    fetch();
+  });
 
   const { types, products, loading } = useSelector((state) => state.products);
   const sliderRef = useRef(null);
@@ -27,17 +55,14 @@ function Home() {
         <section className="category">
           <div className="wh-full skeleton border-white"></div>
         </section>
-        <section className="he-recomment">
-          <RecommentProducts loading={loading} />
-          <RecommentProducts loading={loading} />
-        </section>
       </div>
     );
   }
   return (
     <div className="home-container">
+      <NavBar />
       <section className="slider-wrapper">
-        <div className="slider">
+        <div className="slider" ref={sliderRef}>
           {array.map((img, index) => {
             return <img id={`slider-${index}`} src={img} key={index} />;
           })}
@@ -48,6 +73,7 @@ function Home() {
           return (
             <div
               className="category-card"
+              id={`item-${index}`}
               key={index}
               onClick={() => history(`/shop/${type.name}`)}
             >
@@ -59,8 +85,16 @@ function Home() {
         })}
       </section>
       <section className="he-recomment">
-        <RecommentProducts title="Pepole buying" products={products} />
-        <RecommentProducts title="New Products" products={products} />
+        {reco.loading ? (
+          <RecommentProducts loading={true} />
+        ) : (
+          reco.fetched &&
+          reco?.data?.map((item, index) => {
+            return (
+              <RecommentProducts title={item.title} products={item.products} />
+            );
+          })
+        )}
       </section>
     </div>
   );

@@ -1,5 +1,21 @@
 /** @format */
 
+.no-orders {
+  height: 100%;
+  max-width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  color: #737373;
+  .os-icon {
+    font-size: 3.3rem;
+  }
+  .os-text {
+    font-size: 2rem;
+  }
+}
 .orders-container {
   width: 100%;
   height: 100%;
@@ -9,15 +25,23 @@
 .os {
   height: 100%;
   background-color: #ffffff;
+  position: relative;
 }
 .os-title {
   font-size: 20px;
+}
+
+.table-top-skeleton {
+  width: 100%;
+  margin-top: 1rem;
+  height: 2rem;
 }
 
 .os-body {
   width: 100%;
   max-height: 100%;
 }
+
 .os-table {
   min-width: 100%;
   height: 100%;
@@ -55,8 +79,7 @@
   }
   .os-tbody {
     tr {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 15px;
+      border-radius: 10px;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       background-color: #ffffff;
@@ -65,14 +88,19 @@
       color: #737373;
       border: none;
       font-size: 14px;
-      padding: 0px 10px;
-      border-radius: 15px;
+      padding: 0 10px;
+
       .icon-red {
         width: 10px;
         height: 10px;
         border-radius: 50%;
         background-color: rgb(41, 238, 41);
       }
+    }
+    .os-td-skeleton {
+      height: 3rem;
+      margin: 8px 3px;
+      border-radius: 10px;
     }
   }
 }

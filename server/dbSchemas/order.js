@@ -9,12 +9,12 @@ const OrderSchema = new mongoose.Schema({
   paymentStatus: { type: String, default: "Pending" },
   products: [
     {
+      _id: { type: mongoose.Schema.Types.ObjectId, required: true },
       name: { type: String, required: true },
       price: { type: Number, required: true },
       quantity: { type: Number, required: true },
       imageId: { type: String, required: true },
       total: { type: Number, required: true },
-      _id: false,
     },
   ],
   address: {
@@ -33,6 +33,6 @@ const OrderSchema = new mongoose.Schema({
   },
 });
 
-const Order = mongoose.model("Order", OrderSchema);
+const Order = mongoose.model("orders", OrderSchema);
 
 module.exports = Order;

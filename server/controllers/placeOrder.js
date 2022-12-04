@@ -1,4 +1,3 @@
-/** @format */
 
 const Razorpay = require("razorpay");
 const dbUser = require("../dbSchemas/user");
@@ -9,8 +8,6 @@ const instance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
-
-
 
 const PlaceOrder = async (req, res, next) => {
   try {
@@ -37,7 +34,7 @@ const PlaceOrder = async (req, res, next) => {
       {
         $lookup: {
           from: "products",
-          localField: "productID",
+          localField: "productId",
           foreignField: "_id",
           as: "product",
         },
@@ -72,8 +69,10 @@ const PlaceOrder = async (req, res, next) => {
         },
       },
     ]);
+
     const { products, totalPrice } = cartInfo[0];
-    const orderObj = {
+
+    const userOrder = await dbOrder.create({
       userId,
       paymentType: paymentType ? "online" : "cod",
       products,
@@ -84,10 +83,8 @@ const PlaceOrder = async (req, res, next) => {
         lademark: req.body.lademark,
         city: req.body.city,
       },
-    };
+    });
 
-    const userOrder = await dbOrder.create(orderObj);
-    console.log(paymentType);
     if (paymentType === "cod") {
       if (!userOrder) {
         return res.json({ status: "error", message: "order faild" });
@@ -103,11 +100,18 @@ const PlaceOrder = async (req, res, next) => {
       });
       Promise.all([
         dbBulk.execute(),
-        dbUser.updateOne({ _id: userId }, { cart: [] }),
+        dbUser.updateOne(
+          { _id: userId },
+          {
+            $set: { cart: [] },
+            $push: {
+              orders: userOrder._id,
+            },
+          }
+        ),
       ]);
       res.json({ status: "ok", message: "Order Placed Puccessfully" });
     } else if (paymentType === "online") {
-      console.log();
       const createOrder = await instance.orders.create({
         amount: totalPrice * 100,
         currency: "INR",

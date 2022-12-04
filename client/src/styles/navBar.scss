@@ -11,12 +11,14 @@
   z-index: 30;
   align-items: center;
   padding: 0 15px;
-  grid-template-columns: repeat(3, auto);
+  grid-template-areas: 
+  "left center right";
 }
 .left {
   display: flex;
   align-items: center;
   column-gap: 3px;
+  grid-area: left;
 
   a {
     color: rgba(255, 255, 255, 0.959);
@@ -33,6 +35,7 @@
 }
 
 .center {
+  grid-area: center;
   .center-con {
     position: relative;
     display: flex;
@@ -151,6 +154,7 @@
 }
 
 .right {
+  grid-area: right;
   display: flex;
   margin-top: 4px;
   align-items: center;
@@ -185,23 +189,15 @@
   }
 }
 
-@media  (max-width: 768px) {
+@media (max-width: 768px) {
   .navbar {
     height: 89px;
-    grid-template-columns: repeat(2, auto);
-  }
-  .center {
-    grid-column: span 2;
-  }
+    grid-template-areas: 
+    "left  right"
+    "center center";
 
-  .left {
-    order: 1;
   }
   .right {
     padding-right: 0;
-    order: 2;
-  }
-  .center {
-    order: 3;
   }
 }

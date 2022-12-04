@@ -7,8 +7,8 @@ const ProductSchema = new Schema({
     },
     imageid: {
         type: String,required: true}
-}, { collection: 'types' });
+}, { collection: 'categoryes' });
 
-const Product = mongoose.model('type', ProductSchema,);
+const Product = mongoose.model('categoryes', ProductSchema,);
 
 module.exports = Product

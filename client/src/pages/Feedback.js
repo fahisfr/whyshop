@@ -1,6 +1,9 @@
+/** @format */
+
 import React, { useState } from "react";
 import "../styles/feedback.css";
 import Axios from "../axios";
+import NavBar from "../components/Navbar";
 
 function Feedback() {
   const [name, setName] = useState("");
@@ -13,6 +16,7 @@ function Feedback() {
 
   return (
     <div className="feedback-container">
+      <NavBar />
       <h3 className="feedback-title">FeedBack</h3>
       <from className="feedback-from">
         <label>Name</label>

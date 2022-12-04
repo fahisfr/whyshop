@@ -6,6 +6,7 @@ import Axios from "../axios";
 import { useDispatch } from "react-redux";
 import { SkeletonProductCart } from "../components/ProductCart";
 import ProductCart from "../components/ProductCart";
+import NavBar from "../components/Navbar";
 
 function Products() {
   const { id } = useParams();
@@ -22,13 +23,14 @@ function Products() {
 
   return (
     <div className="shop-container">
+      <NavBar />
       <div className="shop-2-products-ld">
-        {new Array(30).fill(0).map((itme, index) => {
+        {/* {new Array(30).fill(0).map((itme, index) => {
           return <SkeletonProductCart />;
-        })}
-        {/* {[...products, ...products].map((product, index) => {
-          return <ProductCart product={product} key={index} />;
         })} */}
+        {[...products, ...products].map((product, index) => {
+          return <ProductCart product={product} key={index} />;
+        })}
       </div>
     </div>
   );

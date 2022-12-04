@@ -21,16 +21,14 @@ import PageNotFount from "./pages/PageNotFount";
 import Product from "./pages/Product";
 import Feedback from "./pages/Feedback";
 import Order from "./pages/Order";
-import Test from "./pages/Test";
 import SidePopUpMessage from "./components/SidePopUpMessage";
-import Headers from "./components/NavBar";
+
 
 function App() {
   const user = useSelector((state) => state.user.userInfo?.isAuth);
   return (
     <div className="container">
       <Router>
-        <Headers />
         <div className="main">
           <SidePopUpMessage />
           <Routes>
@@ -51,8 +49,7 @@ function App() {
             <Route path="/order/:id" element={<Order />} />
             <Route path="feedback" element={<Feedback />} />
             <Route path="*" element={<PageNotFount />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>{" "}
+          </Routes>
         </div>
       </Router>
     </div>

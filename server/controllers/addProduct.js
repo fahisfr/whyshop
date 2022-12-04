@@ -2,7 +2,7 @@ const Product = require("../dbSchemas/product");
 
 const AddProduct = async (req, res, next) => {
   try {
-    const { name, type, quantity, price } = req.body;
+    const { name, category, quantity, price } = req.body;
     const image = req.files.image;
 
     const ProductFind = await Product.findOne({ name: name });
@@ -14,7 +14,7 @@ const AddProduct = async (req, res, next) => {
       if (err) return res.json({ status: false, message: "Image not Uploaded " });
       const newProduct = await Product.create({
         name,
-        type,
+        category,
         quantity,
         price,
         imageId: imageName,

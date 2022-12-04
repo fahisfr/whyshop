@@ -17,7 +17,7 @@ const changeProductQuantity = async (req, res, next) => {
         },
       },
       {
-        arrayFilters: [{ "ind.productID": productId }],
+        arrayFilters: [{ "ind.productId": productId }],
       }
     );
 
@@ -36,7 +36,6 @@ const changeProductQuantity = async (req, res, next) => {
 
 const removeCartProduct = async (req, res, next) => {
   try {
-    console.log(req.params);
     const dbResult = await dbUser.updateOne(
       {
         _id: req.user.id,
@@ -44,7 +43,7 @@ const removeCartProduct = async (req, res, next) => {
       {
         $pull: {
           cart: {
-            productID: req.params.id,
+            productId: req.params.id,
           },
         },
       }

@@ -7,12 +7,14 @@
   overflow: auto;
   background-color: #ffffff;
 }
-.pt-left {
+.pt-details {
+  min-width: 20rem;
   max-width: 30rem;
   height: 100%;
   padding: 1rem;
-  display: flex;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #e2e0e0;
   img {
     max-width: 23rem;
@@ -20,38 +22,33 @@
     object-fit: contain;
   }
 }
-.pt-right {
-  flex-grow: 1;
+.pt-details-wrapper {
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
-  .pt-details {
-    padding: 3rem 2rem;
+  row-gap: 1rem;
+  .pt-addtocart {
+    max-width: 15rem;
+    height: 2.5rem;
+    color: #ffffff;
+    font-size: medium;
+    background-color: rgb(37, 240, 37);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  .pt-quantity {
+    padding: 5px 0;
     display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-    .pt-addtocart {
-      max-width: 15rem;
-      height: 2.5rem;
-      color: #ffffff;
-      font-size: medium;
-      background-color: rgb(37, 240, 37);
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
-    .pt-quantity {
-      padding: 5px 0;
-      display: flex;
-      column-gap: 10px;
-    }
-    .pt-button {
-      cursor: pointer;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: large;
-    }
+    column-gap: 10px;
+  }
+  .pt-button {
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 35px;
+    font-size: large;
   }
   .pt-name {
     font-size: 35px;
@@ -62,7 +59,8 @@
     font-weight: 400;
   }
 }
-.pt-recomment {
+
+.pt-recommends {
   flex-grow: 1;
   overflow: auto;
   .pt-title {

@@ -15,6 +15,7 @@ export const userSlice = createSlice({
       number: "",
       role: "",
       cart: [],
+      cartTotalPirce: 0,
       isAuth: false,
     },
     error: "",
@@ -53,6 +54,7 @@ export const userSlice = createSlice({
     [fetchUser.fulfilled]: (state, { payload }) => {
       if (payload.status === "ok") {
         state.userInfo = payload.userInfo;
+        
         state.loading = false;
       } else if (payload.status === "error") {
         state.error = payload.error;

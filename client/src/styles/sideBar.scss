@@ -39,7 +39,6 @@
 .sidebar-wrap {
   width: 100%;
   max-width: 18rem;
-  transition: all 2s ease-in-out;
   height: 100%;
   position: relative;
   flex-direction: column;
@@ -52,24 +51,26 @@
     align-items: flex-end;
     cursor: pointer;
     column-gap: 6px;
+    position: relative;
     border: 1px solid #97919115;
   }
-  .sr-text {
-    color: #525252;
-    font-size: 1rem;
-  }
-  .sr-icon {
-    font-size: 1.8rem;
-    color: #525252;
-  }
-  .color-red {
-    color: red;
-  }
-  .sr-logout-btn {
-    border: none;
-    color: red;
-    font-size: 1rem;
-  }
+}
+.sr-text {
+  color: #525252;
+  font-size: 1rem;
+}
+.sr-icon {
+  font-size: 1.8rem;
+  color: #525252;
+}
+.color-red {
+  color: red;
+}
+.sr-logout-btn {
+  border: none;
+  color: red;
+  font-size: 1rem;
+  background: none;
 }
 .sr-pd {
   width: 2rem;

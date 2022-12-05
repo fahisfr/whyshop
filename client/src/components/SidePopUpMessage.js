@@ -27,7 +27,7 @@ function Pop() {
         ) : (
           <BsCheckCircle className="pm-icon-success" />
         )}
-        <span className="pm-message">{message}</span>
+        <span className="pm-message">{ error ?? message}</span>
       </div>
     </div>
   );

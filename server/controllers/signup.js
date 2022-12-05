@@ -1,3 +1,4 @@
+/** @format */
 
 const jwt = require("jsonwebtoken");
 const dbUser = require("../dbSchemas/user");
@@ -8,12 +9,16 @@ const CareateUser = async (req, res, next) => {
     const { name, number, password } = req.body;
     userIn = await dbUser.findOne({ number: number });
     if (userIn)
-      return res.json({ success: false, message: "User already exist" });
+      return res.json({
+        status: "error",
+        error: "this phome number is already registered",
+      });
 
+    const bcreptPassword = await bcrept.hash(password, 12);
     const newUser = await dbUser.create({
       name: name,
       number: number,
-      password: bcrept.hash(password, 12),
+      password: bcreptPassword,
     });
 
     const accesstoken = jwt.sign(
@@ -24,7 +29,7 @@ const CareateUser = async (req, res, next) => {
         role: newUser.role,
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "3m" }
+      { expiresIn: "1m" }
     );
 
     const refreshtoken = jwt.sign(
@@ -36,13 +41,13 @@ const CareateUser = async (req, res, next) => {
     newUser.refreshToken = refreshtoken;
     newUser.save();
     res.cookie("refreshToken", refreshtoken, {
-      maxAge: 806400000,
       httpOnly: true,
-      secure: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+      sameSite: "strict",
     });
     res.json({
-      status: true,
-      message: "Login Successful ",
+      status: "ok",
       accesstoken: accesstoken,
       UserInfo: {
         id: newUser._id,

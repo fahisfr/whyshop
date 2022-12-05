@@ -50,6 +50,7 @@ function NavBar() {
     setSearchText("");
   };
   const SearchProduts = (id) => {
+    console.log("search")
     if (id === "") return setResults([]);
     setResults(
       products.filter((item) =>

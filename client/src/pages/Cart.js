@@ -12,6 +12,7 @@ import {
 import axios, { ImagePath } from "../axios";
 import { BiCart } from "react-icons/bi";
 import NavBar from "../components/Navbar";
+import products from "../features/products";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -29,14 +30,13 @@ function Cart() {
         quantity,
         productId: id,
       });
-      console.log(quantity, id);
     } catch (error) {
       console.log(error);
     }
   };
-  const removeCartProduct = (id) => {
+  const removeProductFromCart = (id) => {
+    axios.put(`cart/remove-product/${id}`, { id: id });
     dispatch(removeFromCart(id));
-    axios.put("cart/remove-product/" + id, { id: id });
   };
 
   const remoeAll = async () => {
@@ -84,6 +84,7 @@ function Cart() {
                   <div className="product-quantity">
                     <button
                       onClick={() => {
+                        console.log(product);
                         changeQuantity(-0.5, product._id, product.price / 2);
                       }}
                     >
@@ -104,7 +105,8 @@ function Cart() {
                   <div className="product-remove">
                     <button
                       onClick={() => {
-                        removeCartProduct(product._id);
+                        console.log(product);
+                        removeProductFromCart(product._id);
                       }}
                     >
                       Remove

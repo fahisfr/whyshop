@@ -39,7 +39,7 @@ const AuthenticationController = async (req, res, next) => {
       {
         $project: {
           product: {
-            productId: 1,
+            _id: 1,
             name: 1,
             price: 1,
             imageId: 1,

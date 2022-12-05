@@ -1,6 +1,6 @@
 /** @format */
 
-const productType = require("../dbSchemas/categories");
+const productType = require("../dbSchemas/category");
 const dbProduct = require("../dbSchemas/product");
 const dbOrder = require("../dbSchemas/order");
 

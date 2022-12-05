@@ -15,8 +15,8 @@ const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./config/errorHandler");
 const isAuth = require("./middlewares/userAuthentication");
 const { apiValidation, signup, login } = require("./config/apiValidation");
-
-
+const dbBanner = require("./dbSchemas/banner");
+const dbCatgory = require("./dbSchemas/category");
 connectDB();
 
 app.use(cors(corsOptions));
@@ -42,6 +42,7 @@ app.use("/api/orders", isAuth, require("./routes/order"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/feedback", require("./controllers/feedback"));
 app.use("/api/logout", isAuth, require("./controllers/logout"));
+
 
 
 app.get("*", (req, res) =>

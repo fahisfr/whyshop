@@ -4,7 +4,6 @@ const dbOrder = require("../dbSchemas/order");
 
 const recommendations = async (req, res, next) => {
   try {
-    console.error("yes i am here");
     const dbResult = await dbOrder.aggregate([
       {
         $facet: {

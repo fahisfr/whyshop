@@ -3,16 +3,16 @@
 import axios from "../axios";
 import React, { useState } from "react";
 import "../styles/sideBar.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { VscFeedback } from "react-icons/vsc";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiCart, BiCategoryAlt } from "react-icons/bi";
-import { FiActivity, FiArchive } from "react-icons/fi";
+import { FiArchive } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
 import Confirmation from "./Confirmation";
+import { logout } from "../features/user";
 function SIdeBar({ trigger, setTrigger }) {
-  const { name, number, isAuth } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,9 +22,10 @@ function SIdeBar({ trigger, setTrigger }) {
     btnText: "",
   });
 
-  const LogoutNow = () => {
-    localStorage.removeItem("accesstoken");
+  const logoutNow = () => {
     const { data } = axios.delete("/logout");
+    localStorage.removeItem("accesstoken");
+    dispatch(logout());
     navigate("/login");
   };
 
@@ -39,7 +40,7 @@ function SIdeBar({ trigger, setTrigger }) {
         <Confirmation
           {...confirmation}
           setTrigger={setConfirmation}
-          confirmed={LogoutNow}
+          confirmed={logoutNow}
         />
       )}
 
@@ -61,9 +62,11 @@ function SIdeBar({ trigger, setTrigger }) {
             <span className="sr-text">Orders</span>
           </div>
 
-          <div className="sr-group">
+          <div className="sr-group catgory">
             <BiCategoryAlt className="sr-icon" onClick={() => onClick("/")} />
             <span className="sr-text">Category</span>
+
+            <div className="drop-icon"></div>
           </div>
           <div className="sr-group" onClick={() => onClick("/feedback")}>
             <VscFeedback className="sr-icon" />

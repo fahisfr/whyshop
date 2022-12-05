@@ -14,6 +14,10 @@
     span {
       font-size: 19px;
       font-weight: 600;
+
+    }
+    &::first-letter{
+      text-transform: capitalize;
     }
   }
 

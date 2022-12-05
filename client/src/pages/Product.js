@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import ProductCart from "../components/ProductCart";
 import NavBar from "../components/Navbar";
+
 function Product() {
   const navigate = useNavigate();
   const [SearchProductInfo, setSearchProduct] = useState({});
@@ -28,7 +29,10 @@ function Product() {
     <div className="product-container">
       <NavBar />
       <div className="pt-details">
-        <img src={`${ImagePath + SearchProductInfo.imageId}.jpg`} alt="" />{" "}
+        <div className="pt-image-wrapper">
+          <img src={`${ImagePath + SearchProductInfo.imageId}.jpg`} alt="" />
+        </div>
+
         <div className="pt-details-wrapper">
           <span className="pt-name capitalize">{SearchProductInfo.name}</span>
           <span className="pt-price">₹{SearchProductInfo.price} </span>
@@ -48,9 +52,11 @@ function Product() {
           <span>Related Products</span>
         </div>
         <div className="pt-products">
-          {products.map((product) => {
-            return <ProductCart product={product} />;
-          })}
+          <div className="pt-products-wrappr">
+            {products.map((product) => {
+              return <ProductCart product={product} />;
+            })}
+          </div>
         </div>
       </div>
     </div>

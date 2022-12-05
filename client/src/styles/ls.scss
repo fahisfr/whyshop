@@ -1,154 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=Convergence&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Convergence&family=Merriweather:wght@300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Merriweather:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arimo:ital@1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+/** @format */
 
 .ls-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 4.5rem;
-    overflow: hidden;
-    background-color: #dad1d123;
-
+  display: flex;
+  justify-content: center;
+  background-color: #dad1d123;
 }
 
-.ls-box {
-
-    width: 60rem;
-    background-color: #fafafa;
-    display: flex;
-    flex-basis: auto;
-    flex-direction: row;
-    border-radius: 5px;
-    border: 1px solid #e5e7eb;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.055) 0px 0px 0px 1px;
-
+.ls-box-wrappe {
+  width: 30rem;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.055) 0px 0px 0px 1px;
 }
 
-
-
-.ls-box-1 {
-    display: none;
-    background-color: #ffffff;
-
-    img {
-        width: 100%;
-        height: 100%;
+.ls-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem 3rem;
+  row-gap: 1.1rem;
+  .title {
+    text-align: center;
+    padding: 7px 0;
+    h1 {
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      padding: 5px 0;
+      font-style: italic;
     }
+  }
 }
-
-.ls-box-2 {
-    width: 30rem;
-    border-radius: 5px;
-    border: 1px solid rgb(223, 214, 214);
-
+.ls-form:invalid .btn {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
-
-.ls-2-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 5rem 3rem;
-
-    .title {
-        align-self: center;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        padding: 5px 0;
-        font-style: italic;
-    }
-
-
-}
-
 .ls-group {
-
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    gap: 5px;
-
-    input {
-        height: 2.6rem;
-        font-size: 1rem;
-        border-radius: 0.5rem;
-        padding-left: 0.65rem;
-        outline: none;
-        background-color: none;
-        border: 1px solid rgba(177, 177, 177, 0.973);
-    }
-
-    span {
-        font-size: 17px;
-        font-family: 'Roboto', sans-serif;
-        border: none;
-        color: white;
-    }
-
-    label {
-        font-size: 14px;
-        font-family: "Convergence", sans-serif;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.ls-form-bt {
-    padding: 0 1rem;
+.ls-input {
+  height: 2.5rem;
+  font-size: 16px;
+  border-radius: 8px;
+  padding-left: 0.65rem;
+  outline: none;
+  background-color: none;
+  border: 1px solid rgba(177, 177, 177, 0.973);
 
-
-    .btn {
-        position: relative;
-        width: 100%;
-        margin-top: 5px;
-        border: none;
-        border-radius: .5rem;
-        height: 2.4rem;
-        background-color: var(--primary-color);
-
-        color: #ffffff;
-        cursor: pointer;
-
-        .btn-text {
-            font-size: 20px;
-            font-weight: 600;
-
-        }
-    }
-
+  &:invalid[focus="true"] ~ .invalid {
+    display: block;
+  }
+  &:valid[focus="true"] {
+    box-shadow: #00f70091 0px 0px 0px 2px;
+    border: none;
+  }
+  &:invalid[focus="true"] {
+    box-shadow: #ff00008f 0px 0px 0px 2px;
+    border: none;
+  }
 }
 
+.ls-label {
+  font-size: 14px;
+  font-family: "Convergence", sans-serif;
+}
+.invalid {
+  color: red;
+  display: none;
+  font-size: 14px;
+}
+.ls-btn-wrappe {
+  padding: 0px 1rem;
 
-
+  .btn {
+    position: relative;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    height: 2.4rem;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    cursor: pointer;
+    .btn-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}
 
 .link {
-    text-decoration: none;
-    color: var(--color-blue);
-    font-family: "Convergence", sans-serif;
+  text-decoration: none;
+  color: var(--color);
+  font-family: "Convergence", sans-serif;
 }
-
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    .ls-container {
-        padding: 6rem 1rem 0 1rem;
-    }
-
-
 }
-
 @media (max-width: 767px) {
-    .ls-container {
-        padding: 6rem 1rem 0 1rem;
-    }
-
-    .ls-box {
-        border-radius: 10px;
-        flex-direction: column;
-        padding: 0 4rem;
-    }
-
-    .ls-box-1 {
-        display: none;
-    }
-
+  .ls-container {
+    padding: 0 5px;
+  }
 }

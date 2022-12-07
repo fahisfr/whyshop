@@ -1,31 +1,24 @@
-/** @format */
 
 const express = require("express");
-const router = express.Router();
 const dbProducts = require("../dbSchemas/product");
 
-module.exports = router.get("/:id", async (req, res, next) => {
+const searchProducts = async (req, res, next) => {
   try {
     const products = await dbProducts.find({
       $or: [
         {
           name: {
-            $regex: req.params.id,
+            $regex: req.params.name,
             $options: "i",
           },
         },
       ],
     });
-    if (products) {
-      return res.json({
-        status: true,
-        message: "product found",
-        data: products,
-      });
-    }
 
-    res.json({ status: "error", message: "" });
+    return res.json({ status: "ok", products });
   } catch (err) {
     next(err);
   }
-});
+};
+
+module.exports = searchProducts;

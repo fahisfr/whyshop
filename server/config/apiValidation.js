@@ -35,7 +35,7 @@ const login = Joi.object({
 
 const placeOrder = Joi.object({
   name: Joi.string().trim().required(),
-  number: Joi.number().required(),
+  number: Joi.string().required(),
   city: Joi.string().required(),
   lademark: Joi.string().required(),
   paymentType: Joi.valid("cod", "online").required(),

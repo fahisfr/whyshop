@@ -1,31 +1,42 @@
+/** @format */
+
 const crypto = require("crypto");
-const order = require("../dbSchemas/order");
+const dbOrder = require("../dbSchemas/order");
+const dbUser = require("../dbSchemas/user");
 
 const verifyPayment = async (req, res, next) => {
   try {
-    // req.body = req.body.order;
-    // let hash = crypto
-    //   .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-    //   .update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
-    //   .digest("hex");
-    // if (req.body.razorpay_signature == hash) {
-    //   res.json({ status: true, message: "Payment Successful" });
-    //   console.log(req.body.razorpay_order_id);
-    //   order.findOne({ paymentID: req.body.razorpay_order_id }).then((order) => {
-    //     console.log(order);
-    //     order.paymentStatus = "Success";
-    //     order.save();
-    //   });
-    //   Cart.deleteOne({ UserID: req.user.id }, (err, result) => {
-    //     if (err) {
-    //       console.log(err);
-    //     }
-    //   });
-    // } else {
-    //   res.json({ status: false, message: "Payment Failed" });
-    // }
+    const order = req.body.order;
+    const hash = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(order.razorpay_order_id + "|" + order.razorpay_payment_id)
+      .digest("hex");
+    if (order.razorpay_signature == hash) {
+      Promise.all([
+        dbOrder.updateOne(
+          { paymentId: order.razorpay_order_id },
+          {
+            $set: {
+              paymentStatus: "paid",
+            },
+          }
+        ),
+        dbUser.updateOne(
+          { _id: req.user.id },
+          {
+            $set: {
+              cart: [],
+            },
+           
+          }
+        ),
+      ]).then((res) => {});
+      res.json({ status: "ok", message: "Payment Successful" });
+      return;
+    }
+    res.json({ status: "error", error: "Payment Failed" });
   } catch (error) {
-    next(ApiErrors.InternalServerError(error.message));
+    next(error);
   }
 };
 

@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (userId) => {
-  const response = await axios.get("/auth").then((res) => res.data);
+  const response = await axios.get("/user").then((res) => res.data);
   return response;
 });
 export const userSlice = createSlice({

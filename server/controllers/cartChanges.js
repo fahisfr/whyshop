@@ -1,4 +1,3 @@
-/** @format */
 
 const dbUser = require("../dbSchemas/user");
 
@@ -22,10 +21,7 @@ const changeProductQuantity = async (req, res, next) => {
     );
 
     if (dbResult.modifiedCount > 0) {
-      return res.json({
-        status: "ok",
-        message: "Product quantity updated successfully",
-      });
+      return res.json({ status: "ok" });
     }
 
     res.json({ status: "error", error: "faild to update quantity" });
@@ -49,10 +45,9 @@ const removeCartProduct = async (req, res, next) => {
       }
     );
 
-    if (dbResult.modifiedCount) {
+    if (dbResult.modifiedCount > 0) {
       return res.json({
         status: "ok",
-        message: "Product removed from Cart successfully",
       });
     }
 
@@ -75,7 +70,6 @@ const removeAllCartProducts = async (req, res, next) => {
     if (dbResult.modifiedCount > 0) {
       return res.json({
         status: "ok",
-        message: "All products removed from Cart successfully",
       });
     }
     res.json({ status: "error", error: "" });

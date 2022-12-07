@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import NavBar from "../components/Navbar";
 import { useParams } from "react-router-dom";
-import order, { fetchOrder } from "../features/orders";
+import  { fetchOrders } from "../features/orders";
 import { useSelector, useDispatch } from "react-redux";
 import { ImagePath } from "../axios";
 import "../styles/order.scss";
@@ -14,31 +14,11 @@ function Order() {
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
-    dispatch(fetchOrder());
+    dispatch(fetchOrders());
   }, [dispatch]);
-  const { orders, loading } = useSelector((state) => state.orders);
+  const { orders, } = useSelector((state) => state.orders);
   const order = orders?.find((x) => x._id === id);
 
-  // if (loading || !order) {
-  //   return (
-  //     <div className="order-container">
-  //       <div className="order sb-padding-border">
-  //         <div className="sb-bottom-pb">
-  //           <span className="title-text">Order</span>
-  //         </div>
-  //         {new Array(6).fill(0).map((item, index) => {
-  //           return <div className="skeleton-item skeleton"></div>;
-  //         })}
-  //       </div>
-  //       <div className="order-details">
-  //         <div className="od-wrap sb-padding-border">
-  //           <div className=" sb-bottom-pb title-text">Order Details</div>
-  //           <div className="skeleton-item skeleton"></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="order-container">
@@ -97,7 +77,7 @@ function Order() {
             <div className="od-group">
               <span className="font-size-md"> Payment</span>
               <span>
-                {order.paymentType == "online" ? "Paid" : "Cash on delivery"}
+                {order.paymentType === "online" ? "Paid" : "Cash on delivery"}
               </span>
             </div>
             <div className="od-group">

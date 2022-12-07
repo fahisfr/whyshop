@@ -11,8 +11,7 @@
   z-index: 30;
   align-items: center;
   padding: 0 15px;
-  grid-template-areas: 
-  "left center right";
+  grid-template-areas: "left center right";
 }
 .left {
   display: flex;
@@ -182,20 +181,22 @@
     width: 5rem;
     height: 2rem;
     border-radius: 20px;
+    text-transform: uppercase;
+    color: black;
     font-size: 14px;
     border: none;
     cursor: pointer;
-    background-color: #ffffff;
+    box-shadow: rgba(255, 255, 255, 0.103) 0 0 0 2px;
   }
+  
 }
 
 @media (max-width: 768px) {
   .navbar {
     height: 89px;
-    grid-template-areas: 
-    "left  right"
-    "center center";
-
+    grid-template-areas:
+      "left  right"
+      "center center";
   }
   .right {
     padding-right: 0;

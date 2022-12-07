@@ -92,7 +92,7 @@ function Login() {
           <Link className="link" to="/signup">
             <span>Create a new account</span>
           </Link>
-          <div className={`ls-btn-wrappe ${btnLoading && "btn-btnLoading"}`}>
+          <div className={`ls-btn-wrappe ${btnLoading && "btn-loading"}`}>
             <button className="btn ld-btn" type="submit">
               <span className="btn-text ld-text">Login</span>
             </button>

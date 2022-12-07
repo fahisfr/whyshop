@@ -1,4 +1,3 @@
-/** @format */
 
 const dbUser = require("../dbSchemas/user");
 const objectid = require("mongodb").ObjectId;

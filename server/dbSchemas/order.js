@@ -6,7 +6,7 @@ const OrderSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
   orderAt: { type: Date, default: Date.now, required: true },
   paymentType: { type: String, required: true },
-  paymentStatus: { type: String, default: "Pending" },
+  paymentStatus: { type: String, default: "pending" },
   products: [
     {
       _id: { type: mongoose.Schema.Types.ObjectId, required: true },
@@ -25,11 +25,11 @@ const OrderSchema = new mongoose.Schema({
     _id: false,
   },
   totalPrice: { type: Number, required: true },
-  paymentID: { type: String, default: null },
+  paymentId: { type: String, default: null },
   orderStatus: {
     type: String,
     // cum: ['Picking','Packing','Packed', 'Out for delivery', 'Delivered', 'Canceled'],
-    default: "Picking",
+    default: "picking",
   },
 });
 

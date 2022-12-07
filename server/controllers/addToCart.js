@@ -1,4 +1,3 @@
-/** @format */
 
 const dbUser = require("../dbSchemas/user");
 
@@ -15,10 +14,9 @@ const PrdoductAddToCart = async (req, res, next) => {
         },
       }
     );
-    
+
     if (productAdded.modifiedCount > 0) {
-      res.json({ status: "ok", message: "product added to  cart" });
-      return;
+      return res.json({ status: "ok" });
     }
 
     res.json({ status: "error", error: "Failed to add  item to cart" });

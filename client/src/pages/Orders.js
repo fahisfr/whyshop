@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { ImagePath } from "../axios";
 import { useEffect } from "react";
-import order, { fetchOrder } from "../features/orders";
+import  { fetchOrders } from "../features/orders";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { format } from "date-fns";
@@ -14,12 +14,16 @@ import { zonedTimeToUtc } from "date-fns-tz";
 function Order() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loading, orders, fetched } = useSelector((state) => state.orders);
   useEffect(() => {
-    dispatch(fetchOrder());
-  }, [dispatch]);
-  const { loading, orders } = useSelector((state) => state.orders);
+    const getOrders = async () => {
+      if (!fetched && !loading) {
+        dispatch(fetchOrders());
+      }
+    };
+    getOrders();
+  }, []);
 
-  
   return (
     <div className="orders-container">
       <Navbar />
@@ -62,9 +66,9 @@ function Order() {
                     </tr>
                   );
                 })
-              ) : orders.lenght === 0 ? (
-                <div className="no-ordersg">
-                  <span className="os-textg">No orders found</span>
+              ) : orders.length === 0 ? (
+                <div className="no-orders">
+                  <span className="os-text">No orders found</span>
                 </div>
               ) : (
                 orders.map((order, index) => {

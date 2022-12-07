@@ -8,11 +8,12 @@ import { FiAlignLeft, FiArchive } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import SideBar from "./SideBar.js";
 import { ImagePath } from "../axios";
+import axios from "../axios";
 
 function NavBar() {
   const navigate = useNavigate();
   const { isAuth } = useSelector((state) => state.user.userInfo);
-  const { products } = useSelector((state) => state.products);
+
   const [sidebar, setsidebar] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
@@ -49,14 +50,14 @@ function NavBar() {
     selectedItem && navigate(`/product/${selectedItem.name}`);
     setSearchText("");
   };
-  const SearchProduts = (id) => {
-    console.log("search")
-    if (id === "") return setResults([]);
-    setResults(
-      products.filter((item) =>
-        item.name.toLowerCase().includes(id.toLowerCase())
-      )
-    );
+  const onChange = async (e) => {
+    const value = e.target.value;
+    setSearchText(value);
+    if (value === "") return;
+    const { data } = await axios.get(`/search-products/${value}`);
+    if (data.status === "ok") {
+      setResults(data.products);
+    }
   };
 
   return (
@@ -83,11 +84,7 @@ function NavBar() {
             value={searchText}
             onFocus={() => setShowResults(true)}
             onBlur={() => setShowResults(false)}
-            onChange={(e) => {
-              SearchProduts(e.target.value);
-              setSearchText(e.target.value);
-            }}
-            onClick={() => SearchProduts(searchText)}
+            onChange={onChange}
             placeholder="search for products"
           ></input>
           {searchText.length > 0 ? (

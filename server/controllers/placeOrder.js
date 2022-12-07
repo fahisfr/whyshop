@@ -118,16 +118,16 @@ const PlaceOrder = async (req, res, next) => {
         receipt: userOrder._id,
         payment_capture: 1,
       });
-      userOrder.paymentID = createOrder.id;
+      userOrder.paymentId = createOrder.id;
       userOrder.save();
       if (createOrder) {
         return res.json({
           status: "razorpay",
-          message: "Order Placed Puccessfully",
           order: createOrder,
         });
       }
-      res.json({ status: "error", message: "create order filed try again" });
+      
+      res.json({ status: "error", error: "create order filed try again" });
     }
   } catch (error) {
     next(error);

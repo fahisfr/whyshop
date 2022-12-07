@@ -1,28 +1,24 @@
 /** @format */
 
 const jwt = require("jsonwebtoken");
-const Userdb = require("../dbSchemas/user");
+const dbUser = require("../dbSchemas/user");
 
 const RefreshTokenController = (req, res, next) => {
   try {
     const cookie = req.cookies;
     if (!cookie?.refreshtoken)
-      return res
-        .status(401)
-        .json({ status: false, message: "No token provided." });
+      return res.json({ status: false, error: "No token provided." });
     jwt.verify(
       cookie.refreshtoken,
       process.env.REFRESH_TOKEN_SECRET,
       async (err, decoded) => {
         if (decoded) {
-          const FindUser = await Userdb.findOne({
+          const FindUser = await dbUser.findOne({
             _id: decoded.id,
             refreshToken: cookie.refreshtoken,
           });
           if (!FindUser)
-            return res
-              .status(400)
-              .json({ auth: false, message: "token not valid." });
+            return res.json({ status: "error", error: "token not valid." });
           const accessToken = jwt.sign(
             {
               name: FindUser.name,
@@ -33,9 +29,8 @@ const RefreshTokenController = (req, res, next) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "30m" }
           );
-          res.json({
-            success: true,
-            message: "new accesstoken",
+          return res.json({
+            status: "ok",
             accesstoken: accessToken,
             UserInfo: {
               name: FindUser.name,
@@ -43,11 +38,8 @@ const RefreshTokenController = (req, res, next) => {
               role: FindUser.role,
             },
           });
-        } else {
-          res
-            .status(401)
-            .json({ status: false, message: "refreshtoken not valid" });
         }
+        res.json({ status: "error", message: "refreshtoken not valid" });
       }
     );
   } catch (error) {

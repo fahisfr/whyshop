@@ -1,4 +1,5 @@
 /** @format */
+
 import "../styles/home.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +9,12 @@ import NavBar from "../components/Navbar";
 
 import { fetchBanners, fetchRecommendations } from "../features/home";
 function Home() {
+  
   const history = useNavigate();
-
   const dispatch = useDispatch();
   const { catgorys, banners, recommendations } = useSelector(
     (state) => state.home
   );
-
 
   useEffect(() => {
     const fetch = async () => {
@@ -35,10 +35,9 @@ function Home() {
   return (
     <div className="home-container">
       <NavBar />
-
       <section className="slider-wrapper">
         {banners.loading ? (
-          <div className="wh-full skeleton border-white"></div>
+          <div className="slider-ld skeleton border-white"></div>
         ) : (
           <div className="slider" ref={sliderRef}>
             {banners.result.map((banner, index) => {
@@ -46,6 +45,7 @@ function Home() {
                 <img
                   id={`slider-${index}`}
                   src={banner.imageName}
+                  alt=""
                   key={index}
                 />
               );
@@ -55,7 +55,7 @@ function Home() {
       </section>
       <section className="category">
         {catgorys.loading ? (
-          <div className="wh-full skeleton border-white"></div>
+          <div className="category-ld skeleton border-white"></div>
         ) : (
           catgorys?.result?.map((catgory, index) => {
             return (
@@ -65,9 +65,7 @@ function Home() {
                 key={index}
                 onClick={() => history(`/shop/${catgory.name}`)}
               >
-                <div className="category-img">
-                  <img src={catgory.imageName} alt="" />
-                </div>
+                <img src={catgory.imageName} alt="" />
               </div>
             );
           })

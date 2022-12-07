@@ -7,16 +7,16 @@
   border-bottom: none;
   border-top: none;
   background-color: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 10px 5px;
+  border-radius: 8px;
+  overflow: hidden;
   .recomment-type {
-    padding: 5px;
+    padding-left: 5px;
     span {
-      font-size: 19px;
-      font-weight: 600;
-
+      font-size: 1.1rem;
+      font-weight: 400;
     }
-    &::first-letter{
+    &::first-letter {
       text-transform: capitalize;
     }
   }

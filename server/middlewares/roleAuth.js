@@ -1,3 +1,5 @@
+
+
 const DB_User = require("../dbSchemas/user");
 const Roles = (...Allowed_Roles) => {
   return async (req, res, next) => {
@@ -9,9 +11,11 @@ const Roles = (...Allowed_Roles) => {
           role: req.user.role,
         }).exec();
         if (VerifyRole) {
-          console.log(`${req.user.name} Access To Admin Route`), next();
+          next();
         } else {
-          res.status(404).json({ status: false, message: "better luck next time" });
+          res
+            .status(404)
+            .json({ status: false, message: "better luck next time" });
         }
       } else {
         res.status(404).json({

@@ -1,7 +1,7 @@
-/** @format */
 
 import React from "react";
 import "../styles/confirmation.scss";
+
 function Confirmation({ message, setTrigger, confirmed, btnText }) {
   return (
     <div className="confirmation-container">

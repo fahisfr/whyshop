@@ -1,4 +1,3 @@
-/** @format */
 
 import "../styles/checkout.scss";
 import React, { useState } from "react";
@@ -11,8 +10,8 @@ import {
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/Navbar";
-
-import { triggerSidePopUp as triggerSidePopUpMesaage } from "../features/popUpMessage";
+import OrderPlaced from "../components/OrderPlaced";
+import { triggerSidePopUp } from "../features/popUpMessage";
 const loadRazorpay = (src) => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -30,27 +29,23 @@ const loadRazorpay = (src) => {
 function Order() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.user);
-  const [name, setName] = useState("fahis");
-  const [number, setNumber] = useState(333333333);
-  const [city, setcity] = useState("aaaaaaa");
-  const [landmark, setLademark] = useState("aaaaa");
-  const [paymentType, setPaymentType] = useState("cod");
+  const { cart } = useSelector((state) => state.user.userInfo);
+  const total = cart.reduce((prev, cur) => {
+    return prev + cur.price * cur.quantity;
+  }, 0);
+
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [secondaryNumber, setSecondaryNumber] = useState("");
+  const [city, setcity] = useState("");
+  const [landmark, setLademark] = useState("");
+  const [paymentType, setPaymentType] = useState(null);
   const [btnLoading, setBtnloading] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const triggerSidePopUp = (info) => {
-    dispatch(triggerSidePopUpMesaage(info));
-  };
-
-  const orderPlaced = () => {
+  const triggerOrderPlaced = () => {
     dispatch(clearCart());
-    dispatch(
-      triggerSidePopUpMesaage({
-        error: false,
-        message: "Order Placed Successfully",
-      })
-    );
-    navigate("/");
+    setOrderPlaced(true);
   };
   async function displayRazor(Order) {
     const res = await loadRazorpay(
@@ -64,21 +59,22 @@ function Order() {
       return;
     } else {
       var options = {
-        key: "rzp_test_lFLdi5y9B4LWvU", // Enter the Key ID generated from the Dashboard
-        amount: Order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        key: "rzp_test_lFLdi5y9B4LWvU",
+        amount: Order.amount,
         currency: "INR",
         name: "Acme Corp",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: Order.id,
-        handler: function (response) {
-          axios.post("order/verifypayment", { order: response }).then((res) => {
-            if (res.data.status) {
-              orderPlaced();
-            } else {
-              alert("Payment Failed");
-            }
+        handler: async function (response) {
+          const { data } = await axios.post("order/verifypayment", {
+            order: response,
           });
+          if (data.status === "ok") {
+            triggerOrderPlaced();
+          } else {
+            triggerSidePopUp({ error: "Payment Failed" });
+          }
         },
         callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
         prefill: {
@@ -113,14 +109,12 @@ function Order() {
       if (data.status === "razorpay") {
         displayRazor(data.order);
       } else if (data.status === "ok") {
-        orderPlaced();
+        triggerOrderPlaced();
       } else if (data.status === "error") {
-        dispatch(triggerSidePopUp({ error: true, message: data.message }));
+        dispatch(triggerSidePopUp({ error: data.error }));
       }
     } catch (error) {
-      dispatch(
-        triggerSidePopUp({ trigger: true, error: true, message: error.message })
-      );
+      dispatch(triggerSidePopUp({ error: "oops something went wrong :(" }));
     } finally {
       setBtnloading(false);
     }
@@ -129,6 +123,8 @@ function Order() {
   return (
     <div className="checkout-container">
       <NavBar />
+
+      {orderPlaced && <OrderPlaced />}
       <div className="ct-left sb-padding-border ">
         <div className="as-top ac-bottom-pb">
           <span className="title-text">Checkout</span>
@@ -142,6 +138,7 @@ function Order() {
               <input
                 id="name"
                 className="as-input"
+                placeholder="Enter your Name"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -155,10 +152,23 @@ function Order() {
               <input
                 className="as-input"
                 id="phoneNumber"
+                placeholder="Enter your phone number"
                 value={number}
-                onChange={(e) => e.target.value}
+                onChange={(e) => setNumber(e.target.value)}
               />
-            </div>{" "}
+            </div>
+            <div className="as-group">
+              <label className="as-lable" for="phoneNumber">
+                Secondary Phone Number
+              </label>
+              <input
+                className="as-input"
+                id="phoneNumber"
+                placeholder="Enter your secondary phone number "
+                value={secondaryNumber}
+                onChange={(e) => setSecondaryNumber(e.target.value)}
+              />
+            </div>
             <div className="as-group ">
               <label className="as-lable">City</label>
               <div>
@@ -191,10 +201,24 @@ function Order() {
         </div>
       </div>
       <div className="ct-right sb-padding-border">
-        <div className="payment">
-          <div className="pt-top ac-bottom-pb">
-            <span className="title-text">Payment</span>
+        <div className=" ac-bottom-pb">
+          <span className="title-text">Payment</span>
+        </div>
+        <div>
+          <div className="pt-billing">
+            <div className="pt-group">
+              <span>Products Total </span>
+              <span>₹{total}</span>
+            </div>
+            <div className="pt-group">
+              <span>Delivery Fee</span>
+              <span className="free">Free</span>
+            </div>
           </div>
+          <div className="pt-group">
+            <span>Total Price</span>
+            <span className="total-price">₹{total}</span>
+          </div>{" "}
           <div className="pt-types">
             <div className="pt-card" onClick={(e) => setPaymentType("online")}>
               <input
@@ -223,7 +247,6 @@ function Order() {
               </label>
             </div>
           </div>
-
           <div className={`${btnLoading ? "btn-loading" : ""}`}>
             <button
               className="order-btn ld-btn"

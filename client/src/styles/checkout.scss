@@ -1,9 +1,8 @@
-/** @format */
+
 .checkout-container {
   width: 100%;
   height: 100%;
   display: flex;
-
   padding: 1rem;
   background-color: #eaeded;
 }
@@ -16,26 +15,31 @@
   flex-grow: 1;
   background-color: #ffffff;
   margin-bottom: auto;
-  .as-body {
-    max-width: 50rem;
-    padding-right: 2rem;
-    .as-group {
-      padding: 1rem;
-      .as-lable {
-        font-size: 14px;
-        margin-bottom: 5px;
-        font-weight: 400;
-      }
-      .as-input {
-        width: 100%;
-        height: 2.4rem;
-        border-radius: 6px;
-        border: 1px solid hsla(0, 0%, 69%, 0.973);
-        outline: none;
-        font-size: medium;
-        padding: 0 10px;
-      }
-    }
+}
+.as-body {
+  max-width: 50rem;
+  padding: 10px;
+}
+.as-group {
+  padding: 1rem;
+}
+.as-lable {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+.as-input {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid hsla(0, 0%, 69%, 0.973);
+  outline: none;
+  font-size: medium;
+  padding: 0 10px;
+  background-color: #ffffff;
+  &:focus {
+    border: none;
+    box-shadow: var(--primary-color) 0 0 0 2px;
   }
 }
 .ct-right {
@@ -43,97 +47,98 @@
   flex-shrink: 0;
   background-color: #ffffff;
   margin: 0 1rem auto 1rem;
+}
+.pt-billing {
+  border-bottom: 1px solid #9f9f9f;
+}
+.pt-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+.total-price {
+  font-size: large;
+}
+.pt-types {
+  display: flex;
+  column-gap: 10px;
+  padding: 10px 0;
+}
+.pt-card {
+  height: 80px;
+  width: 230px;
+  position: relative;
+}
+.pt-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #ebe8e8;
+  border-radius: 10px;
+  transition: all 100ms ease-in-out;
 
-  .pt-types {
-    display: flex;
-    column-gap: 10px;
-    padding: 10px 0;
-    .pt-card {
-      height: 80px;
-      width: 230px;
-      position: relative;
-      .pt-input {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        appearance: none;
-        background-color: #ffffff;
-        border: 1px solid #ebe8e8;
-        border-radius: 10px;
-        transition: all 100ms ease-in-out;
-
-        &:checked {
-          border: 1px solid rgb(5, 255, 5);
-          color: #ffffff;
-        }
-
-        &::after {
-          content: "";
-          width: 13px;
-          height: 13px;
-          border-radius: 50%;
-          background-color: #f7f3f3;
-          position: absolute;
-          top: 5px;
-          right: 4px;
-        }
-
-        &:checked::after {
-          background-color: rgb(5, 255, 5);
-        }
-      }
-      .card-body {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        padding: 6px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .icon {
-          font-size: 3rem;
-        }
-      }
-    }
-  }
-  .order-btn {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-    font-size: medium;
-    cursor: pointer;
-    height: 2.5rem;
+  &:checked {
+    border: 1px solid rgb(5, 255, 5);
     color: #ffffff;
-    background-color: var(--primary-color);
   }
+
+  &::after {
+    content: "";
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: #f7f3f3;
+    position: absolute;
+    top: 5px;
+    right: 4px;
+  }
+
+  &:checked::after {
+    background-color: rgb(5, 255, 5);
+  }
+}
+.card-body {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .icon {
+    font-size: 3rem;
+  }
+}
+.order-btn {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  font-size: medium;
+  cursor: pointer;
+  height: 2.5rem;
+  color: #ffffff;
+  background-color: var(--primary-color);
 }
 @media (max-width: 768px) {
   .checkout-container {
     flex-direction: column;
-    padding: 0;
+    padding: 10px;
+    row-gap: 10px;
   }
   .ac-bottom-pb {
     padding-bottom: 5px;
   }
-  .ct-left {
-    .as-body {
-      padding-right: 0rem;
-      .as-form {
-        .as-group {
-          padding: 10px 6px;
-        }
-      }
-    }
+  .as-body {
+    padding-right: 0rem;
+  }
+  .as-group {
+    padding: 10px 0px;
   }
   .ct-right {
     max-width: 100%;
     margin: 0;
-    .pt-top {
-      display: none;
-    }
-    .pt-types {
-      justify-content: space-evenly;
-    }
   }
 }

@@ -1,4 +1,3 @@
-/** @format */
 
 const dbCatgory = require("../dbSchemas/category");
 const dbBanner = require("../dbSchemas/banner");

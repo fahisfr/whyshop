@@ -1,3 +1,4 @@
+/** @format */
 
 @import url("https://fonts.googleapis.com/css2?family=Convergence&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Convergence&family=Merriweather:wght@300;400&display=swap");
@@ -51,7 +52,7 @@ button:disabled {
   text-align: initial;
 }
 .capitalize::first-letter {
-  text-transform: capitalize;
+  text-transform: capitalize ;
 }
 
 .bg-hover {
@@ -182,7 +183,7 @@ button:disabled {
 //   //   flex-direction: column;
 //   //   justify-content: center;
 //   //   align-items: center;
- 
+
 //   // }
 
 //   .main {

@@ -1,19 +1,14 @@
 /** @format */
 
 .no-orders {
-  height: 100%;
-  max-width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   position: absolute;
   color: #737373;
-  .os-icon {
-    font-size: 3.3rem;
-  }
+  
   .os-text {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 }
 .orders-container {
@@ -47,6 +42,7 @@
   height: 100%;
   border-collapse: separate;
   border-spacing: 0 9px;
+
   .os-products {
     max-width: 138px;
 

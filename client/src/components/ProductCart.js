@@ -16,12 +16,6 @@ function ProductCart({ product }) {
   const productIns = () => cart.find((item) => item._id === product._id);
   const productIn = productIns();
 
-  const triggerSidePopUpErrorMessage = (
-    message = "Oops something went wrong"
-  ) => {
-    dispatch(triggerSidePopUp({ error: true, message }));
-  };
-
   const changeQuantity = async (quantity, id, price) => {
     try {
       const { data } = await axios.put(`cart/change-quantity`, {
@@ -31,10 +25,10 @@ function ProductCart({ product }) {
       if (data.status === "ok") {
         dispatch(changeProductQuantity({ id, quantity, price }));
       } else {
-        triggerSidePopUpErrorMessage(data.error);
+        dispatch(triggerSidePopUp({ error: data.error }));
       }
     } catch (error) {
-      triggerSidePopUpErrorMessage();
+      dispatch(triggerSidePopUp({ error: error.message }));
     }
   };
 
@@ -49,11 +43,10 @@ function ProductCart({ product }) {
           addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
         );
       } else {
-        console.log(data, "from else");
-        triggerSidePopUpErrorMessage(data.error);
+        dispatch(triggerSidePopUp({ error: data.error }));
       }
     } catch (error) {
-      triggerSidePopUpErrorMessage();
+      dispatch(triggerSidePopUp({ error: error.message }));
     }
   };
   return (

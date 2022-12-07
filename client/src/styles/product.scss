@@ -7,8 +7,8 @@
   overflow: auto;
   background-color: #ffffff;
 }
-.pt-details {
-  min-width: 20rem;
+.pt {
+  min-width: 23rem;
 
   height: 100%;
   padding: 1rem;
@@ -16,15 +16,19 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #e2e0e0;
-  .pt-image-wrapper {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    img {
-      max-width: 23rem;
-      max-height: 23rem;
-      object-fit: contain;
-    }
+}
+.pt-image-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  .pt-img {
+    width: 100%;
+    max-height: 23rem;
+    object-fit: contain;
+  }
+  .pt-img-lt {
+    width: 100%;
+    height: 20rem;
   }
 }
 .pt-details-wrapper {
@@ -32,39 +36,57 @@
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  .pt-addtocart {
-    max-width: 15rem;
-    height: 2.5rem;
-    color: #ffffff;
-    font-size: medium;
-    background-color: rgb(37, 240, 37);
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  // .pt-quantity {
-  //   padding: 5px 0;
-  //   display: flex;
-  //   column-gap: 10px;
-  // }
-  // .pt-button {
-  //   cursor: pointer;
-  //   border: none;
-  //   border-radius: 50%;
-  //   width: 40px;
-  //   height: 35px;
-  //   font-size: large;
-  // }
-  .pt-name {
-    font-size: 35px;
-    font-weight: 300;
-  }
-  .pt-price {
-    font-size: 26px;
-    font-weight: 400;
-  }
 }
-
+.pt-addtocart {
+  max-width: 15rem;
+  height: 2.5rem;
+  color: #ffffff;
+  font-size: medium;
+  background-color: rgb(37, 240, 37);
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+.pt-quantity {
+  padding: 5px 0;
+  max-width: 10rem;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+  align-items: center;
+}
+.pt-button {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  font-weight: 400;
+  height: 40px;
+  font-size: larger;
+  background-color: #ffffff;
+  border: 1px solid #c4bbbb;
+}
+.pt-name {
+  font-size: 30px;
+  font-weight: 300;
+  white-space: wrap;
+}
+.pt-name-ld {
+  width: 100%;
+  height: 2rem;
+}
+.pt-price {
+  font-size: 26px;
+  font-weight: 400;
+}
+.pt-price-ld {
+  max-width: 7rem;
+  height: 2rem;
+}
+.pt-addtocart-ld {
+  width: 100%;
+  height: 3rem;
+}
 .pt-recommends {
   flex-grow: 1;
   display: flex;
@@ -93,6 +115,9 @@
   }
   .pt-products {
     overflow: hidden;
+  }
+  .pt {
+    min-width: 100%;
   }
   .pt-details-wrapper {
     padding: 10px 0px;

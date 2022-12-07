@@ -63,9 +63,9 @@ const recommendations = async (req, res, next) => {
                       quantity: -1,
                     },
                   },
-                  {
-                    $limit: 15,
-                  },
+                  // {
+                  //   $limit: 15,
+                  // },
                 ],
                 as: "recommend",
               },

@@ -3,8 +3,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "../axios";
 
-export const fetchOrder = createAsyncThunk("Order/fetchCart", async () => {
-  const response = await Axios.get("/orders").then((res) => res.data);
+export const fetchOrders = createAsyncThunk("order/fetchOrders", async () => {
+  const response = await Axios.get("/user/orders").then((res) => res.data);
   return response;
 });
 export const OrdersSlice = createSlice({
@@ -16,11 +16,11 @@ export const OrdersSlice = createSlice({
     fetched: false,
   },
   extraReducers: {
-    [fetchOrder.fulfilled]: (state, { payload }) => {
+    [fetchOrders.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       if (payload.status === "ok") {
-        console.log(payload.orders,"from api");
         state.orders = payload.orders;
-        console.log(state.orders);
+        console.log("from fulfilled",payload.orders.length)
         state.fetched = true;
         state.loading = false;
       } else if (payload.status === "error") {
@@ -28,10 +28,10 @@ export const OrdersSlice = createSlice({
         state.loading = false;
       }
     },
-    [fetchOrder.pending]: (state, action) => {
+    [fetchOrders.pending]: (state, action) => {
       state.loading = true;
     },
-    [fetchOrder.rejected]: (state, action) => {
+    [fetchOrders.rejected]: (state, action) => {
       state.error = action.error.message;
       state.loading = false;
     },

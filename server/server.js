@@ -1,4 +1,3 @@
-/** @format */
 
 require("dotenv").config();
 
@@ -17,6 +16,7 @@ const isAuth = require("./middlewares/userAuthentication");
 const { apiValidation, signup, login } = require("./config/apiValidation");
 const dbBanner = require("./dbSchemas/banner");
 const dbCatgory = require("./dbSchemas/category");
+const dbProduct =  require("./dbSchemas/product")
 connectDB();
 
 app.use(cors(corsOptions));
@@ -33,21 +33,18 @@ app.use("/api/product", require("./routes/product"));
 app.use("/api/shop", require("./routes/shop"));
 app.post("/api/signup", apiValidation(signup), require("./controllers/signup"));
 app.use("/api/login", apiValidation(login), require("./controllers/login"));
-app.use("/api/auth", isAuth, require("./routes/auth"));
+app.use("/api/user", isAuth, require("./routes/user"));
 
-app.use("/api/search-products", require("./controllers/searchProduts"));
+app.use("/api/search-products/:name", require("./controllers/searchProduts"));
 
 app.use("/api/cart", isAuth, require("./routes/cart"));
-app.use("/api/orders", isAuth, require("./routes/order"));
+app.use("/api/order", isAuth, require("./routes/order"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/feedback", require("./controllers/feedback"));
 app.use("/api/logout", isAuth, require("./controllers/logout"));
 
 
 
-app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "public/index.html"))
-);
 
 app.use(errorHandler);
 

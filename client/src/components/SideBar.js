@@ -1,4 +1,3 @@
-/** @format */
 
 import axios from "../axios";
 import React, { useState } from "react";
@@ -12,10 +11,10 @@ import { FiArchive } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
 import Confirmation from "./Confirmation";
 import { logout } from "../features/user";
-function SIdeBar({ trigger, setTrigger }) {
+
+function SideBar({ trigger, setTrigger }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [confirmation, setConfirmation] = useState({
     trigger: false,
     message: "",
@@ -62,12 +61,11 @@ function SIdeBar({ trigger, setTrigger }) {
             <span className="sr-text">Orders</span>
           </div>
 
-          <div className="sr-group catgory">
+          <div className="sr-group">
             <BiCategoryAlt className="sr-icon" onClick={() => onClick("/")} />
             <span className="sr-text">Category</span>
-
-            <div className="drop-icon"></div>
           </div>
+
           <div className="sr-group" onClick={() => onClick("/feedback")}>
             <VscFeedback className="sr-icon" />
             <span className="sr-text">FeedBack</span>
@@ -93,4 +91,4 @@ function SIdeBar({ trigger, setTrigger }) {
     ""
   );
 }
-export default SIdeBar;
+export default SideBar;

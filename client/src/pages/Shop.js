@@ -1,4 +1,3 @@
-/** @format */
 import "../styles/shop.scss";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -28,7 +27,7 @@ function Products() {
         {/* {new Array(30).fill(0).map((itme, index) => {
           return <SkeletonProductCart />;
         })} */}
-        {[...products, ...products].map((product, index) => {
+        {products.map((product, index) => {
           return <ProductCart product={product} key={index} />;
         })}
       </div>

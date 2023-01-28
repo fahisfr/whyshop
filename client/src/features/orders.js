@@ -20,7 +20,6 @@ export const OrdersSlice = createSlice({
       console.log(payload);
       if (payload.status === "ok") {
         state.orders = payload.orders;
-        console.log("from fulfilled",payload.orders.length)
         state.fetched = true;
         state.loading = false;
       } else if (payload.status === "error") {

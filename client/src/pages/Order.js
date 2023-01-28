@@ -1,9 +1,6 @@
-/** @format */
-
 import React, { useEffect } from "react";
-import NavBar from "../components/Navbar";
 import { useParams } from "react-router-dom";
-import  { fetchOrders } from "../features/orders";
+import { fetchOrders } from "../features/orders";
 import { useSelector, useDispatch } from "react-redux";
 import { ImagePath } from "../axios";
 import "../styles/order.scss";
@@ -16,14 +13,12 @@ function Order() {
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
-  const { orders, } = useSelector((state) => state.orders);
+  const { orders } = useSelector((state) => state.orders);
   const order = orders?.find((x) => x._id === id);
-
 
   return (
     <div className="order-container">
-      <NavBar />
-      <div className="order sb-padding-border">
+      <div className="order sb-padding-border overflow-scroll-dh">
         <div className="sb-bottom-pb">
           <span className="title-text">Order</span>
         </div>

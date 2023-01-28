@@ -1,12 +1,10 @@
-/** @format */
-
 .no-orders {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
   color: #737373;
-  
+
   .os-text {
     font-size: 1.6rem;
   }
@@ -14,7 +12,7 @@
 .orders-container {
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  padding: var(--con-padding);
 }
 
 .os {
@@ -35,6 +33,7 @@
 .os-body {
   width: 100%;
   max-height: 100%;
+  overflow: auto;
 }
 
 .os-table {
@@ -127,34 +126,16 @@
   justify-content: center;
   background-color: #d8f0e6;
 }
-.order-info {
-  display: none;
-}
 
 @media (max-width: 768px) {
-  .orders-container {
-    padding: 0;
-  }
   .os-table {
+    overflow: scroll;
     .os-products {
       max-width: 110px;
       .products-img {
         width: 3rem;
         height: 3.5rem;
         object-fit: contain;
-      }
-    }
-
-    .os-thead {
-      th {
-        padding: 5px;
-        font-size: 9px;
-      }
-    }
-    .os-tbody {
-      td {
-        font-size: 9px;
-        padding: 5px;
       }
     }
   }

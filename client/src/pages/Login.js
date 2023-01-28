@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import axios from "../axios";
 import { Link } from "react-router-dom";
@@ -15,31 +13,26 @@ function Login() {
   const [focus, setFocus] = useState({ phoneNumber: false, password: false });
   const [btnLoading, setBtnLoading] = useState(false);
   const onSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      setBtnLoading(true);
+    e.preventDefault();
+    setBtnLoading(true);
 
-      const { data } = await axios.post("/login", { number, password });
+    const { data } = await axios.post("/login", { number, password });
 
-      if (data.status === "ok") {
-        dispatch(
-          login({
-            name: data.name,
-            cart: [],
-            number: data.number,
-            isAuth: true,
-          })
-        );
-        localStorage.setItem("accesstoken", data.accesstoken);
-        dispatch(triggerSidePopUp({ message: "Logged in successfully" }));
-      } else if (data.status === "error") {
-        dispatch(triggerSidePopUp({ error: data.error }));
-      }
-    } catch (error) {
-      dispatch(triggerSidePopUp({ error: error.message }));
-    } finally {
-      setBtnLoading(false);
+    if (data.status === "ok") {
+      dispatch(
+        login({
+          name: data.name,
+          cart: [],
+          number: data.number,
+          isAuth: true,
+        })
+      );
+      localStorage.setItem("accesstoken", data.accessToken);
+      dispatch(triggerSidePopUp({ message: "Logged in successfully" }));
+    } else if (data.status === "error") {
+      dispatch(triggerSidePopUp({ error: data.error }));
     }
+    setBtnLoading(false);
   };
   const onBlur = (e) => {
     setFocus({ ...focus, [e.target.name]: true });
@@ -53,7 +46,7 @@ function Login() {
           </div>
 
           <div className="ls-group">
-            <label className="ls-label" for="phoneNumber">
+            <label className="ls-label" htmlFor="phoneNumber">
               Phone Number
             </label>
             <input

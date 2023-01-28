@@ -1,4 +1,3 @@
-
 import "../styles/ls.scss";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,35 +28,30 @@ function Signup() {
   };
 
   const submitNow = async (e) => {
-    try {
-      setBtnLoading(true);
-      e.preventDefault();
-      const { data } = await axios.post("/signup", {
-        name,
-        password,
-        number,
-        confirmPassword,
-      });
-      if (data.status === "ok") {
-        dispatch(
-          login({
-            name: data.name,
-            cart: [],
-            number: data.number,
-            isAuth: true,
-          })
-        );
-        localStorage.setItem("accesstoken", data.accesstoken);
-        dispatch(triggerSidePopUp({ message: "Logged in successfully" }));
-        navigate("/");
-      } else {
-        dispatch(triggerSidePopUp({ error: data.error }));
-      }
-    } catch (error) {
-      dispatch(triggerSidePopUp({ error: error.message }));
-    } finally {
-      setBtnLoading(false);
+    setBtnLoading(true);
+    e.preventDefault();
+    const { data } = await axios.post("/signup", {
+      name,
+      password,
+      number,
+      confirmPassword,
+    });
+    if (data.status === "ok") {
+      dispatch(
+        login({
+          name: data.name,
+          cart: [],
+          number: data.number,
+          isAuth: true,
+        })
+      );
+      localStorage.setItem("accesstoken", data.accessToken);
+      dispatch(triggerSidePopUp({ message: "Logged in successfully" }));
+      navigate("/");
+    } else if (data.status === "error") {
+      dispatch(triggerSidePopUp({ error: data.error }));
     }
+    setBtnLoading(false);
   };
   return (
     <div className="ls-container">

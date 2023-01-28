@@ -1,4 +1,3 @@
-
 import "../styles/cart.scss";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,7 +11,6 @@ import axios, { ImagePath } from "../axios";
 import { BiCart } from "react-icons/bi";
 import NavBar from "../components/Navbar";
 
-
 function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,15 +21,11 @@ function Cart() {
   }, 0);
 
   const changeQuantity = (quantity, id, price) => {
-    try {
-      dispatch(changeProductQuantity({ id, quantity, price }));
+    dispatch(changeProductQuantity({ id, quantity, price }));
     axios.put(`cart/change-quantity`, {
-        quantity,
-        productId: id,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      quantity,
+      productId: id,
+    });
   };
   const removeProductFromCart = (id) => {
     axios.put(`cart/remove-product/${id}`, { id: id });
@@ -83,7 +77,6 @@ function Cart() {
                   <div className="product-quantity">
                     <button
                       onClick={() => {
-                  
                         changeQuantity(-0.5, product._id, product.price / 2);
                       }}
                     >

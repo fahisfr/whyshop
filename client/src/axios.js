@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 
 const baseURL = "http://localhost:4000/";
@@ -8,9 +6,6 @@ export const ImagePath = `${baseURL}images/`;
 
 const instance = axios.create({
   baseURL: `${baseURL}api/`,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 instance.interceptors.request.use((config) => {
@@ -25,15 +20,20 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const prevRequest = error.config;
-    if (error?.response?.status === 403) {
+    if (error?.response?.status === 403 && !prevRequest.sent) {
       prevRequest.sent = true;
-      const { data } = await instance.put("/auth/refreshtoken");
+      const { data } = await instance.get(
+        "/user/refresh-token",
+
+        { withCredentials: true }
+      );
       if (data?.status === "ok") {
-        localStorage.setItem("accesstoken", data.accesstoken);
+        localStorage.setItem("accesstoken", data.accessToken);
       }
       return instance(prevRequest);
     }
-    return Promise.reject(error);
+
+    return Promise.resolve({ data: { status: "error", error: error.message } });
   }
 );
 

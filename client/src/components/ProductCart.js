@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/productCart.scss";
@@ -33,20 +31,16 @@ function ProductCart({ product }) {
   };
 
   const addToCarts = async () => {
-    try {
-      const { _id: id, name, price, imageId, type } = product;
+    const { _id: id, name, price, imageId, type } = product;
 
-      const { data } = await axios.put(`cart/add-to-cart/${id}`);
-
-      if (data.status === "ok") {
-        dispatch(
-          addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
-        );
-      } else {
-        dispatch(triggerSidePopUp({ error: data.error }));
-      }
-    } catch (error) {
-      dispatch(triggerSidePopUp({ error: error.message }));
+    const { data } = await axios.put(`cart/add-to-cart/${id}`);
+    console.log(data);
+    if (data.status === "ok") {
+      dispatch(
+        addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
+      );
+    } else if (data.status === "error") {
+      dispatch(triggerSidePopUp({ error: data.error }));
     }
   };
   return (

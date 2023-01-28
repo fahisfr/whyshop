@@ -1,4 +1,3 @@
-
 import "../styles/checkout.scss";
 import React, { useState } from "react";
 import axios from "../axios";
@@ -8,8 +7,6 @@ import {
   BsFillCreditCard2FrontFill as CardIcon,
   BsCashStack,
 } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import NavBar from "../components/Navbar";
 import OrderPlaced from "../components/OrderPlaced";
 import { triggerSidePopUp } from "../features/popUpMessage";
 const loadRazorpay = (src) => {
@@ -28,17 +25,17 @@ const loadRazorpay = (src) => {
 };
 function Order() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const { cart } = useSelector((state) => state.user.userInfo);
   const total = cart.reduce((prev, cur) => {
     return prev + cur.price * cur.quantity;
   }, 0);
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [secondaryNumber, setSecondaryNumber] = useState("");
-  const [city, setcity] = useState("");
-  const [landmark, setLademark] = useState("");
+  const [name, setName] = useState("name");
+  const [number, setNumber] = useState("9999999939");
+  const [secondaryNumber, setSecondaryNumber] = useState("999999999");
+  const [city, setcity] = useState("cit3");
+  const [landmark, setLademark] = useState("asdfasdf");
   const [paymentType, setPaymentType] = useState(null);
   const [btnLoading, setBtnloading] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -47,7 +44,7 @@ function Order() {
     dispatch(clearCart());
     setOrderPlaced(true);
   };
-  async function displayRazor(Order) {
+  const displayRazor = async (Order) => {
     const res = await loadRazorpay(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -56,37 +53,20 @@ function Order() {
         error: true,
         message: "Razorpay is not loaded are you offline",
       });
-      return;
     } else {
       var options = {
         key: "rzp_test_lFLdi5y9B4LWvU",
         amount: Order.amount,
         currency: "INR",
-        name: "Acme Corp",
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        name: "whyshop",
         order_id: Order.id,
-        handler: async function (response) {
-          const { data } = await axios.post("order/verifypayment", {
-            order: response,
-          });
-          if (data.status === "ok") {
-            triggerOrderPlaced();
-          } else {
-            triggerSidePopUp({ error: "Payment Failed" });
-          }
+        handler: async (response) => {
+          triggerOrderPlaced();
         },
         callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
         prefill: {
-          name: "fahis",
-          email: "TestMode.kumar@example.com",
-          contact: "9999999999",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
+          email: "fahiscodes@gmail.com",
+          contact: number,
         },
       };
 
@@ -94,36 +74,29 @@ function Order() {
       setBtnloading(false);
       PaymentObject.open();
     }
-  }
+  };
   const OrderNow = async (e) => {
-    try {
-      e.preventDefault();
-      setBtnloading(true);
-      const { data } = await axios.post("cart/place-order", {
-        name: name,
-        number: number,
-        city: city,
-        lademark: landmark,
-        paymentType: paymentType,
-      });
-      if (data.status === "razorpay") {
-        displayRazor(data.order);
-      } else if (data.status === "ok") {
-        triggerOrderPlaced();
-      } else if (data.status === "error") {
-        dispatch(triggerSidePopUp({ error: data.error }));
-      }
-    } catch (error) {
-      dispatch(triggerSidePopUp({ error: "oops something went wrong :(" }));
-    } finally {
-      setBtnloading(false);
+    e.preventDefault();
+    setBtnloading(true);
+    const { data } = await axios.post("cart/place-order", {
+      name: name,
+      number: number,
+      city: city,
+      lademark: landmark,
+      paymentType: paymentType,
+    });
+    if (data.status === "razorpay") {
+      displayRazor(data.order);
+    } else if (data.status === "ok") {
+      triggerOrderPlaced();
+    } else if (data.status === "error") {
+      dispatch(triggerSidePopUp({ error: data.error }));
     }
+    setBtnloading(false);
   };
 
   return (
     <div className="checkout-container">
-      <NavBar />
-
       {orderPlaced && <OrderPlaced />}
       <div className="ct-left sb-padding-border ">
         <div className="as-top ac-bottom-pb">

@@ -1,14 +1,12 @@
-/** @format */
-
 const express = require("express");
 const Role = require("../config/roles");
 const route = express.Router();
 
 const Rolemiddleware = require("../middlewares/roleAuth");
-const AdminController = require("../controllers/addProduct");
 const GetOrdersInfo = require("../controllers/getUsersOrders");
 const ChangeOrderStatus = require("../controllers/changeOrderStatus");
-const EditeProduct = require("../controllers/editProduct");
+const productController = require("../controllers/product");
+
 const {
   apiValidation,
   addProduct,
@@ -29,13 +27,13 @@ route.post(
   "/addproduct",
   Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee),
   apiValidation(addProduct),
-  AdminController
+  productController.addProduct
 );
 route.put(
   "/editproduct/:id",
   Rolemiddleware(Role.Admin, Role.SuperAdmin, Role.Employee),
   apiValidation(editProduct),
-  EditeProduct
+  productController.editProduct
 );
 
 module.exports = route;

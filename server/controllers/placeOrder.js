@@ -1,4 +1,3 @@
-
 const Razorpay = require("razorpay");
 const dbUser = require("../dbSchemas/user");
 const dbOrder = require("../dbSchemas/order");
@@ -74,7 +73,7 @@ const PlaceOrder = async (req, res, next) => {
 
     const userOrder = await dbOrder.create({
       userId,
-      paymentType: paymentType ? "online" : "cod",
+      paymentType: paymentType,
       products,
       totalPrice,
       address: {
@@ -126,7 +125,6 @@ const PlaceOrder = async (req, res, next) => {
           order: createOrder,
         });
       }
-      
       res.json({ status: "error", error: "create order filed try again" });
     }
   } catch (error) {

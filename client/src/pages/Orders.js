@@ -1,5 +1,3 @@
-/** @format */
-
 import "../styles/orders.scss";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,8 +11,8 @@ import { zonedTimeToUtc } from "date-fns-tz";
 
 function Order() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { loading, orders, fetched } = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getOrders = async () => {
       if (!fetched && !loading) {
@@ -32,7 +30,7 @@ function Order() {
           <h1 className="os-title">Orders</h1>
         </div>
 
-        <div className="os-body overflow-scroll-dh">
+        <div className="os-body ">
           <table className="os-table">
             <thead className="os-thead">
               <tr>
@@ -113,7 +111,7 @@ function Order() {
                             <span>Cash On Delivery</span>
                           </div>
                         )}
-                      </td>{" "}
+                      </td>
                       <td className="os-td ">
                         <div className="os-status">
                           <div className="icon-red"></div>

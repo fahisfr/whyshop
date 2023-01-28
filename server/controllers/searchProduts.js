@@ -1,5 +1,3 @@
-
-const express = require("express");
 const dbProducts = require("../dbSchemas/product");
 
 const searchProducts = async (req, res, next) => {

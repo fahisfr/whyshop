@@ -1,4 +1,4 @@
-/** @format */
+
 
 .recomment-products {
   width: 100%;
@@ -14,7 +14,7 @@
     padding-left: 5px;
     span {
       font-size: 1.1rem;
-      font-weight: 400;
+      font-weight: 500;
     }
     &::first-letter {
       text-transform: capitalize;
@@ -24,17 +24,15 @@
   .recomment-products-list {
     display: flex;
     position: relative;
-
-    .products-s {
-      overflow: hidden;
-      scroll-behavior: smooth;
-      display: flex;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+  }
+  .products-s {
+    overflow: hidden;
+    scroll-behavior: smooth;
+    display: flex;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
-
   .scroll-button {
     cursor: pointer;
     padding: 1.8rem 0.8rem;

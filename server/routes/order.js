@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const OrderController = require("../controllers/verifyPayment");
-
-
-
-router.post("/verifypayment", OrderController);
+router.get("/get-orders", require("../controllers/getUsersOrders"));
 
 module.exports = router;

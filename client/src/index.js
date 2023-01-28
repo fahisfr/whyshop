@@ -1,33 +1,16 @@
-/** @format */
-
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import home from "./features/home";
-import user from "./features/user";
-import orders from "./features/orders";
-import products from "./features/products";
-import popUpMessage from "./features/popUpMessage";
 import { fetchUser } from "./features/user";
-import { fetchProduts } from "./features/products";
 import { fetchCatgorys } from "./features/home";
+import store from "./features/store"
 
-const store = configureStore({
-  reducer: {
-    user,
-    home,
-    orders,
-    products,
-    popUpMessage,
-  },
-});
 store.dispatch(fetchUser());
 store.dispatch(fetchCatgorys());
-// store.dispatch(fetchProduts());
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

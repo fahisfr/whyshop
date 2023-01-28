@@ -24,7 +24,6 @@ const user = new db.Schema({
   orders: [{ type: db.Schema.ObjectId }],
   password: { type: String, required: true },
   creaetAt: { type: Date, default: Date.now },
-  refreshToken: { type: String, default: null },
 });
 
 const Users = db.model("users", user);

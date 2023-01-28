@@ -1,5 +1,3 @@
-/** @format */
-
 import "../styles/product.scss";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -36,20 +34,16 @@ function Product() {
   };
 
   const addToCarts = async () => {
-    try {
-      const { _id: id, name, price, imageId, type } = product;
+    const { _id: id, name, price, imageId, type } = product;
 
-      const { data } = await axios.put(`cart/add-to-cart/${id}`);
+    const { data } = await axios.put(`cart/add-to-cart/${id}`);
 
-      if (data.status === "ok") {
-        dispatch(
-          addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
-        );
-      } else {
-        dispatch(triggerSidePopUp({ error: data.error }));
-      }
-    } catch (error) {
-      dispatch(triggerSidePopUp({ error: error.message }));
+    if (data.status === "ok") {
+      dispatch(
+        addToCart({ _id: id, name, type, price, imageId, id, quantity: 1 })
+      );
+    } else if (data.status === "error") {
+      dispatch(triggerSidePopUp({ error: data.error }));
     }
   };
   useEffect(() => {

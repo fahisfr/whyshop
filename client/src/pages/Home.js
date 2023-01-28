@@ -1,40 +1,33 @@
-/** @format */
-
 import "../styles/home.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import RecommentProducts from "../components/RecommentProducts";
-import NavBar from "../components/Navbar";
 
 import { fetchBanners, fetchRecommendations } from "../features/home";
 function Home() {
-  
   const history = useNavigate();
   const dispatch = useDispatch();
+  const sliderRef = useRef(null);
   const { catgorys, banners, recommendations } = useSelector(
     (state) => state.home
   );
 
   useEffect(() => {
     const fetch = async () => {
-      try {
-        if (!recommendations.fetched && !banners.loading) {
-          dispatch(fetchRecommendations());
-        }
-        if (!banners.fetched && !banners.loading) {
-          dispatch(fetchBanners());
-        }
-      } catch (error) {}
+      if (!recommendations.fetched && !banners.loading) {
+        dispatch(fetchRecommendations());
+      }
+      if (!banners.fetched && !banners.loading) {
+        dispatch(fetchBanners());
+      }
     };
     fetch();
   });
-
-  const sliderRef = useRef(null);
+  
 
   return (
     <div className="home-container">
-      <NavBar />
       <section className="slider-wrapper">
         {banners.loading ? (
           <div className="slider-ld skeleton border-white"></div>

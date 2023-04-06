@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../axios";
+import axios from "../helper/axios";
 import { Link } from "react-router-dom";
 import "../styles/ls.scss";
 import { useDispatch } from "react-redux";
@@ -15,10 +15,9 @@ function Login() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setBtnLoading(true);
+    try {
+      const { data } = await axios.post("/user/login", { number, password });
 
-    const { data } = await axios.post("/login", { number, password });
-
-    if (data.status === "ok") {
       dispatch(
         login({
           name: data.name,
@@ -27,11 +26,10 @@ function Login() {
           isAuth: true,
         })
       );
-      localStorage.setItem("accesstoken", data.accessToken);
+      localStorage.setItem("auth_token", data.accessToken);
       dispatch(triggerSidePopUp({ message: "Logged in successfully" }));
-    } else if (data.status === "error") {
-      dispatch(triggerSidePopUp({ error: data.error }));
-    }
+    } catch (error) {}
+
     setBtnLoading(false);
   };
   const onBlur = (e) => {
@@ -86,8 +84,8 @@ function Login() {
             <span>Create a new account</span>
           </Link>
           <div className={`ls-btn-wrappe ${btnLoading && "btn-loading"}`}>
-            <button className="btn ld-btn" type="submit">
-              <span className="btn-text ld-text">Login</span>
+            <button className="btn btn" type="submit">
+              <span className="btn-text btn-text">Login</span>
             </button>
           </div>
         </form>

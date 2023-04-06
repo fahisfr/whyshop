@@ -5,9 +5,8 @@ import {
   Routes,
   Outlet,
   Navigate,
+  useLocation,
 } from "react-router-dom";
-
-import { useSelector } from "react-redux";
 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -19,24 +18,26 @@ import Orders from "./pages/Orders";
 import PageNotFount from "./pages/PageNotFount";
 import Product from "./pages/Product";
 import Order from "./pages/Order";
-import SidePopUpMessage from "./components/SidePopUpMessage";
-import NavBar from "./components/Navbar";
+import SidePopUpMessage from "./components/sidePopUpMessage/SidePopUpMessage";
+import Header from "./components/header/Header";
 
 function App() {
-  const isAuth = useSelector((state) => state.user.userInfo?.isAuth);
+  const token = localStorage.getItem("auth_token");
+
   const ProtectedRoute = ({ element, ...rest }) => {
-    return isAuth ? <Outlet /> : <Navigate to="/login" replace />;
+    return token ? <Outlet /> : <Navigate to="/login" replace />;
   };
   const AuthRoute = ({ element, ...rest }) => {
-    return isAuth ? <Navigate to="/" replace /> : <Outlet />;
+    return token ? <Navigate to="/" replace /> : <Outlet />;
   };
 
   return (
-    <div className="container">
-      <Router>
-        <div className="main">
-          {isAuth && <NavBar />}
-          <SidePopUpMessage />
+    <Router>
+      {" "}
+      <div className="app">
+        <Header />
+        <SidePopUpMessage />
+        <main className="main ">
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/shop/:id" element={<Shop />} />
@@ -53,10 +54,10 @@ function App() {
             </Route>
 
             <Route path="*" element={<PageNotFount />} />
-          </Routes>
-        </div>
-      </Router>
-    </div>
+          </Routes>{" "}
+        </main>
+      </div>
+    </Router>
   );
 }
 

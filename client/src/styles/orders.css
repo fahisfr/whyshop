@@ -1,0 +1,97 @@
+.orders-container {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.os {
+  height: 100%;
+  background-color: #ffffff;
+}
+.os-title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.os-body {
+}
+
+.os-table {
+  width: 100%;
+  position: relative;
+  border-collapse: separate;
+  border-radius: 4px;
+  overflow: scroll;
+}
+.os-products {
+  min-width: 10rem;
+  display: flex;
+  overflow: auto;
+}
+.products-img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+}
+.os-thead {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: white;
+}
+.os-thead th {
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #ebe3e3;
+}
+
+.os-tbody tr {
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+.os-tbody td {
+  color: #737373;
+  border: none;
+  font-size: 14px;
+  padding: 0 10px;
+}
+.icon-red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(41, 238, 41);
+}
+.os-status {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  color: black;
+  background: linear-gradient(to left, green, #29c029);
+  padding: 10px;
+  border-radius: 10px;
+  color: #ffffff;
+}
+.os-status-text {
+  text-transform: capitalize;
+}
+
+.cod {
+  background-color: #ffeece;
+  padding: 7px;
+  color: orange;
+  border-radius: 10px;
+  display: inline-flex;
+  white-space: nowrap;
+}
+.paid {
+  display: inline-block;
+  padding: 8px 10px;
+  color: #1add8f;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: #d8f0e6;
+}

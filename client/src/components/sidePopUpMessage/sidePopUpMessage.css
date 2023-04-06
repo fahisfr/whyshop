@@ -1,0 +1,75 @@
+.un-mount {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+}
+
+.mount {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0);
+}
+
+.popup-message {
+  max-width: 20rem;
+  height: 3.5rem;
+  position: fixed;
+  display: flex;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.055) 0px 0px 0px 1px;
+  z-index: 50;
+  transition: all 300ms ease;
+}
+.popup-message-off {
+  max-width: 20rem;
+  height: 3.5rem;
+  position: fixed;
+
+  top: 1rem;
+  right: 1rem;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.055) 0px 0px 0px 1px;
+  z-index: 30;
+  display: flex;
+  transition: all 500ms ease-in-out;
+}
+.pm-left {
+  width: 5px;
+  height: 100%;
+
+  background-color: rgb(255, 0, 0);
+  border-radius: 13px 0 0 13px;
+}
+.pm-content {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  column-gap: 5px;
+}
+
+.pm-icon-error {
+  font-size: 2.3rem;
+  color: #ff0909;
+}
+.pm-icon-success {
+  font-size: 2rem;
+  color: green;
+}
+.pm-message {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #7e6a6a;
+}
+.pm-close {
+  font-size: 1rem;
+  color: red;
+  font-weight: 700;
+
+  cursor: pointer;
+}

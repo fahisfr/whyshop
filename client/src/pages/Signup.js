@@ -1,7 +1,7 @@
 import "../styles/ls.scss";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../axios";
+import axios from "../helper/axios";
 import { useDispatch } from "react-redux";
 import { login } from "../features/user";
 import { triggerSidePopUp } from "../features/popUpMessage";
@@ -145,8 +145,8 @@ function Signup() {
             <span>Already have an account?</span>
           </Link>
           <div className={`ls-btn-wrappe ${btnLoading && "btn-loading"}`}>
-            <button className="btn ld-btn" type="submit">
-              <span className="btn-text ld-text">Sign Up</span>
+            <button className="btn btn" type="submit">
+              <span className="btn-text btn-text">Sign Up</span>
             </button>
           </div>
         </form>
